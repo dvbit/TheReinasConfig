@@ -289,7 +289,7 @@ sensor:
 
 #telegram_bot:
 #  - platform: polling
-#    api_key: 608414139:AAHzUTqRRk-A-2QmMr6L0LN-9SME7ehbpYM
+#    api_key: !secret telegram_apikey
 #    allowed_chat_ids:
 #      - CHAT_ID_1
 #      - CHAT_ID_2
