@@ -1,0 +1,4 @@
+input_text:
+  scene_temp_var:
+    initial: 'off:1'
+

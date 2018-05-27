@@ -1,0 +1,368 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: !secret Location
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Rome
+  # Customization file
+  customize: !include customize.yaml
+
+zone:
+  - name: !secret School
+    latitude: !secret Schoollatitude
+    longitude: !secret Schoollongitude
+    radius: 100
+    icon: mdi:work
+
+  - name: !secret WifeWork
+    latitude: !secret WifeWorklatitude
+    longitude: !secret WifeWorklongitude
+    radius: 250
+    icon: mdi:work
+
+  # This will override the default home zone
+  - name: !secret Homelocation
+    latitude:  !secret Homelocationlatitude
+    longitude:  !secret Homelocationlongitude
+    radius: 100
+    icon: mdi:account-multiple
+
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret api_password
+#per ritornare a https://thereinas.it levare commenti sotto e port forward 443->8123
+#  ssl_certificate: /etc/letsencrypt/live/thereinas.it/fullchain.pem
+# ssl_key: /etc/letsencrypt/live/thereinas.it/privkey.pem
+# base_url: thereinas.it
+
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+  ignore:
+    - harmony
+    - bose_soundtouch
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Text to speech
+tts:
+  - platform: google
+    language: it
+# Cloud
+cloud:
+
+mqtt:
+  broker: ReinasServer.thereinas.it
+  port: 1883
+  client_id: hass
+  keepalive: 60
+  discovery: true
+  discovery_prefix: homeassistant
+
+camera:
+  - platform: xeoma
+    host: http://ReinasServer.Thereinas.it:10090
+    username: nicola
+    password: vedere
+    new_version: true
+    cameras:
+      - image_name: Ingresso
+        name: Ingresso
+      - image_name: Cucina
+        name: Cucina
+      - image_name: Letto 
+        name: Letto
+
+  - platform: ffmpeg
+    name: Letto_f
+    input: -rtsp_transport tcp -i rtsp://ReinasDafangLetto.thereinas.it:8554/unicast
+
+  - platform: ffmpeg
+    name: Ingresso_f
+    input: -rtsp_transport tcp -i rtsp://ReinasDafangIngresso.thereinas.it:8554/unicast
+
+  - platform: ffmpeg
+    name: Cucina_f
+    input: -rtsp_transport tcp -i rtsp://ReinasDafangCucina.thereinas.it:8554/unicast
+
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+    - mac: 34:CE:00:82:96:03
+      key: !secret AquaraKey
+
+remote:
+  - platform: harmony
+    name: ReinasHarmony
+    host: ReinasHarmonyHub.thereinas.it
+
+climate:
+  - platform: honeywell
+    username: !secret EvoHomeUser
+    password: !secret EvoHomePassword
+    scan_interval: 600
+
+device_tracker:
+  - platform: unifi_direct
+    host: 192.168.2.35
+    username: !secret UnifiUser
+    password: !secret UnifiPassword
+
+opensprinkler:
+  host: ReinasOpenSprinkler.thereinas.it
+  password: !secret OpenSprinklerPassword
+#  port: 8080
+
+ifttt:
+  key: !secret IFTTKEY
+
+switch:
+  - platform: xiaomi_miio
+    name: Family Entertainment
+    host: XiaomiPowerStrip2.thereinas.it
+    token: d54a5a9733db09d12a7716406c0abfd7
+    model: zimi.powerstrip.v2
+
+
+  - platform: xiaomi_miio
+    name: Infrastruttura
+    host: XiaomiPowerStrip1.thereinas.it
+    token: 44ec5992d7cc132c72b3852e4610431b 
+    model: zimi.powerstrip.v2
+
+  - platform: xiaomi_miio
+    name: Altro_Salone
+    host: XiaomiPowerStrip3.thereinas.it
+    token: bbc3820e153a04f134214ab6f8ea3f19
+    model: zimi.powerstrip.v2
+
+recorder:
+  db_url: mysql://hass:hasstoor@localhost/hass
+
+influxdb:
+  host: Reinasserver.thereinas.it
+  port: 8086
+  database: hass
+  username: hass
+  password: !secret influxdbpassword
+
+
+vacuum:
+  - platform: xiaomi_miio
+    host: 192.168.2.14
+    token: 7a3864656c797245775a4f514f356850
+
+zwave:
+  usb_path: /dev/zwave
+
+#/etc/udev/rules.d/99-usb-serial.rules 
+#SUBSYSTEM=="tty", ATTRS{idVendor}=="0658", ATTRS{idProduct}=="0200", SYMLINK+="zwave"
+
+
+media_player:
+  - platform: soundtouch
+    host: ReinasSoundTouch.TheReinas.it
+    port: 8090
+    name: SoundtouchReinas
+
+
+google_assistant:
+  project_id: homeassistantintegration-5af5b
+  client_id: !secret google_client_id
+  access_token:  !secret google_access_token
+  api_key: !secret google_api_key
+  exposed_domains:
+    - switch
+    - light
+    - group
+    - script
+
+weblink:
+  entities:
+    - name: Router
+      url: http://192.168.2.1/
+      icon: mdi:router-wireless
+    - name: Home Assistant
+      url: https://www.home-assistant.io
+    - name: Grafana
+      url: http://192.168.2.2:3000/
+
+sensor:
+  - platform: template
+    sensors:
+      solar_angle:
+        friendly_name: "Sun angle"
+        unit_of_measurement: 'degrees'
+        value_template: "{{ states.sun.sun.attributes.elevation }}"
+
+      media:
+        value_template: '{{ states.remote.reinasharmony.attributes.current_activity }}'
+        friendly_name: "Media"
+  
+  - platform: command_line
+    name: SSL cert expiry
+    unit_of_measurement: days
+    scan_interval: 10800
+    command: "ssl-cert-check -b -c /etc/letsencrypt/live/thereinas.it/cert.pem | awk '{ print $NF }'"
+
+  - platform: viaggiatreno
+    train_id: 12279
+    station_id: S08409
+
+  - platform: yr
+
+  - platform: systemmonitor
+    resources:
+      - type: memory_free
+      - type: memory_use
+
+  - platform: version
+
+  - platform: mqtt
+    state_topic: "emon/emonpi/power1"
+    name: "Produzione Casa"
+    unit_of_measurement: "W"
+
+  - platform: mqtt
+    state_topic: "emon/emonpi/power2"
+    name: "Scambio Casa"
+    unit_of_measurement: "W"
+
+  - platform: mqtt
+    state_topic: "emon/emonpi/power1pluspower2"
+    name: "Consumo Casa"
+    unit_of_measurement: "W"
+
+  - platform: mqtt
+    state_topic: "emon/kitchen/ct1"
+    name: "Piastra"
+    unit_of_measurement: "W"
+
+  - platform: mqtt
+    state_topic: "emon/kitchen/ct2"
+    name: "Forno"
+    unit_of_measurement: "W"
+
+  - platform: mqtt
+    state_topic: "emon/kitchen/ct3"
+    name: "Lavastoviglie"
+    unit_of_measurement: "W"
+
+
+
+#telegram_bot:
+#  - platform: polling
+#    api_key: 608414139:AAHzUTqRRk-A-2QmMr6L0LN-9SME7ehbpYM
+#    allowed_chat_ids:
+#      - CHAT_ID_1
+#      - CHAT_ID_2
+#      - CHAT_ID_3
+
+#input_number:
+#  n1:
+#    name: Sensore Attivo da Ore
+#    initial: 8
+#    min: 0
+#    max: 23
+#    step: 1
+#    mode: box
+#  n2:
+#    name: Sensore Attivo da min
+#    initial: 0
+#    min: 0
+#    max: 45
+#    step: 15
+#    mode: box
+#  n3:
+#    name: Sensore Attivo alle Ore
+#    initial: 8
+#    min: 0
+#    max: 23
+#    step: 1
+#    mode: box
+#  n4:
+#    name: Sensore Attivo a min
+#    initial: 0
+#    min: 0
+#    max: 45
+#    step: 15
+#    mode: box
+#  n5:
+#    name: Timeout Spegnimento Luce
+#    initial: 5
+#    min: 0
+#    max: 20
+#    step: 1
+#    mode: box
+
+#sensor:
+#  - platform: template
+#    sensors:
+#      solar_angle:
+#        friendly_name: "Sun angle"
+#        unit_of_measurement: 'degrees'
+#        value_template: "{{ states.sun.sun.attributes.elevation }}"
+
+#      sunrise:
+#        friendly_name: 'Sunrise'
+#        value_template: "{{ states.sun.sun.attributes.next_rising }}"
+
+#      MediaSalone:
+#        friendly_name: 'Reinas Media'
+#        value_template: "{{ states.sun.sun.attributes.next_rising }}"
+#        value_template: "{{ states.remote.reinasharmony.attributes.current_activity }}"
+
+#      Consumo_infrastruttura:
+#        friendly_name: "Consumo Infrastruttura"
+#        unit_of_measurement: 'W'
+#        value_template: "{{ states.switch.infrastruttura.attributes.load_power }}"
+
+#      ConsumoInfrastruttura:
+#        unit_of_measurement: 'W'
+#        value_template: "{{ states.switch.infrastruttura.attributes.load_power }}"
+
+#      ConsumoEntertainment:
+#        friendly_name: "Consumo Entertainment"
+#        unit_of_measurement: 'W'
+#        value_template: "{{ states.switch.family_entertainment.attributes.load_power }}"
+
+
+group: !include groups.yaml
+script: !include scripts.yaml
+automation: !include automations.yaml

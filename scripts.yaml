@@ -1,0 +1,189 @@
+'1527317105052':
+  alias: Accendi_su_sky
+  sequence:
+  - data:
+      activity: '32437309'
+      entity_id: remote.reinasharmony
+    service: remote.turn_on
+'1527317164198':
+  alias: Spegni_TV
+  sequence:
+  - data:
+      activity: '-1'
+      entity_id: remote.reinasharmony
+    service: remote.turn_off
+'1527317254378':
+  alias: Accendi_su_Fire
+  sequence:
+  - data:
+      activity: '32455770'
+      entity_id: remote.reinasharmony
+    service: remote.turn_on
+'1527317419136':
+  alias: Metti_in_pausa_TV
+  sequence:
+  - data:
+      command: pause
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+'1527317562508':
+  alias: Metti_in_mute
+  sequence:
+  - data:
+      command: mute
+      device: '53039878'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+'1527318474690':
+  alias: Alza_Volume
+  sequence:
+  - data:
+      command: VolumeUp
+      device: '53039878'
+      entity_id: remote.reinasharmony
+      num_repeats: '5'
+    service: remote.send_command
+'1527318522444':
+  alias: Abbassa_Volume
+  sequence:
+  - data:
+      command: VolumeDown
+      device: '53039878'
+      entity_id: remote.reinasharmony
+      num_repeats: '5'
+    service: remote.send_command
+'1527319181708':
+  alias: Blu_Gradualmente_Salone
+  sequence:
+  - data:
+      entity_id: switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3
+    service: switch.turn_on
+  - data:
+      brightness: 100
+      color_name: blue
+      entity_id: light.salone
+      transition: 1
+    service: light.turn_on
+'1527322048354':
+  alias: Accendi_Cartoni
+  sequence:
+  - data:
+      command: Exit
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+  - data:
+      command: Exit
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+  - data:
+      device: '32437309'
+      entity_id: remote.reinasharmony
+    service: remote.turn_on
+  - data:
+      command: '6'
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+  - data:
+      command: '0'
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+  - data:
+      command: '0'
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+'1527323082717':
+  alias: Vedi_Cartoni
+  sequence:
+  - data:
+      command: Exit
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+  - data:
+      command: Exit
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+  - data:
+      command: '6'
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+  - data:
+      command: '0'
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+  - data:
+      command: '0'
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+'1527350666611':
+  alias: Spegni_Gradualmente_Cucina
+  sequence:
+  - data:
+      entity_id: light.Cucina
+      transition: 1
+    service: light.turn_off
+'1527350757895':
+  alias: Accendi_Gradualmente_Cucina
+  sequence:
+  - data:
+      brightness: 0
+      entity_id: light.Cucina
+    service: light.turn_off
+  - data:
+      entity_id: switch.switch_21
+    service: switch.turn_on
+  - data:
+      brightness: 255
+      entity_id: light.Cucina
+      transition: 1
+    service: light.turn_on
+'1527352896646':
+  alias: Spegni_Gradualmente_Salone
+  sequence:
+  - data:
+      entity_id: light.salone
+      transition: 1
+    service: light.turn_off
+'1527352900987':
+  alias: Accendi_Gradualmente_Salone
+  sequence:
+  - data:
+      brightness: 255
+      color_name: white
+      entity_id: light.salone
+      transition: 1
+    service: light.turn_on
+'1527433687310':
+  alias: No Menu SKY
+  sequence:
+  - data:
+      command: Exit
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+'1527433706708':
+  alias: Sky Exit
+  sequence:
+  - data:
+      command: Exit
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command
+'1527433728802':
+  alias: Sky Guide
+  sequence:
+  - data:
+      command: Guide
+      device: '22578664'
+      entity_id: remote.reinasharmony
+    service: remote.send_command

@@ -1,0 +1,432 @@
+sensor.temperature_158d00016d0abc:
+  name:
+  platform: xiaomi_aqara
+  unique_id: temperature158d00016d0abc
+sensor.illumination_34ce00829603:
+  name:
+  platform: xiaomi_aqara
+  unique_id: illumination34ce00829603
+sensor.humidity_158d00016d0abc:
+  name:
+  platform: xiaomi_aqara
+  unique_id: humidity158d00016d0abc
+sensor.temperature_158d000170bb3a:
+  name:
+  platform: xiaomi_aqara
+  unique_id: temperature158d000170bb3a
+sensor.humidity_158d000170bb3a:
+  name:
+  platform: xiaomi_aqara
+  unique_id: humidity158d000170bb3a
+sensor.temperature_158d00016d0aed:
+  name:
+  platform: xiaomi_aqara
+  unique_id: temperature158d00016d0aed
+sensor.humidity_158d00016d0aed:
+  name:
+  platform: xiaomi_aqara
+  unique_id: humidity158d00016d0aed
+binary_sensor.motion_sensor_158d000120cba5:
+  name: Alessandro
+  platform: xiaomi_aqara
+  unique_id: status158d000120cba5
+binary_sensor.door_window_sensor_158d0001a695ce:
+  name: Porta Finestra Salone
+  platform: xiaomi_aqara
+  unique_id: status158d0001a695ce
+binary_sensor.switch_158d000120d446:
+  name:
+  platform: xiaomi_aqara
+  unique_id: status158d000120d446
+binary_sensor.motion_sensor_158d00015f049d:
+  name: Giovanna Nicola
+  platform: xiaomi_aqara
+  unique_id: status158d00015f049d
+binary_sensor.door_window_sensor_158d000183521f:
+  name: Porta Finestra Cucina
+  platform: xiaomi_aqara
+  unique_id: status158d000183521f
+binary_sensor.switch_158d00015aa40c:
+  name:
+  platform: xiaomi_aqara
+  unique_id: status158d00015aa40c
+binary_sensor.motion_sensor_158d00015f047c:
+  name: TavoloSalone
+  platform: xiaomi_aqara
+  unique_id: status158d00015f047c
+binary_sensor.door_window_sensor_158d000126aaab:
+  name: Porta Taverna
+  platform: xiaomi_aqara
+  unique_id: status158d000126aaab
+binary_sensor.motion_sensor_158d000123201f:
+  name: Cucina
+  platform: xiaomi_aqara
+  unique_id: status158d000123201f
+binary_sensor.switch_158d000183c8f0:
+  name:
+  platform: xiaomi_aqara
+  unique_id: status158d000183c8f0
+binary_sensor.motion_sensor_158d00015d4d01:
+  name: Studio
+  platform: xiaomi_aqara
+  unique_id: status158d00015d4d01
+binary_sensor.motion_sensor_158d000120cbde:
+  name: ingresso6
+  platform: xiaomi_aqara
+  unique_id: status158d000120cbde
+binary_sensor.door_window_sensor_158d0001877352:
+  name: Porta Finestra Tavolo Giardino
+  platform: xiaomi_aqara
+  unique_id: status158d0001877352
+switch.plug_158d000154af4b:
+  name: Proiettore
+  platform: xiaomi_aqara
+  unique_id: status158d000154af4b
+switch.plug_158d0001701cc2:
+  name: Bea
+  platform: xiaomi_aqara
+  unique_id: status158d0001701cc2
+switch.plug_158d000163d0d7:
+  name: Lampada Sale
+  platform: xiaomi_aqara
+  unique_id: status158d000163d0d7
+switch.plug_158d0001701a47:
+  name: Ale
+  platform: xiaomi_aqara
+  unique_id: status158d0001701a47
+light.gateway_light_34ce00829603:
+  name: ReinasXiaomi
+  platform: xiaomi_aqara
+  unique_id: rgb34ce00829603
+switch.switch:
+  name:
+  platform: zwave
+  unique_id: 8-72057594176946176
+switch.switch_2:
+  name:
+  platform: zwave
+  unique_id: 11-72057594227277824
+switch.switch_3:
+  name: Specchio
+  platform: zwave
+  unique_id: 12-72057594244055040
+switch.switch_4:
+  name:
+  platform: zwave
+  unique_id: 14-72057594277609472
+binary_sensor.sensor:
+  name:
+  platform: zwave
+  unique_id: 16-72057594311344128
+switch.switch_5:
+  name:
+  platform: zwave
+  unique_id: 19-72057594361495552
+binary_sensor.sensor_2:
+  name:
+  platform: zwave
+  unique_id: 20-72057594378452992
+binary_sensor.sensor_3:
+  name:
+  platform: zwave
+  unique_id: 21-72057594395230208
+switch.switch_6:
+  name:
+  platform: zwave
+  unique_id: 23-72057594428604416
+binary_sensor.sensor_4:
+  name:
+  platform: zwave
+  unique_id: 25-72057594462339072
+switch.switch_7:
+  name:
+  platform: zwave
+  unique_id: 26-72057594478936064
+switch.switch_8:
+  name:
+  platform: zwave
+  unique_id: 28-72057594512490496
+light.level:
+  name:
+  platform: zwave
+  unique_id: 29-72057594529284097
+switch.switch_9:
+  name:
+  platform: zwave
+  unique_id: 36-72057594646708224
+light.level_2:
+  name:
+  platform: zwave
+  unique_id: 37-72057594663501825
+switch.switch_10:
+  name:
+  platform: zwave
+  unique_id: 42-72057594747371520
+switch.switch_11:
+  name:
+  platform: zwave
+  unique_id: 44-72057594780925952
+switch.switch_12:
+  name:
+  platform: zwave
+  unique_id: 45-72057594797703168
+switch.switch_13:
+  name:
+  platform: zwave
+  unique_id: 46-72057594814480384
+switch.switch_14:
+  name:
+  platform: zwave
+  unique_id: 27-72057594495713280
+switch.switch_15:
+  name:
+  platform: zwave
+  unique_id: 30-72057594546044928
+binary_sensor.sensor_5:
+  name:
+  platform: zwave
+  unique_id: 34-72057594613334016
+switch.switch_16:
+  name:
+  platform: zwave
+  unique_id: 35-72057594629931008
+switch.switch_17:
+  name:
+  platform: zwave
+  unique_id: 43-72057594764148736
+switch.switch_18:
+  name:
+  platform: zwave
+  unique_id: 21-72057594395049984
+binary_sensor.sensor_6:
+  name:
+  platform: zwave
+  unique_id: 31-72057594563002368
+binary_sensor.sensor_7:
+  name:
+  platform: zwave
+  unique_id: 32-72057594579779584
+switch.switch_19:
+  name:
+  platform: zwave
+  unique_id: 41-72057594730594304
+binary_sensor.sensor_8:
+  name:
+  platform: zwave
+  unique_id: 42-72057594747551744
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch:
+  name:
+  platform: zwave
+  unique_id: 12-144115188281982976
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_2:
+  name:
+  platform: zwave
+  unique_id: 14-144115188315537408
+switch.switch_20:
+  name: Frigorifero
+  platform: zwave
+  unique_id: 2-72057594076282880
+sensor.unknown:
+  name:
+  platform: zwave
+  unique_id: 2-72057594076495874
+sensor.alarm_type:
+  name:
+  platform: zwave
+  unique_id: 2-72057594077528065
+sensor.alarm_level:
+  name:
+  platform: zwave
+  unique_id: 2-72057594077528081
+sensor.fibaro_system_unknown_type0602_id1001_power:
+  name:
+  platform: zwave
+  unique_id: 2-72057594076479554
+sensor.fibaro_system_unknown_type0602_id1001_power_2:
+  name:
+  platform: zwave
+  unique_id: 2-72057594076496002
+sensor.fibaro_system_unknown_type0602_id1001_exporting:
+  name:
+  platform: zwave
+  unique_id: 2-72057594076496384
+sensor.fibaro_system_unknown_type0602_id1001_sourcenodeid:
+  name:
+  platform: zwave
+  unique_id: 2-72057594077528097
+sensor.fibaro_system_unknown_type0602_id1001_power_management:
+  name:
+  platform: zwave
+  unique_id: 2-72057594077528241
+light.lettogionic:
+  name: Letto Giovanna Nicola
+  platform: hue
+  unique_id: 00:17:88:01:02:ac:f5:c3-0b
+light.spotsu:
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:02:26:ff:b9-0b
+light.wc:
+  name:
+  platform: hue
+  unique_id: 00:15:8d:00:01:97:c1:43-01
+light.cucina_2:
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:10:5d:1c:41-0b
+light.bagnosalone_2:
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:10:4e:f3:97-0b
+light.doccia:
+  name:
+  platform: hue
+  unique_id: 00:15:8d:00:01:98:63:12-01
+light.soggiorno_2:
+  name: Tavolo
+  platform: hue
+  unique_id: 00:17:88:01:10:5d:09:2b-0b
+light.spotgiu:
+  name:
+  platform: hue
+  unique_id: 00:17:88:01:02:26:ff:d8-0b
+light.lavabo:
+  name:
+  platform: hue
+  unique_id: 00:15:8d:00:01:98:70:6a-01
+switch.switch_21:
+  name: Cucina
+  platform: zwave
+  unique_id: 3-72057594093060096
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3:
+  name: Tavolo
+  platform: zwave
+  unique_id: 3-144115188130988032
+switch.switch_22:
+  name: Divano
+  platform: zwave
+  unique_id: 4-72057594109837312
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_4:
+  name: Ingresso
+  platform: zwave
+  unique_id: 4-144115188147765248
+switch.switch_23:
+  name: Cabina Sinistro
+  platform: zwave
+  unique_id: 5-72057594126614528
+switch.switch_24:
+  name: Idro
+  platform: zwave
+  unique_id: 6-72057594143391744
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_5:
+  name: Cabina Destro
+  platform: zwave
+  unique_id: 5-144115188164542464
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_6:
+  name: Letto
+  platform: zwave
+  unique_id: 6-144115188181319680
+binary_sensor.sensor_9:
+  name: Garage
+  platform: zwave
+  unique_id: 7-72057594160349184
+sensor.everspring_sm103_doorwindow_sensor_alarm_type:
+  name:
+  platform: zwave
+  unique_id: 7-72057594161414145
+sensor.everspring_sm103_doorwindow_sensor_alarm_level:
+  name:
+  platform: zwave
+  unique_id: 7-72057594161414161
+binary_sensor.sensor_10:
+  name:
+  platform: zwave
+  unique_id: 8-72057594177126400
+sensor.fibaro_system_fgms001_motion_sensor_temperature:
+  name:
+  platform: zwave
+  unique_id: 8-72057594177142802
+sensor.fibaro_system_fgms001_motion_sensor_luminance:
+  name:
+  platform: zwave
+  unique_id: 8-72057594177142834
+sensor.fibaro_system_fgms001_motion_sensor_general:
+  name: Sensore Salone
+  platform: zwave
+  unique_id: 8-72057594178895873
+binary_sensor.sensor_11:
+  name: Allarme!
+  platform: zwave
+  unique_id: 10-72057594210680832
+binary_sensor.sensor_12:
+  name:
+  platform: zwave
+  unique_id: 11-72057594227458048
+binary_sensor.fibaro_system_fgbs001_universal_binary_sensor_sensor:
+  name: Allarme Inserito
+  platform: zwave
+  unique_id: 10-144115188248608768
+sensor.unknown_2:
+  name:
+  platform: zwave
+  unique_id: 12-72057594244268034
+sensor.alarm_type_2:
+  name:
+  platform: zwave
+  unique_id: 12-72057594245300225
+sensor.alarm_level_2:
+  name:
+  platform: zwave
+  unique_id: 12-72057594245300241
+sensor.everspring_an158_plugin_meter_appliance_module_power:
+  name:
+  platform: zwave
+  unique_id: 12-72057594244268162
+sensor.everspring_an158_plugin_meter_appliance_module_exporting:
+  name:
+  platform: zwave
+  unique_id: 12-72057594244268544
+switch.switch_25:
+  name: Giardino
+  platform: zwave
+  unique_id: 13-72057594260832256
+media_player.bea:
+  name:
+  platform: cast
+  unique_id: 87919fe7-9ccb-007d-0ef6-35220dbd7061
+media_player.chromecast:
+  name:
+  platform: cast
+  unique_id: cf0fab05-7efd-8786-6aa7-1483bd688bc4
+media_player.reinasmini1:
+  name:
+  platform: cast
+  unique_id: 26ea6a0a-7edc-c6ad-a14c-03d57bf57787
+binary_sensor.sensor_13:
+  name: Binary22
+  platform: zwave
+  unique_id: 14-72057594277789696
+binary_sensor.sensor_14:
+  name: Nessun Allarme
+  platform: zwave
+  unique_id: 15-72057594294566912
+binary_sensor.fibaro_system_fgbs001_universal_binary_sensor_sensor_2:
+  name: Allarme Inserito
+  platform: zwave
+  unique_id: 15-144115188332494848
+binary_sensor.fibaro_system_fgbs001_universal_binary_sensor_sensor_3:
+  name: Binary21
+  platform: zwave
+  unique_id: 14-144115188315717632
+switch.switch_26:
+  name: Giardino Max
+  platform: zwave
+  unique_id: 16-72057594311163904
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_7:
+  name: Giardino Min
+  platform: zwave
+  unique_id: 16-144115188349091840
+switch.switch_27:
+  name:
+  platform: zwave
+  unique_id: 17-72057594327941120

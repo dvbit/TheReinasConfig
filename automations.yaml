@@ -1,0 +1,99 @@
+- alias:  Accendi cucina se attività
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d000123201f
+    from: 'off'
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+      - condition: sun
+        after: sunset
+        after_offset: "-0:45:00"
+      - condition: sun
+        before: sunrise
+  action:
+    - service: switch.turn_on
+      entity_id: switch.switch_21
+    - service: light.turn_on
+      entity_id: light.Cucina
+
+- alias: Spegni Cucina se no attività
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d000123201f
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 1
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.Cucina
+        transition: 5
+    - service: switch.turn_off
+      entity_id: switch.switch_21
+
+- alias:  Accendi Tavolo salone se attività
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d00015f047c
+    from: 'off'
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+      - condition: sun
+        after: sunset
+        after_offset: "-0:45:00"
+      - condition: sun
+        before: sunrise
+  action:
+    - service:  switch.turn_on
+      entity_id: switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3
+    - service: light.turn_on
+      entity_id: light.Salone
+
+- alias: Spegni Tavolo salone se no attività e TV spenta
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d00015f047c
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 1
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: remote.reinasharmony
+        state: 'PowerOff'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.Salone
+        transition: 3
+    - service: switch.turn_off
+      entity_id: switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3
+
+- alias: Luce  Tavolo bassa se no attività e TV accesa
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_sensor_158d00015f047c
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 1
+  condition:
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: remote.reinasharmony
+        state: 'Guarda TV'
+  action:
+    - service: light.turn_off
+      data:
+        entity_id: light.Salone
+        transition: 3
+    - service: switch.turn_off
+      entity_id: switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3

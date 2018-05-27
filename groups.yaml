@@ -1,0 +1,45 @@
+Sicurezza_view:
+  name: Sicurezza
+  view: yes
+  entities:
+     - group.TelecameraIngresso
+
+TelecameraIngresso:
+   name: TelecameraIngresso
+   entities:
+     - camera.SaloneIngresso
+     - camera.TelecameraIngresso
+     - switch.TelecameraIngresso_h264_rtsp_server
+     - switch.TelecameraIngresso_mjpeg_rtsp_server
+     - sensor.TelecameraIngresso
+     - device_tracker.TelecameraIngresso
+     - sensor.TelecameraIngresso_light_sensor
+     - switch.TelecameraIngresso_ir_filter
+     - switch.TelecameraIngresso_ir_led
+     - switch.TelecameraIngresso_night_mode
+     - switch.TelecameraIngresso_night_mode_auto
+     - switch.TelecameraIngresso_blue_led
+     - switch.TelecameraIngresso_yellow_led
+     - switch.TelecameraIngresso_motion_detection
+     - switch.TelecameraIngresso_motion_tracking
+     - camera.TelecameraIngresso_motion_snapshot
+     - binary_sensor.TelecameraIngresso_motion_sensor
+
+Energia_view:
+  name: Energia
+  view: yes
+  entities:
+    - sensor.Produzione_Casa
+    - sensor.Scambio_Casa
+    - sensor.Consumo_Casa
+    - sensor.Piastra
+    - sensor.Forno
+    - sensor.Lavastoviglie
+
+Confort_view:
+  name: Confort
+  view: yes
+  entities:
+    - group.all_automations
+    - group.all_scripts
+

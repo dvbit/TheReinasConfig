@@ -1,0 +1,69 @@
+binary_sensor.fibaro_system_fgbs001_universal_binary_sensor_sensor: {}
+binary_sensor.door_window_sensor_158d0001877352: {}
+switch.family_entertainemnt:
+  icon: mdi:television-classic
+zwave.cucinatavolosalone:
+  icon: mdi:food-variant
+device_tracker.1002b5b36dc5: {}
+switch.switch_22:
+  icon: mdi:ceiling-light
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_4:
+  icon: mdi:ceiling-light
+switch.switch_21:
+  icon: mdi:ceiling-light
+camera.giovanna_e_nicola:
+  icon: mdi:cctv
+camera.salone_e_cucina:
+  icon: mdi:cctv
+camera.salone_e_ingresso:
+  icon: mdi:cctv
+zwave.faretti_giovanna_nicola:
+  icon: mdi:spotlight-beam
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_6:
+  icon: mdi:spotlight-beam
+switch.switch_24:
+  icon: mdi:spotlight-beam
+zwave.faretti_e_cabina_armadio:
+  icon: mdi:spotlight-beam
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_5:
+  icon: mdi:spotlight-beam
+switch.switch_23:
+  icon: mdi:spotlight-beam
+zwave.frigorifero:
+  icon: mdi:snowflake
+switch.switch_20:
+  icon: mdi:snowflake
+switch.infrastruttura:
+  icon: mdi:lan
+switch.plug_158d000154af4b:
+  icon: mdi:projector
+binary_sensor.door_window_sensor_158d000183521f:
+  friendly_name: Porta Freezer
+switch.plug_158d000163d0d7:
+  icon: mdi:lamp
+binary_sensor.door_window_sensor_158d000126aaab: {}
+binary_sensor.door_window_sensor_158d0001a695ce: {}
+switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3:
+  friendly_name: Tavolo Salone
+  icon: mdi:ceiling-light
+  node_id: 3
+  value_instance: 2
+switch.plug_158d0001701a47:
+  icon: mdi:television
+switch.plug_158d0001701cc2:
+  icon: mdi:television
+light.bagno_salone: {}
+camera.giovannanicola:
+  friendly_name: Letto
+camera.saloneingresso:
+  friendly_name: Ingresso
+camera.salonecucina:
+  friendly_name: Cucina
+switch.alfonsi:
+  icon: mdi:water
+switch.reiansdafangingresso_blue_led: {}
+switch.reiansdafangingresso_h264_rtsp_server: {}
+switch.reiansdafangingresso_ir_filter:
+  hidden: true
+zwave.garage:
+  icon: mdi:garage
