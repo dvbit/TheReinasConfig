@@ -38,7 +38,7 @@ switch.infrastruttura:
 switch.plug_158d000154af4b:
   icon: mdi:projector
 binary_sensor.door_window_sensor_158d000183521f:
-  friendly_name: Porta Freezer
+  friendly_name: Porta Finestra Cucina
 switch.plug_158d000163d0d7:
   icon: mdi:lamp
 binary_sensor.door_window_sensor_158d000126aaab: {}

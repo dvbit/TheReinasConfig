@@ -13,26 +13,28 @@ homeassistant:
   time_zone: Europe/Rome
   # Customization file
   customize: !include customize.yaml
+  packages: !include_dir_named packages
 
-zone:
-  - name: !secret School
-    latitude: !secret Schoollatitude
-    longitude: !secret Schoollongitude
-    radius: 100
-    icon: mdi:work
+#zone:
+#  - name: !secret School
+#    latitude: !secret Schoollatitude
+#    longitude: !secret Schoollongitude
+#    radius: 100
+#    icon: mdi:work
 
-  - name: !secret WifeWork
-    latitude: !secret WifeWorklatitude
-    longitude: !secret WifeWorklongitude
-    radius: 250
-    icon: mdi:work
+#  - name: !secret WifeWork
+#    latitude: !secret WifeWorklatitude
+#    longitude: !secret WifeWorklongitude
+#    radius: 250
+#    icon: mdi:work
 
-  # This will override the default home zone
-  - name: !secret Homelocation
-    latitude:  !secret Homelocationlatitude
-    longitude:  !secret Homelocationlongitude
-    radius: 100
-    icon: mdi:account-multiple
+#  # This will override the default home zone
+#  - name: !secret Homelocation
+#    latitude:  !secret Homelocationlatitude
+#    longitude:  !secret Homelocationlongitude
+#    radius: 100
+#    icon: mdi:account-multiple
+#
 
 
 # Show links to resources in log and frontend
@@ -66,6 +68,7 @@ discovery:
   ignore:
     - harmony
     - bose_soundtouch
+
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
@@ -88,6 +91,7 @@ tts:
 # Cloud
 cloud:
 
+
 mqtt:
   broker: ReinasServer.thereinas.it
   port: 1883
@@ -97,18 +101,18 @@ mqtt:
   discovery_prefix: homeassistant
 
 camera:
-  - platform: xeoma
-    host: http://ReinasServer.Thereinas.it:10090
-    username: nicola
-    password: vedere
-    new_version: true
-    cameras:
-      - image_name: Ingresso
-        name: Ingresso
-      - image_name: Cucina
-        name: Cucina
-      - image_name: Letto 
-        name: Letto
+#  - platform: xeoma
+#    host: http://ReinasServer.Thereinas.it:10090
+#    username: !secret XeomaUser
+#    password: !secret XeomaPassword
+#    new_version: true
+#    cameras:
+#      - image_name: Ingresso
+#        name: Ingresso
+#      - image_name: Cucina
+#        name: Cucina
+#      - image_name: Letto 
+#        name: Letto
 
   - platform: ffmpeg
     name: Letto_f
@@ -133,6 +137,11 @@ remote:
     name: ReinasHarmony
     host: ReinasHarmonyHub.thereinas.it
 
+bmw_connected_drive:
+  name:
+    username: !secret BMWUSER
+    password: !secret BMWPWD
+    region: "rest_of_world"
 climate:
   - platform: honeywell
     username: !secret EvoHomeUser
@@ -157,14 +166,14 @@ switch:
   - platform: xiaomi_miio
     name: Family Entertainment
     host: XiaomiPowerStrip2.thereinas.it
-    token: d54a5a9733db09d12a7716406c0abfd7
+    token: 44ec5992d7cc132c72b3852e4610431b 
     model: zimi.powerstrip.v2
 
 
   - platform: xiaomi_miio
     name: Infrastruttura
     host: XiaomiPowerStrip1.thereinas.it
-    token: 44ec5992d7cc132c72b3852e4610431b 
+    token: d54a5a9733db09d12a7716406c0abfd7
     model: zimi.powerstrip.v2
 
   - platform: xiaomi_miio
@@ -190,6 +199,7 @@ vacuum:
     token: 7a3864656c797245775a4f514f356850
 
 zwave:
+#  usb_path: /dev/ttyACM0
   usb_path: /dev/zwave
 
 #/etc/udev/rules.d/99-usb-serial.rules 
@@ -203,16 +213,16 @@ media_player:
     name: SoundtouchReinas
 
 
-google_assistant:
-  project_id: homeassistantintegration-5af5b
-  client_id: !secret google_client_id
-  access_token:  !secret google_access_token
-  api_key: !secret google_api_key
-  exposed_domains:
-    - switch
-    - light
-    - group
-    - script
+#google_assistant:
+#  project_id: homeassistantintegration-5af5b
+#  client_id: !secret google_client_id
+#  access_token:  !secret google_access_token
+#  api_key: !secret google_api_key
+#  exposed_domains:
+#    - switch
+#    - light
+#    - group
+#    - script
 
 weblink:
   entities:
@@ -242,9 +252,9 @@ sensor:
     scan_interval: 10800
     command: "ssl-cert-check -b -c /etc/letsencrypt/live/thereinas.it/cert.pem | awk '{ print $NF }'"
 
-  - platform: viaggiatreno
-    train_id: 12279
-    station_id: S08409
+#  - platform: viaggiatreno
+#    train_id: 12279
+#    station_id: S08409
 
   - platform: yr
 
@@ -285,6 +295,19 @@ sensor:
     name: "Lavastoviglie"
     unit_of_measurement: "W"
 
+  - platform: fritzbox_callmonitor
+    host: reinasfritz.thereinas.it
+    user: dvbit
+    password: toorfritz!
+    name: Telefono
+    phonebook: 0
+
+  - platform: fritzbox_netmonitor
+
+hue:
+  bridges:
+    - host: 192.168.2.10
+      filename: phue.conf
 
 
 #telegram_bot:
