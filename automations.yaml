@@ -97,3 +97,30 @@
         transition: 3
     - service: switch.turn_off
       entity_id: switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3
+
+- alias: 'WakeUp Light Bedroom'
+#  hide_entity: True
+  trigger:
+    platform: template
+    value_template: '{{ states.sensor.time.state == states.sensor.wakeup_start_time_lights.state }}'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.wakeup
+        state: 'on'
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: input_boolean.wakeup_weekends
+            state: 'on'
+          - condition: time
+            weekday:
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+  action:
+    service: script.wakeup_bedroom
+

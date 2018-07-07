@@ -43,6 +43,8 @@ homeassistant:
 # Enables configuration UI
 config:
 
+
+
 http:
   # Secrets are defined in the file secrets.yaml
   api_password: !secret api_password
@@ -89,7 +91,7 @@ tts:
   - platform: google
     language: it
 # Cloud
-cloud:
+#cloud:
 
 
 mqtt:
@@ -149,14 +151,15 @@ climate:
     scan_interval: 600
 
 device_tracker:
-  - platform: unifi_direct
-    host: 192.168.2.35
+  - platform: unifi
+    host: 192.168.2.2
     username: !secret UnifiUser
     password: !secret UnifiPassword
+    verify_ssl: false
 
-opensprinkler:
-  host: ReinasOpenSprinkler.thereinas.it
-  password: !secret OpenSprinklerPassword
+#opensprinkler:
+#  host: 192.168.2.6
+#  password: !secret OpenSprinklerPassword
 #  port: 8080
 
 ifttt:
@@ -213,16 +216,16 @@ media_player:
     name: SoundtouchReinas
 
 
-#google_assistant:
-#  project_id: homeassistantintegration-5af5b
-#  client_id: !secret google_client_id
-#  access_token:  !secret google_access_token
-#  api_key: !secret google_api_key
-#  exposed_domains:
-#    - switch
-#    - light
-#    - group
-#    - script
+google_assistant:
+  project_id: homeassistantintegration-5af5b
+  client_id: !secret google_client_id
+  access_token:  !secret google_access_token
+  api_key: !secret google_api_key
+  exposed_domains:
+    - switch
+    - light
+    - group
+    - script
 
 weblink:
   entities:
@@ -233,76 +236,6 @@ weblink:
       url: https://www.home-assistant.io
     - name: Grafana
       url: http://192.168.2.2:3000/
-
-sensor:
-  - platform: template
-    sensors:
-      solar_angle:
-        friendly_name: "Sun angle"
-        unit_of_measurement: 'degrees'
-        value_template: "{{ states.sun.sun.attributes.elevation }}"
-
-      media:
-        value_template: '{{ states.remote.reinasharmony.attributes.current_activity }}'
-        friendly_name: "Media"
-  
-  - platform: command_line
-    name: SSL cert expiry
-    unit_of_measurement: days
-    scan_interval: 10800
-    command: "ssl-cert-check -b -c /etc/letsencrypt/live/thereinas.it/cert.pem | awk '{ print $NF }'"
-
-#  - platform: viaggiatreno
-#    train_id: 12279
-#    station_id: S08409
-
-  - platform: yr
-
-  - platform: systemmonitor
-    resources:
-      - type: memory_free
-      - type: memory_use
-
-  - platform: version
-
-  - platform: mqtt
-    state_topic: "emon/emonpi/power1"
-    name: "Produzione Casa"
-    unit_of_measurement: "W"
-
-  - platform: mqtt
-    state_topic: "emon/emonpi/power2"
-    name: "Scambio Casa"
-    unit_of_measurement: "W"
-
-  - platform: mqtt
-    state_topic: "emon/emonpi/power1pluspower2"
-    name: "Consumo Casa"
-    unit_of_measurement: "W"
-
-  - platform: mqtt
-    state_topic: "emon/kitchen/ct1"
-    name: "Piastra"
-    unit_of_measurement: "W"
-
-  - platform: mqtt
-    state_topic: "emon/kitchen/ct2"
-    name: "Forno"
-    unit_of_measurement: "W"
-
-  - platform: mqtt
-    state_topic: "emon/kitchen/ct3"
-    name: "Lavastoviglie"
-    unit_of_measurement: "W"
-
-  - platform: fritzbox_callmonitor
-    host: reinasfritz.thereinas.it
-    user: dvbit
-    password: toorfritz!
-    name: Telefono
-    phonebook: 0
-
-  - platform: fritzbox_netmonitor
 
 hue:
   bridges:
@@ -386,7 +319,40 @@ hue:
 #        unit_of_measurement: 'W'
 #        value_template: "{{ states.switch.family_entertainment.attributes.load_power }}"
 
+input_number:
+  wakeup_hour:
+    name: Hour
+    icon: mdi:clock-in
+    initial: 6
+    min: 0
+    max: 23
+    step: 1
+  wakeup_minutes:
+    name: Minutes
+    icon: mdi:clock-in
+    initial: 30
+    min: 0
+    max: 55
+    step: 5
+  wakeup_duration:
+    name: Light fadein
+    icon: mdi:clock-in
+    initial: 10
+    min: 5
+    max: 60
+    step: 5
+
+input_boolean:
+  wakeup:
+    name: 'Enable wakeup light'
+    icon: mdi:power
+    initial: off
+  wakeup_weekends:
+    name: 'Wakeup weekends'
+    icon: mdi:power
+    initial: off
 
 group: !include groups.yaml
 script: !include scripts.yaml
 automation: !include automations.yaml
+sensor: !include sensors.yaml

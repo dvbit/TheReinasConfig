@@ -5,26 +5,47 @@
 #  entities:
 #     - group.TelecameraIngresso
 
-#TelecameraIngresso:
-#   name: TelecameraIngresso
-#   entities:
-#     - camera.SaloneIngresso
-#     - camera.TelecameraIngresso
-#     - switch.TelecameraIngresso_h264_rtsp_server
-#     - switch.TelecameraIngresso_mjpeg_rtsp_server
-#     - sensor.TelecameraIngresso
-#     - device_tracker.TelecameraIngresso
-#     - sensor.TelecameraIngresso_light_sensor
-#     - switch.TelecameraIngresso_ir_filter
-#     - switch.TelecameraIngresso_ir_led
-#     - switch.TelecameraIngresso_night_mode
-#     - switch.TelecameraIngresso_night_mode_auto
-#     - switch.TelecameraIngresso_blue_led
-#     - switch.TelecameraIngresso_yellow_led
-#     - switch.TelecameraIngresso_motion_detection
-#     - switch.TelecameraIngresso_motion_tracking
-#     - camera.TelecameraIngresso_motion_snapshot
-#     - binary_sensor.TelecameraIngresso_motion_sensor
+TelecameraIngresso:
+   name: TelecameraIngresso
+   entities:
+     - camera.SaloneIngresso
+     - camera.TelecameraIngresso
+     - switch.TelecameraIngresso_h264_rtsp_server
+     - switch.TelecameraIngresso_mjpeg_rtsp_server
+     - sensor.TelecameraIngresso
+     - device_tracker.TelecameraIngresso
+     - sensor.TelecameraIngresso_light_sensor
+     - switch.TelecameraIngresso_ir_filter
+     - switch.TelecameraIngresso_ir_led
+     - switch.TelecameraIngresso_night_mode
+     - switch.TelecameraIngresso_night_mode_auto
+     - switch.TelecameraIngresso_blue_led
+     - switch.TelecameraIngresso_yellow_led
+     - switch.TelecameraIngresso_motion_detection
+     - switch.TelecameraIngresso_motion_tracking
+     - camera.TelecameraIngresso_motion_snapshot
+     - binary_sensor.TelecameraIngresso_motion_sensor
+
+TelecameraLetto:
+   name: TelecameraLetto
+   entities:
+     - camera.Letto
+     - camera.TelecameraLetto
+     - switch.TelecameraLetto_h264_rtsp_server
+     - switch.TelecameraLetto_mjpeg_rtsp_server
+     - sensor.TelecameraLetto
+     - device_tracker.TelecameraLetto
+     - sensor.TelecameraLetto_light_sensor
+     - switch.TelecameraLetto_ir_filter
+     - switch.TelecameraLetto_ir_led
+     - switch.TelecameraLetto_night_mode
+     - switch.TelecameraLetto_night_mode_auto
+     - switch.TelecameraLetto_blue_led
+     - switch.TelecameraLetto_yellow_led
+     - switch.TelecameraLetto_motion_detection
+     - switch.TelecameraLetto_motion_tracking
+     - camera.TelecameraLetto_motion_snapshot
+     - binary_sensor.TelecameraLetto_motion_sensor
 
 Energia_view:
   name: Energia
@@ -36,6 +57,8 @@ Energia_view:
     - sensor.Piastra
     - sensor.Forno
     - sensor.Lavastoviglie
+    - sensor.Lavatrice
+    - sensor.Asciugatrice
 
 #Confort_view:
 #  name: Confort
@@ -57,3 +80,64 @@ Tempo_view:
     - sensor.forecast_6
     - sensor.forecast_7
 
+Hue_view:
+  view: yes
+  entities:
+    - sensor.motion_lettogio_motion_sensor
+    - sensor.motion_lettonic_motion_sensor
+    - sensor.motion_bagnosalone_motion_sensor
+    - sensor.motion_bagnobeaale_motion_sensor
+    - sensor.motion_scale_motion_sensor
+
+wakeuplight:
+  name: Wakeup Light
+  control: hidden
+  entities:
+    - sensor.wakeup_alarm_time
+    - sensor.wakeup_start_time_lights
+    - sensor.wakeup_fadein_duration
+    - input_number.wakeup_hour
+    - input_number.wakeup_minutes
+    - input_number.wakeup_duration
+    - input_boolean.wakeup
+    - input_boolean.wakeup_weekends
+
+group_opensprinkler:
+    name: 'Open Sprinkler'
+    control: hidden
+    entities:
+      - sensor.os_lastrun
+      - sensor.os_rain
+      - sensor.os_schedule_1
+      - sensor.os_schedule_2
+      - sensor.os_schedule_3
+      - sensor.os_schedule_4
+        #continue with all your schedules
+      - sensor.os_station_1
+      - sensor.os_station_2
+      - sensor.os_station_3
+      - sensor.os_station_4
+      - sensor.os_station_5
+      - sensor.os_station_6
+      - sensor.os_station_7
+      - sensor.os_station_8
+      - sensor.os_pump_1
+      - sensor.os_pump_2
+
+group_opensprinkler_controller:
+    name: 'Open Sprinkler controller'
+    control: hidden
+    entities:
+      - scene.os_program_1
+      - scene.os_program_2
+      - scene.os_program_3
+      - scene.os_program_4
+      #continue with all your schedules
+      - scene.os_station_1
+      - scene.os_station_2
+      - scene.os_station_3
+      - scene.os_station_4
+      - scene.os_station_5
+      - scene.os_station_6
+      - scene.os_station_7
+      - scene.os_station_8
