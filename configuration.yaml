@@ -14,8 +14,10 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
   packages: !include_dir_named packages
-
-#zone:
+  customize_glob: !include customize_glob.yaml
+customizer:
+  custom_ui: local
+zone:
 #  - name: !secret School
 #    latitude: !secret Schoollatitude
 #    longitude: !secret Schoollongitude
@@ -29,11 +31,11 @@ homeassistant:
 #    icon: mdi:work
 
 #  # This will override the default home zone
-#  - name: !secret Homelocation
-#    latitude:  !secret Homelocationlatitude
-#    longitude:  !secret Homelocationlongitude
-#    radius: 100
-#    icon: mdi:account-multiple
+  - name: !secret Homelocation
+    latitude:  !secret Homelocationlatitude
+    longitude:  !secret Homelocationlongitude
+    radius: 100
+    icon: mdi:account-multiple
 #
 
 
@@ -42,8 +44,6 @@ homeassistant:
 
 # Enables configuration UI
 config:
-
-
 
 http:
   # Secrets are defined in the file secrets.yaml
@@ -87,11 +87,11 @@ map:
 sun:
 
 # Text to speech
-tts:
-  - platform: google
-    language: it
+#tts:
+#  - platform: google
+#    language: it
 # Cloud
-#cloud:
+cloud:
 
 
 mqtt:
@@ -103,33 +103,38 @@ mqtt:
   discovery_prefix: homeassistant
 
 camera:
-#  - platform: xeoma
-#    host: http://ReinasServer.Thereinas.it:10090
-#    username: !secret XeomaUser
-#    password: !secret XeomaPassword
-#    new_version: true
-#    cameras:
-#      - image_name: Ingresso
-#        name: Ingresso
-#      - image_name: Cucina
-#        name: Cucina
-#      - image_name: Letto 
-#        name: Letto
+  - platform: xeoma
+    host: http://ReinasServer.Thereinas.it:10090
+    username: !secret XeomaUser
+    password: !secret XeomaPassword
+    new_version: true
+    cameras:
+      - image_name: Ingresso
+        name: Ingresso
+      - image_name: Cucina
+        name: Cucina
+      - image_name: Letto 
+        name: Letto
 
   - platform: ffmpeg
     name: Letto_f
-    input: -rtsp_transport tcp -i rtsp://ReinasDafangLetto.thereinas.it:8554/unicast
-
+    input: -rtsp_transport tcp -i rtsp://dafangletto.thereinas.it:8554/unicast
   - platform: ffmpeg
     name: Ingresso_f
-    input: -rtsp_transport tcp -i rtsp://ReinasDafangIngresso.thereinas.it:8554/unicast
-
+    input: -rtsp_transport tcp -i rtsp://dafangingresso.thereinas.it:8554/unicast
   - platform: ffmpeg
     name: Cucina_f
-    input: -rtsp_transport tcp -i rtsp://ReinasDafangCucina.thereinas.it:8554/unicast
+    input: -rtsp_transport tcp -i rtsp://dafangcucina.thereinas.it:8554/unicast
+
+  - platform: mqtt
+    topic: ReinasHome/TelecameraCucina
+  - platform: mqtt
+    topic: ReinasHome/TelecameraIngresso
+  - platform: mqtt
+    topic: ReinasHome/TelecameraLetto
 
 xiaomi_aqara:
-  discovery_retry: 5
+  discovery_retry: 10
   gateways:
     - mac: 34:CE:00:82:96:03
       key: !secret AquaraKey
@@ -137,53 +142,33 @@ xiaomi_aqara:
 remote:
   - platform: harmony
     name: ReinasHarmony
-    host: ReinasHarmonyHub.thereinas.it
+    host: HarmonyHub.thereinas.it
 
 bmw_connected_drive:
   name:
     username: !secret BMWUSER
     password: !secret BMWPWD
     region: "rest_of_world"
+
 climate:
   - platform: honeywell
     username: !secret EvoHomeUser
     password: !secret EvoHomePassword
     scan_interval: 600
 
+evohome:
+  username: !secret EvoHomeUser
+  password: !secret EvoHomePassword
+
 device_tracker:
   - platform: unifi
-    host: 192.168.2.2
+    host: ReinasServer.thereinas.it
     username: !secret UnifiUser
     password: !secret UnifiPassword
     verify_ssl: false
 
-#opensprinkler:
-#  host: 192.168.2.6
-#  password: !secret OpenSprinklerPassword
-#  port: 8080
-
 ifttt:
   key: !secret IFTTKEY
-
-switch:
-  - platform: xiaomi_miio
-    name: Family Entertainment
-    host: XiaomiPowerStrip2.thereinas.it
-    token: 44ec5992d7cc132c72b3852e4610431b 
-    model: zimi.powerstrip.v2
-
-
-  - platform: xiaomi_miio
-    name: Infrastruttura
-    host: XiaomiPowerStrip1.thereinas.it
-    token: d54a5a9733db09d12a7716406c0abfd7
-    model: zimi.powerstrip.v2
-
-  - platform: xiaomi_miio
-    name: Altro_Salone
-    host: XiaomiPowerStrip3.thereinas.it
-    token: bbc3820e153a04f134214ab6f8ea3f19
-    model: zimi.powerstrip.v2
 
 recorder:
   db_url: mysql://hass:hasstoor@localhost/hass
@@ -198,7 +183,7 @@ influxdb:
 
 vacuum:
   - platform: xiaomi_miio
-    host: 192.168.2.14
+    host: rockrobo.thereinas.it
     token: 7a3864656c797245775a4f514f356850
 
 zwave:
@@ -211,21 +196,25 @@ zwave:
 
 media_player:
   - platform: soundtouch
-    host: ReinasSoundTouch.TheReinas.it
+    host: SoundTouch.TheReinas.it
     port: 8090
     name: SoundtouchReinas
 
+  - platform: alexa
+    email: !secret amazonemail
+    password: !secret amazonpassword
+    url: amazon.it
 
-google_assistant:
-  project_id: homeassistantintegration-5af5b
-  client_id: !secret google_client_id
-  access_token:  !secret google_access_token
-  api_key: !secret google_api_key
-  exposed_domains:
-    - switch
-    - light
-    - group
-    - script
+#google_assistant:
+#  project_id: homeassistantintegration-5af5b
+#  client_id: !secret google_client_id
+#  access_token:  !secret google_access_token
+#  api_key: !secret google_api_key
+#  exposed_domains:
+#    - switch
+#    - light
+#    - group
+#    - script
 
 weblink:
   entities:
@@ -242,6 +231,8 @@ hue:
     - host: 192.168.2.10
       filename: phue.conf
 
+#    - switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_5
+#    - switch.switch_23
 
 #telegram_bot:
 #  - platform: polling
@@ -352,7 +343,30 @@ input_boolean:
     icon: mdi:power
     initial: off
 
+input_text:
+  scene_temp_var:
+    initial: 'off:1'
+
+
+opensprinkler:
+  host: 192.168.2.6
+  port: 80
+  password: e1d8b87798de200a9feafd9c7d78d2bb
+
+#custom-ui
+frontend:
+  javascript_version: latest
+  extra_html_url:
+    - /local/custom_ui/state-card-custom-ui.html
+    - /local/custom_ui/state-card-opensprinkler-control-station.html
+    - /local/custom_ui/state-card-opensprinkler-control-program.html
+  extra_html_url_es5:
+    - /local/custom_ui/state-card-custom-ui-es5.html
+
+
 group: !include groups.yaml
+light: !include lights.yaml
+switch: !include switchs.yaml
 script: !include scripts.yaml
 automation: !include automations.yaml
 sensor: !include sensors.yaml

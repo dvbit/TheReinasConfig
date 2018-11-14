@@ -1,0 +1,18 @@
+  - platform: xiaomi_miio
+    name: Family Entertainment
+    host: XiaomiPowerStrip2.thereinas.it
+    token: 44ec5992d7cc132c72b3852e4610431b 
+    model: zimi.powerstrip.v2
+
+
+  - platform: xiaomi_miio
+    name: Infrastruttura
+    host: XiaomiPowerStrip1.thereinas.it
+    token: d54a5a9733db09d12a7716406c0abfd7
+    model: zimi.powerstrip.v2
+
+  - platform: xiaomi_miio
+    name: Altro_Salone
+    host: XiaomiPowerStrip3.thereinas.it
+    token: bbc3820e153a04f134214ab6f8ea3f19
+    model: zimi.powerstrip.v2

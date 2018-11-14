@@ -39,10 +39,16 @@
         value_template: '{{ states.input_number.wakeup_duration.state | int }}'
         unit_of_measurement: 'min'
 
+#  - platform: template
+#    sensors:
+#      Illuminance:
+#        friendly_name: "Illuminance"
+#        unit_of_measurement: 'lx'
+#        value_template: "{{ states.sensor.illumination_158d00024e7487 }}"
 
   - platform: hue
-    ip_address: 192.168.2.10
-    token: PKci0GJll4iqu0wki3QsQJ54iVxjqhO7rblsTfRj
+    ip_address: Philipshue.thereinas.it
+    token: !secret huetoken
 
   - platform: template
     sensors:
@@ -61,6 +67,12 @@
     scan_interval: 10800
     command: "ssl-cert-check -b -c /etc/letsencrypt/live/thereinas.it/cert.pem | awk '{ print $NF }'"
 
+  - platform: command_line
+    name: db_file_size
+    command: "du -m /media/data/mysql/hass | cut -f1"
+    unit_of_measurement: 'MB'
+    value_template: '{{ value | int - 1 }}'
+
 #  - platform: viaggiatreno
 #    train_id: 12279
 #    station_id: S08409
@@ -76,12 +88,12 @@
 
   - platform: mqtt
     state_topic: "emon/emonpi/power1"
-    name: "Produzione Casa"
+    name: "Scambio Casa"
     unit_of_measurement: "W"
 
   - platform: mqtt
     state_topic: "emon/emonpi/power2"
-    name: "Scambio Casa"
+    name: "Produzione Casa"
     unit_of_measurement: "W"
 
   - platform: mqtt
@@ -115,10 +127,26 @@
     unit_of_measurement: "W"
 
   - platform: fritzbox_callmonitor
-    host: reinasfritz.thereinas.it
+    host: !secret fritzbox
     user: dvbit
-    password: toorfritz!
+    password: !secret fritzboxpassword
     name: Telefono
     phonebook: 0
 
   - platform: fritzbox_netmonitor
+
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'
+
+  - platform: opensprinkler
+    monitored_conditions:
+      - opensprinkler_station
+      - opensprinkler_schedule
+      - opensprinkler_lastrun
+      - opensprinkler_rain

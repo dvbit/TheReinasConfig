@@ -1,0 +1,57 @@
+title: Casa Reina
+# Include external resources
+resources:
+  - url: /local/button-card.js
+    type: module
+
+views:
+  - title: Luce
+    id: Luce
+    theme: dark-mode
+    cards:
+    - type: horizontal-stack
+      cards:
+        - type: "entity-button"
+          entity: light.switch_22
+          icon: mdi:sofa
+          color: auto
+          show_state: true        # The filter card will filter entities for their state
+          tap_action: toggle
+          hold_actiont: more-info
+          name: Luce Divano
+        - type: "entity-button"
+          entity: light.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3
+          icon: mdi:table
+          color: auto
+          show_state: true        # The filter card will filter entities for their state
+          tap_action: toggle
+          hold_actiont: more-info
+          name: Tavolo Salone
+        - type: "entity-button"
+          entity: light.switch_21
+          icon: mdi:food-variant
+          color: auto
+          show_state: true        # The filter card will filter entities for their state
+          tap_action: toggle
+          hold_actiont: more-info
+          name: Cucina
+        - type: "entity-button"
+          entity: light.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_
+          icon: mdi:door
+          color: auto
+          show_state: true        # The filter card will filter entities for their state
+          tap_action: toggle
+          hold_actiont: more-info
+          name: Cucina
+  -  title: Sicurezza
+    - type: iframe
+      url: http://www.dagospia.com
+      aspect_ratio: 75%
+
+
+  -  title: Energia
+  -  title: Verde
+  -  title: Presenza
+  -  title: Infrastruttura
+
+

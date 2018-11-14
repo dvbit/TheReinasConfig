@@ -1,126 +1,176 @@
-- alias:  Accendi cucina se attività
+- alias: Accendi Luci Esterne al tramonto
   trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d000123201f
-    from: 'off'
-    to: 'on'
+    platform: sun
+    event: sunset
   condition:
-    condition: or
-    conditions:
-      - condition: sun
-        after: sunset
-        after_offset: "-0:45:00"
-      - condition: sun
-        before: sunrise
   action:
-    - service: switch.turn_on
-      entity_id: switch.switch_21
-    - service: light.turn_on
-      entity_id: light.Cucina
-
-- alias: Spegni Cucina se no attività
+    service: homeassistant.turn_on
+    entity_id: group.LuciEsterno
+  id: 8676479df9d247669ef12e673133c8a8
+- alias: Spegni Luci Esterne all'alba
   trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d000123201f
-    from: 'on'
-    to: 'off'
-    for:
-      minutes: 1
-  action:
-    - service: light.turn_off
-      data:
-        entity_id: light.Cucina
-        transition: 5
-    - service: switch.turn_off
-      entity_id: switch.switch_21
-
-- alias:  Accendi Tavolo salone se attività
-  trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d00015f047c
-    from: 'off'
-    to: 'on'
+    platform: sun
+    event: sunrise
   condition:
-    condition: or
-    conditions:
-      - condition: sun
-        after: sunset
-        after_offset: "-0:45:00"
-      - condition: sun
-        before: sunrise
   action:
-    - service:  switch.turn_on
-      entity_id: switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3
-    - service: light.turn_on
-      entity_id: light.Salone
-
-- alias: Spegni Tavolo salone se no attività e TV spenta
-  trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d00015f047c
-    from: 'on'
-    to: 'off'
-    for:
-      minutes: 1
-  condition:
-    condition: or
-    conditions:
-      - condition: state
-        entity_id: remote.reinasharmony
-        state: 'PowerOff'
-  action:
-    - service: light.turn_off
-      data:
-        entity_id: light.Salone
-        transition: 3
-    - service: switch.turn_off
-      entity_id: switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3
-
-- alias: Luce  Tavolo bassa se no attività e TV accesa
-  trigger:
-    platform: state
-    entity_id: binary_sensor.motion_sensor_158d00015f047c
-    from: 'on'
-    to: 'off'
-    for:
-      minutes: 1
-  condition:
-    condition: or
-    conditions:
-      - condition: state
-        entity_id: remote.reinasharmony
-        state: 'Guarda TV'
-  action:
-    - service: light.turn_off
-      data:
-        entity_id: light.Salone
-        transition: 3
-    - service: switch.turn_off
-      entity_id: switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3
-
-- alias: 'WakeUp Light Bedroom'
-#  hide_entity: True
+    service: homeassistant.turn_off
+    entity_id: group.LuciEsterno
+  id: 8676479ef9d247669ef12e673133c8a8
+- alias: WakeUp Light Bedroom
   trigger:
     platform: template
-    value_template: '{{ states.sensor.time.state == states.sensor.wakeup_start_time_lights.state }}'
+    value_template: '{{ states.sensor.time.state == states.sensor.wakeup_start_time_lights.state
+      }}'
   condition:
     condition: and
     conditions:
+    - condition: state
+      entity_id: input_boolean.wakeup
+      state: 'on'
+    - condition: or
+      conditions:
       - condition: state
-        entity_id: input_boolean.wakeup
+        entity_id: input_boolean.wakeup_weekends
         state: 'on'
-      - condition: or
-        conditions:
-          - condition: state
-            entity_id: input_boolean.wakeup_weekends
-            state: 'on'
-          - condition: time
-            weekday:
-              - mon
-              - tue
-              - wed
-              - thu
-              - fri
+      - condition: time
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
   action:
     service: script.wakeup_bedroom
-
+  id: 22a2b5b47dda48a48bf111d0456675bd
+- id: '1541267648714'
+  alias: AccendiLuceAleSePresenzaeBuio
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_158d00024e7487
+    from: 'OFF'
+    platform: state
+    to: 'ON'
+  condition:
+  - below: '1000'
+    condition: numeric_state
+    entity_id: sensor.illumination_158d00024e7487
+  action:
+  - data:
+      light.FarettoAlessandroTV:
+    service: light.turn_on
+  - data:
+      light.FarettoAlessandroLetto:
+    service: light.turn_on
+- id: '1541894435257'
+  alias: Cucina ON
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_cucina
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.lucecucina
+    service: switch.turn_on
+  - data:
+      entity_id: light.cucina
+    service: light.turn_on
+- id: '1541971315219'
+  alias: Cabina ON
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_cabinaarmadio
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.internocabina
+    service: switch.turn_on
+- id: '1541971507989'
+  alias: Cabina OFF
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_cabinaarmadio
+    for: '1'
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.internocabina
+    service: switch.turn_off
+- id: '1541972064766'
+  alias: Salone On
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_tavolosalone
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.tavolosalone
+    service: switch.turn_on
+- id: '1542046339391'
+  alias: Ingresso ON
+  trigger:
+  - entity_id: binary_sensor.door_window_sensor_portacasa
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.cespuglioingressosalone
+    service: switch.turn_on
+- id: '1542046455143'
+  alias: Salone Off
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_tavolosalone
+    for: '5'
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.tavolosalone
+    service: switch.turn_off
+- id: '1542222080214'
+  alias: Accendi Led Letto Alessandro
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_sottolettto
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.sotto_letto_ale
+    service: light.turn_on
+- id: '1542222429134'
+  alias: Spegni Led Letto Alessandro
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_sottolettto
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.sotto_letto_ale
+    service: light.turn_off
+- id: '1542231785381'
+  alias: Cucina OFF
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_cucina
+    for: '5'
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.lucecucina
+    service: switch.turn_off

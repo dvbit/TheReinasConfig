@@ -1,14 +1,18 @@
+############################################################################################
+#  Groups
+############################################################################################
 
-#Sicurezza_view:
-#  name: Sicurezza
-#  view: yes
-#  entities:
-#     - group.TelecameraIngresso
+Sicurezza_view:
+  name: Sicurezza
+  view: yes
+  entities:
+     - group.TelecameraIngresso
+     - group.TelecameraLetto
+     - group.TelecameraCucina
 
 TelecameraIngresso:
    name: TelecameraIngresso
    entities:
-     - camera.SaloneIngresso
      - camera.TelecameraIngresso
      - switch.TelecameraIngresso_h264_rtsp_server
      - switch.TelecameraIngresso_mjpeg_rtsp_server
@@ -29,7 +33,6 @@ TelecameraIngresso:
 TelecameraLetto:
    name: TelecameraLetto
    entities:
-     - camera.Letto
      - camera.TelecameraLetto
      - switch.TelecameraLetto_h264_rtsp_server
      - switch.TelecameraLetto_mjpeg_rtsp_server
@@ -46,6 +49,26 @@ TelecameraLetto:
      - switch.TelecameraLetto_motion_tracking
      - camera.TelecameraLetto_motion_snapshot
      - binary_sensor.TelecameraLetto_motion_sensor
+
+TelecameraCucina:
+   name: TelecameraCucina
+   entities:
+     - camera.TelecameraCucina
+     - switch.TelecameraCucina_h264_rtsp_server
+     - switch.TelecameraCucina_mjpeg_rtsp_server
+     - sensor.TelecameraCucina
+     - device_tracker.TelecameraCucina
+     - sensor.TelecameraCucina_light_sensor
+     - switch.TelecameraCucina_ir_filter
+     - switch.TelecameraCucina_ir_led
+     - switch.TelecameraCucina_night_mode
+     - switch.TelecameraCucina_night_mode_auto
+     - switch.TelecameraCucina_blue_led
+     - switch.TelecameraCucina_yellow_led
+     - switch.TelecameraCucina_motion_detection
+     - switch.TelecameraCucina_motion_tracking
+     - camera.TelecameraCucina_motion_snapshot
+     - binary_sensor.TelecameraCucina_motion_sensor
 
 Energia_view:
   name: Energia
@@ -83,14 +106,33 @@ Tempo_view:
 Hue_view:
   view: yes
   entities:
+    - group.Hue
+
+Hue:
+  entities:
     - sensor.motion_lettogio_motion_sensor
     - sensor.motion_lettonic_motion_sensor
     - sensor.motion_bagnosalone_motion_sensor
     - sensor.motion_bagnobeaale_motion_sensor
     - sensor.motion_scale_motion_sensor
+    - sensor.motion_lettogio_motion_temperature
+    - sensor.motion_lettonic_motion_temperature
+    - sensor.motion_bagnosalone_motion_temperature
+    - sensor.motion_bagnobeaale_motion_temperature
+    - sensor.motion_scale_motion_temperature
+    - sensor.motion_lettogio_motion_light_level
+    - sensor.motion_lettonic_motion_light_level
+    - sensor.motion_bagnosalone_motion_light_level
+    - sensor.motion_bagnobeaale_motion_light_level
+    - sensor.motion_scale_motion_light_level
+    - sensor.motion_lettogio_motion_lux
+    - sensor.motion_lettonic_motion_lux
+    - sensor.motion_bagnosalone_motion_lux
+    - sensor.motion_bagnobeaale_motion_lux
+    - sensor.motion_scale_motion_lux
 
 wakeuplight:
-  name: Wakeup Light
+  name: Sveglia
   control: hidden
   entities:
     - sensor.wakeup_alarm_time
@@ -102,6 +144,58 @@ wakeuplight:
     - input_boolean.wakeup
     - input_boolean.wakeup_weekends
 
+LuciGioNic:
+  name: Luci GioNic
+  entities:
+    - light.plug_lampadasale
+    - light.esternocabina
+    - light.idromassaggio
+    - light.gionic
+    - light.lettogionic_2
+  
+Luci GioNic:
+  view: yes
+  entities:
+    - group.LuciGioNic
+
+LuciEsterno:
+  name: Luci Esterno
+  entities: 
+    - light.esternoale
+    - light.esternocancelletto
+    - light.esternocucina
+    - light.esternosalone
+
+Luci Esterno:
+  view: yes
+  entities:
+    - group.LuciEsterno
+
+LuciSalone:
+  name: Luci Salone
+  entities: 
+    - light.cespugliodivanosalone
+    - light.cespuglioingressosalone
+    - light.tavolosalone
+
+Luci Salone:
+  view: yes
+  entities:
+    - group.LuciSalone
+
+LuciAle:
+  name: Luci Ale
+  control: hidden
+  entities:
+    - light.ledlettoale
+    - light.FarettoAlessandroTV
+    - light.FarettoAlessandroTV
+
+Luci Ale:
+  view: yes
+  entities:
+    - group.LuciAle
+
 group_opensprinkler:
     name: 'Open Sprinkler'
     control: hidden
@@ -110,19 +204,9 @@ group_opensprinkler:
       - sensor.os_rain
       - sensor.os_schedule_1
       - sensor.os_schedule_2
-      - sensor.os_schedule_3
-      - sensor.os_schedule_4
         #continue with all your schedules
       - sensor.os_station_1
       - sensor.os_station_2
-      - sensor.os_station_3
-      - sensor.os_station_4
-      - sensor.os_station_5
-      - sensor.os_station_6
-      - sensor.os_station_7
-      - sensor.os_station_8
-      - sensor.os_pump_1
-      - sensor.os_pump_2
 
 group_opensprinkler_controller:
     name: 'Open Sprinkler controller'
@@ -130,14 +214,6 @@ group_opensprinkler_controller:
     entities:
       - scene.os_program_1
       - scene.os_program_2
-      - scene.os_program_3
-      - scene.os_program_4
       #continue with all your schedules
       - scene.os_station_1
       - scene.os_station_2
-      - scene.os_station_3
-      - scene.os_station_4
-      - scene.os_station_5
-      - scene.os_station_6
-      - scene.os_station_7
-      - scene.os_station_8
