@@ -6,6 +6,21 @@ Sicurezza_view:
   name: Sicurezza
   view: yes
   entities:
+     - binary_sensor.allarmeassentecasa
+     - binary_sensor.allarmeinseritocasa
+     - binary_sensor.sensor_garage 
+     - binary_sensor.door_window_sensor_portafinestrasalone
+     - binary_sensor.door_window_sensor_portafinestracucina
+     - binary_sensor.door_window_sensor_portataverna
+     - binary_sensor.door_window_sensor_portacasa
+     - sensor.motion_lettogio_motion_sensor
+     - sensor.motion_lettonic_motion_sensor
+     - sensor.motion_bagnosalone_motion_sensor
+     - sensor.motion_bagnobeaale_motion_sensor
+     - sensor.motion_scale_motion_sensor
+     - camera.saloneingresso
+     - camera.salonecucina
+     - camera.giovannanicola
      - group.TelecameraIngresso
      - group.TelecameraLetto
      - group.TelecameraCucina
@@ -171,17 +186,28 @@ Luci Esterno:
   entities:
     - group.LuciEsterno
 
-LuciSalone:
-  name: Luci Salone
+Salone:
+  name: Salone
   entities: 
     - light.cespugliodivanosalone
     - light.cespuglioingressosalone
-    - light.tavolosalone
+    - light.tavolosalone_2
+    - sensor.illumination_tavolosalone
+    - binary_sensor.motion_sensor_tavolosalone
+    - binary_sensor.door_window_sensor_portafinestrasalone
+    - binary_sensor.door_window_sensor_portafinestracucina
+    - binary_sensor.door_window_sensor_portataverna
+    - binary_sensor.door_window_sensor_portacasa
+    - climate.salone
+    - camera.saloneingresso
+    - group.TelecameraIngresso
+    - media_player.echo_plus__reinas
 
-Luci Salone:
+Salone_view:
+  name: Salone
   view: yes
   entities:
-    - group.LuciSalone
+    - group.Salone
 
 LuciAle:
   name: Luci Ale

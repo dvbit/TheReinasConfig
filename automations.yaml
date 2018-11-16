@@ -67,7 +67,10 @@
     from: 'off'
     platform: state
     to: 'on'
-  condition: []
+  condition:
+  - below: '20'
+    condition: numeric_state
+    entity_id: sensor.illumination_lxcucina
   action:
   - data:
       entity_id: switch.lucecucina
@@ -91,7 +94,6 @@
   alias: Cabina OFF
   trigger:
   - entity_id: binary_sensor.motion_sensor_cabinaarmadio
-    for: '1'
     from: 'on'
     platform: state
     to: 'off'
@@ -107,7 +109,10 @@
     from: 'off'
     platform: state
     to: 'on'
-  condition: []
+  condition:
+  - below: '500'
+    condition: numeric_state
+    entity_id: sensor.illumination_tavolosalone
   action:
   - data:
       entity_id: switch.tavolosalone
@@ -173,4 +178,74 @@
   action:
   - data:
       entity_id: switch.lucecucina
+    service: switch.turn_off
+- id: '1542310620823'
+  alias: Ingresso off
+  trigger:
+  - entity_id: zwave.fibaro_system_fgms001_motion_sensor_ingresso
+    for: '1'
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.cespuglioingressosalone
+    service: switch.turn_off
+- id: '1542375912752'
+  alias: Ale on
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_alessandro
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - below: '50'
+    condition: numeric_state
+    entity_id: sensor.illumination_ale
+  action:
+  - data:
+      entity_id: light.armadiale
+    service: light.turn_on
+  - data:
+      entity_id: light.lettoale
+    service: light.turn_on
+- id: '1542387063132'
+  alias: Ale Off
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_alessandro
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.armadiale
+    service: light.turn_off
+  - data:
+      entity_id: light.lettoale
+    service: light.turn_off
+- id: '1542395170608'
+  alias: GioNic 1 ON
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_gionic1
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.lettogionic
+    service: switch.turn_on
+- id: '1542395285346'
+  alias: GioNic 1 Off
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_gionic1
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.lettogionic
     service: switch.turn_off

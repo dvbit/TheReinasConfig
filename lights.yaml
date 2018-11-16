@@ -188,7 +188,7 @@
     entities:
       - light.cespugliodivanosalone
       - light.cespuglioingressosalone
-      - light.tavolosalone
+      - light.tavolosalone_2
   - platform: group
     name: LuciEsterno
     entities:
