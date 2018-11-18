@@ -1,4 +1,5 @@
 #github backup
+
 homeassistant:
   # Name of the location where Home Assistant is running
   name: !secret Location
@@ -11,10 +12,13 @@ homeassistant:
   unit_system: metric
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Rome
+
+    
   # Customization file
   customize: !include customize.yaml
   packages: !include_dir_named packages
   customize_glob: !include customize_glob.yaml
+
 customizer:
   custom_ui: local
 zone:
@@ -154,11 +158,11 @@ bmw_connected_drive:
     password: !secret BMWPWD
     region: "rest_of_world"
 
-climate:
-  - platform: honeywell
-    username: !secret EvoHomeUser
-    password: !secret EvoHomePassword
-    scan_interval: 600
+#climate:
+#  - platform: honeywell
+#    username: !secret EvoHomeUser
+#    password: !secret EvoHomePassword
+#    scan_interval: 600
 
 evohome:
   username: !secret EvoHomeUser
@@ -319,6 +323,15 @@ frontend:
     - /local/hass-fontawesome-regular.html
     - /local/hass-fontawesome-brands.html
 
+#weather:
+#  - platform: darksky
+#    api_key: !darksky_apikey
+#    latitude: !secret latitude
+#    longitude: !secret longitude
+#    units: si
+#    mode: hourly
+weather:
+  - platform: yweather
 
 group: !include groups.yaml
 light: !include lights.yaml

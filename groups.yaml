@@ -201,7 +201,7 @@ LuciEsterno:
     - light.esternocucina
     - light.esternosalone
 
-Luci Esterno:
+Esterno:
   view: yes
   entities:
     - group.LuciEsterno
@@ -231,16 +231,26 @@ Salone_view:
 
 LuciAle:
   name: Luci Ale
-  control: hidden
   entities:
     - light.ledlettoale
     - light.FarettoAlessandroTV
     - light.FarettoAlessandroTV
 
-Luci Ale:
+Ale:
   view: yes
   entities:
     - group.LuciAle
+
+LuciGiardino:
+  name: Luci Giardino
+  entities:
+    - light.giardinovicino
+    - light.giardinolontano
+
+Giardino:
+  view: yes
+  entities:
+    - group.LuciGiardino
 
 group_opensprinkler:
     name: 'Open Sprinkler'

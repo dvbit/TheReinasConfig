@@ -1,5 +1,10 @@
 title: Casa
 views:
+
+########################################################################################
+# Luce
+########################################################################################
+
   - title: Luce
     panel: true
     cards:
@@ -8,6 +13,9 @@ views:
           - type: entity-button
             entity: light.lucisalone
             tap_action: toggle
+################
+# Salone
+################
           - type: horizontal-stack
             cards:
               - type: entity-button
@@ -19,6 +27,9 @@ views:
               - type: entity-button
                 entity: light.tavolosalone_2
                 tap_action: toggle
+################
+# Cucina
+################
           - type: entity-button
             entity: light.lucisalone
             tap_action: toggle
@@ -33,6 +44,9 @@ views:
              - type: entity-button
                entity: light.lucecucina
                tap_action: toggle
+################
+# GioNic
+################
           - type: entity-button
             entity: light.lucigionic
             tap_action: toggle
@@ -53,6 +67,45 @@ views:
              - type: entity-button
                entity: light.esternocabina
                tap_action: toggle
+################
+# Esterno Portico
+################
+          - type: entity-button
+            entity: light.luciesterno
+            tap_action: toggle
+          - type: horizontal-stack
+            cards:
+             - type: entity-button
+               entity: light.esternoale
+               tap_action: toggle
+             - type: entity-button
+               entity: light.esternocancelletto
+               tap_action: toggle
+             - type: entity-button
+               entity: light.esternocucina
+               tap_action: toggle
+             - type: entity-button
+               entity: light.esternosalone
+               tap_action: toggle
+################
+# Esterno Giardino
+################
+          - type: entity-button
+            entity: light.lucigiardino
+            tap_action: toggle
+          - type: horizontal-stack
+            cards:
+             - type: entity-button
+               entity: light.giardinovicino
+               tap_action: toggle
+             - type: entity-button
+               entity: light.giardinolontano
+               tap_action: toggle
+
+########################################################################################
+# Energia
+########################################################################################
+
   - title: Energia
     panel: true
     cards:
@@ -84,8 +137,43 @@ views:
            min: 0
            max: 3000
            entity: sensor.produzione_casa
-  - title: Clima
+
+########################################################################################
+# Confort
+########################################################################################
+
+  - title: Confort
     panel: true
     cards:
-      - type: weather-forecast
-        entity: weather.darksky
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: weather-forecast
+                entity: weather.yweather
+          - type: horizontal-stack
+            cards:
+                - type: thermostat
+                  entity: climate.salone
+                - type: thermostat
+                  entity: climate.gio_e_nic
+                - type: thermostat
+                  entity: climate.bagno_salone
+          - type: horizontal-stack
+            cards:
+                - type: thermostat
+                  entity: climate.bea
+                - type: thermostat
+                  entity: climate.ale
+                - type: thermostat
+                  entity: climate.bagno_su
+          - type: horizontal-stack
+            cards:
+                - type: thermostat
+                  entity: climate.salone_taverna
+                - type: thermostat
+                  entity: climate.bagno_taverna
+                - type: thermostat
+                  entity: climate.letto_taverna
+                - type: thermostat
+                  entity: climate.salone_taverna
