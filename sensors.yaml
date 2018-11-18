@@ -137,9 +137,3 @@
       - 'time_utc'
       - 'beat'
 
-  - platform: opensprinkler
-    monitored_conditions:
-      - opensprinkler_station
-      - opensprinkler_schedule
-      - opensprinkler_lastrun
-      - opensprinkler_rain

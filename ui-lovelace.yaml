@@ -1,57 +1,91 @@
-title: Casa Reina
-# Include external resources
-resources:
-  - url: /local/button-card.js
-    type: module
-
+title: Casa
 views:
   - title: Luce
-    id: Luce
-    theme: dark-mode
+    panel: true
     cards:
-    - type: horizontal-stack
-      cards:
-        - type: "entity-button"
-          entity: light.switch_22
-          icon: mdi:sofa
-          color: auto
-          show_state: true        # The filter card will filter entities for their state
-          tap_action: toggle
-          hold_actiont: more-info
-          name: Luce Divano
-        - type: "entity-button"
-          entity: light.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3
-          icon: mdi:table
-          color: auto
-          show_state: true        # The filter card will filter entities for their state
-          tap_action: toggle
-          hold_actiont: more-info
-          name: Tavolo Salone
-        - type: "entity-button"
-          entity: light.switch_21
-          icon: mdi:food-variant
-          color: auto
-          show_state: true        # The filter card will filter entities for their state
-          tap_action: toggle
-          hold_actiont: more-info
-          name: Cucina
-        - type: "entity-button"
-          entity: light.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_
-          icon: mdi:door
-          color: auto
-          show_state: true        # The filter card will filter entities for their state
-          tap_action: toggle
-          hold_actiont: more-info
-          name: Cucina
-  -  title: Sicurezza
-    - type: iframe
-      url: http://www.dagospia.com
-      aspect_ratio: 75%
-
-
-  -  title: Energia
-  -  title: Verde
-  -  title: Presenza
-  -  title: Infrastruttura
-
-
+      - type: vertical-stack
+        cards:
+          - type: entity-button
+            entity: light.lucisalone
+            tap_action: toggle
+          - type: horizontal-stack
+            cards:
+              - type: entity-button
+                entity: light.cespuglioingressosalone
+                tap_action: toggle
+              - type: entity-button
+                entity: light.cespugliodivanosalone
+                tap_action: toggle
+              - type: entity-button
+                entity: light.tavolosalone_2
+                tap_action: toggle
+          - type: entity-button
+            entity: light.lucisalone
+            tap_action: toggle
+          - type: horizontal-stack
+            cards:
+             - type: entity-button
+               entity: light.lucecucina
+               tap_action: toggle
+             - type: entity-button
+               entity: light.lucecucina
+               tap_action: toggle
+             - type: entity-button
+               entity: light.lucecucina
+               tap_action: toggle
+          - type: entity-button
+            entity: light.lucigionic
+            tap_action: toggle
+          - type: horizontal-stack
+            cards:
+             - type: entity-button
+               entity: light.gionic
+               tap_action: toggle
+             - type: entity-button
+               entity: light.lettogionic_2
+               tap_action: toggle
+             - type: entity-button
+               entity: light.plug_lampadasale
+               tap_action: toggle
+             - type: entity-button
+               entity: light.idromassaggio
+               tap_action: toggle
+             - type: entity-button
+               entity: light.esternocabina
+               tap_action: toggle
+  - title: Energia
+    panel: true
+    cards:
+      - type: horizontal-stack
+        cards:
+         - type: gauge
+           title: Scambio
+           unit_of_measurement: W
+           min: -3000
+           max: 3000
+           severity:
+             green: -3000
+             yellow: 0
+             red: 1500
+           entity: sensor.scambio_casa
+         - type: gauge
+           title: Consumo
+           unit_of_measurement: W
+           min: 0
+           max: 6000
+           severity:
+             green: 0
+             yellow: 1500
+             red: 3000
+           entity: sensor.consumo_casa
+         - type: gauge
+           title: Produzione
+           unit_of_measurement: W
+           min: 0
+           max: 3000
+           entity: sensor.produzione_casa
+  - title: Clima
+    panel: true
+    cards:
+      - type: weather-forecast
+        entity: weather.darksky

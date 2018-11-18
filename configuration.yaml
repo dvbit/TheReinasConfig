@@ -88,9 +88,10 @@ map:
 sun:
 
 # Text to speech
-#tts:
-#  - platform: google
-#    language: it
+tts:
+  - platform: google
+    language: it
+
 # Cloud
 cloud:
 
@@ -135,10 +136,12 @@ camera:
     topic: ReinasHome/TelecameraLetto
 
 xiaomi_aqara:
-  discovery_retry: 10
+  discovery_retry: 15
   gateways:
     - mac: 34:CE:00:82:96:03
-      key: !secret AquaraKey
+      key: !secret AquaraKey1
+    - mac: 7C:49:EB:B1:B5:77
+      key: !secret AquaraKey2
 
 remote:
   - platform: harmony
@@ -188,7 +191,7 @@ vacuum:
     token: 7a3864656c797245775a4f514f356850
 
 zwave:
-#  usb_path: /dev/ttyACM0
+  usb_path: /dev/ttyACM0
   usb_path: /dev/zwave
 
 #/etc/udev/rules.d/99-usb-serial.rules 
@@ -227,13 +230,6 @@ weblink:
     - name: Grafana
       url: http://192.168.2.2:3000/
 
-#hue:
-#  bridges:
-#    - host: 192.168.2.10
-#      filename: phue.conf
-#      allow_unreachable: true
-#     allow_hue_groups: false
-
 #telegram_bot:
 #  - platform: polling
 #    api_key: !secret telegram_apikey
@@ -241,43 +237,6 @@ weblink:
 #      - CHAT_ID_1
 #      - CHAT_ID_2
 #      - CHAT_ID_3
-
-#input_number:
-#  n1:
-#    name: Sensore Attivo da Ore
-#    initial: 8
-#    min: 0
-#    max: 23
-#    step: 1
-#    mode: box
-#  n2:
-#    name: Sensore Attivo da min
-#    initial: 0
-#    min: 0
-#    max: 45
-#    step: 15
-#    mode: box
-#  n3:
-#    name: Sensore Attivo alle Ore
-#    initial: 8
-#    min: 0
-#    max: 23
-#    step: 1
-#    mode: box
-#  n4:
-#    name: Sensore Attivo a min
-#    initial: 0
-#    min: 0
-#    max: 45
-#    step: 15
-#    mode: box
-#  n5:
-#    name: Timeout Spegnimento Luce
-#    initial: 5
-#    min: 0
-#    max: 20
-#    step: 1
-#    mode: box
 
 #sensor:
 #  - platform: template
@@ -348,9 +307,8 @@ input_text:
     initial: 'off:1'
 
 
-opensprinkler:
-  host: 192.168.2.6
-  port: 80
+hass_opensprinkler:
+  host: opensprinkler.thereinas.it
   password: e1d8b87798de200a9feafd9c7d78d2bb
 
 #custom-ui

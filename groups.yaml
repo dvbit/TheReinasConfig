@@ -2,6 +2,10 @@
 #  Groups
 ############################################################################################
 
+############################################################################################
+#  Sicurezza
+############################################################################################
+
 Sicurezza_view:
   name: Sicurezza
   view: yes
@@ -85,6 +89,10 @@ TelecameraCucina:
      - camera.TelecameraCucina_motion_snapshot
      - binary_sensor.TelecameraCucina_motion_sensor
 
+############################################################################################
+#  Energia
+############################################################################################
+
 Energia_view:
   name: Energia
   view: yes
@@ -98,12 +106,20 @@ Energia_view:
     - sensor.Lavatrice
     - sensor.Asciugatrice
 
+############################################################################################
+#  Comfort
+############################################################################################
+
 #Confort_view:
 #  name: Confort
 #  view: yes
 #  entities:
 #    - group.all_automations
 #    - group.all_scripts
+
+############################################################################################
+#  Tempo
+############################################################################################
 
 Tempo_view:
   name: Forecast
@@ -158,6 +174,10 @@ wakeuplight:
     - input_number.wakeup_duration
     - input_boolean.wakeup
     - input_boolean.wakeup_weekends
+
+############################################################################################
+#  Illuminazione
+############################################################################################
 
 LuciGioNic:
   name: Luci GioNic
@@ -234,6 +254,11 @@ group_opensprinkler:
       - sensor.os_station_1
       - sensor.os_station_2
 
+group opensprinkler :
+  view: yes
+  entities:
+    - group.group_opensprinkler
+
 group_opensprinkler_controller:
     name: 'Open Sprinkler controller'
     control: hidden
@@ -243,3 +268,9 @@ group_opensprinkler_controller:
       #continue with all your schedules
       - scene.os_station_1
       - scene.os_station_2
+
+group opensprinkler_controller :
+  view: yes
+  entities:
+    - group.group_opensprinkler_controller
+
