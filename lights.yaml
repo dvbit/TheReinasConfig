@@ -8,24 +8,39 @@
 
   - platform: xiaomi_miio
     name: esternocucina
-    host: philips-light-bulb_EsternoCucina.thereinas.it
-    token: 875579940533285ebd2bbd3acc2bc314
+    host: philips-light-bulb-EsternoCucina.fritz.box
+    token: abc0973e25818f37c053ef5164db668d
     model: philips.light.bulb
+
   - platform: xiaomi_miio
     name: esternocancelletto
-    host: philips-light-bulb_EsternoCancelletto.thereinas.it
+    host: philips-light-bulb-EsternoCancelletto.fritz.box
     token: 8a2690521e32716676eec8867f1c5e88
     model: philips.light.bulb
+
   - platform: xiaomi_miio
     name: esternoale
-    host: philips-light-bulb_EsternoAlessandro.thereinas.it
-    token: d09b33cf8a5459617488d2422af18334
+    host: philips-light-bulb-EsternoAlessandro.fritz.box
+    token: db1727db468d0b393ff7cb0855d345e4
     model: philips.light.bulb
+
   - platform: xiaomi_miio
     name: esternosalone
-    host: philips-light-bulb_EsternoSalone.thereinas.it
-    token: 918198e6a0c86fe407565079a60eafe9
+    host: philips-light-bulb-EsternoSalone.fritz.box
+    token: f45889b461dfe46c310d676eb7bc02c7
     model: philips.light.bulb
+
+  - platform: xiaomi_miio
+    name: scaletaverna
+    host: philips-light-bulb-scaletaverna.fritz.box
+    token: d06bc8e3b91a995b095c09d0f1e4e1e0
+    model: philips.light.bulb
+
+  - platform: xiaomi_miio
+    name: lampadaale
+    host: lampadaale.fritz.box
+    token: b9dc2b994dba061a1ba3253ded3afd2e
+    model: philips.light.sread1 
 
 #######################################################################################################
 #YeeLight
@@ -33,9 +48,10 @@
 
   - platform: yeelight
     devices:
-      yeelink-light-lamp1_Studio.thereinas.it:
+      yeelink-light-lamp1_Studio.fritz.box:
         name: lampada studio
-      yeelink-light-strip1_alessandro.thereinas.it: 
+
+      lightstripalessandro.fritz.box: 
         name: sotto letto ale
  
 #######################################################################################################
@@ -199,6 +215,45 @@
           entity_id: switch.plug_lampadasale
 
 
+
+#######################################################################################################
+#  Switch
+#######################################################################################################
+ 
+#  - platform: switch
+#    name: Divano1
+#    entity_id: switch.cespugliodivanosalone
+
+#    name: Cucina1
+#    entity_id: switch.switch
+#
+#    name: Ingresso1
+#    entity_id: switch.switch_2
+
+#    friendly_name: TavoloSalone1
+#    entity_id: switch.switch_3
+
+#    name: LettoGioNic1
+#    entity_id: switch.lettogionic
+
+#    name: IdroGioNic1
+#    entity_id: switch.idromassaggio
+
+#    name: EsternoCabinaGioNic1
+#    entity_id: switch.esternocabina
+
+#    name: InternoCabinaGioNic1
+#    entity_id: switch.internocabina
+
+#    name: GiardinoLontano1
+#    entity_id: switch.giardinolontano
+
+#    name: GiardinoVicino1
+#    entity_id: switch.giardinovicino
+
+#    name: LampadaSale
+#    entity_id: switch.plug_lampadasale
+
 #######################################################################################################
 #  Light Groups
 #######################################################################################################
@@ -211,12 +266,14 @@
       - light.idromassaggio
       - light.gionic
       - light.lettogionic_2
+
   - platform: group
     name: LuciSalone
     entities:
       - light.cespugliodivanosalone
       - light.cespuglioingressosalone
       - light.tavolosalone_2
+
   - platform: group
     name: LuciEsterno
     entities:
@@ -224,6 +281,7 @@
       - light.esternocancelletto
       - light.esternocucina
       - light.esternosalone
+
   - platform: group
     name: LuciGiardino
     entities:

@@ -68,7 +68,7 @@
     platform: state
     to: 'on'
   condition:
-  - below: '20'
+  - below: '40'
     condition: numeric_state
     entity_id: sensor.illumination_lxcucina
   action:
@@ -130,18 +130,25 @@
       entity_id: switch.cespuglioingressosalone
     service: switch.turn_on
 - id: '1542046455143'
-  alias: Salone Off
+  alias: Salone Blu
   trigger:
   - entity_id: binary_sensor.motion_sensor_tavolosalone
-    for: '5'
+    for: '2'
     from: 'on'
     platform: state
     to: 'off'
-  condition: []
+  - entity_id: binary_sensor.motion_sensor_cucina
+    for: '1'
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: sensor.media
+    state: SKY
   action:
-  - data:
-      entity_id: switch.tavolosalone
-    service: switch.turn_off
+  - data: {}
+    service: script.blu_gradualmente_salone
 - id: '1542222080214'
   alias: Accendi Led Letto Alessandro
   trigger:
@@ -182,11 +189,10 @@
 - id: '1542310620823'
   alias: Ingresso off
   trigger:
-  - entity_id: zwave.fibaro_system_fgms001_motion_sensor_ingresso
-    for: '1'
-    from: 'on'
+  - entity_id: binary_sensor.sensor_ingresso
+    from: 'ON'
     platform: state
-    to: 'off'
+    to: 'OFF'
   condition: []
   action:
   - data:
@@ -228,7 +234,7 @@
 - id: '1542395170608'
   alias: GioNic 1 ON
   trigger:
-  - entity_id: binary_sensor.motion_sensor_gionic1
+  - entity_id: binary_sensor.motion_sensor_158d00015d4d01
     from: 'off'
     platform: state
     to: 'on'
@@ -249,3 +255,199 @@
   - data:
       entity_id: switch.lettogionic
     service: switch.turn_off
+- id: '1542648848919'
+  alias: Scale Taverna ON
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_scaletaverna
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.door_window_sensor_portataverna
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.door_window_sensor_portagarage
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.scaletaverna
+    service: light.turn_on
+- id: '1543177385955'
+  alias: Doccia ON
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_doccia
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.doccia
+    service: light.turn_on
+  - data:
+      entity_id: light.lavabo
+    service: light.turn_on
+- id: '1543769237079'
+  alias: Spegni Albero e decorazioni con allarme
+  trigger:
+  - entity_id: binary_sensor.allarmeinseritocasa
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.alberodinatale
+    service: switch.turn_off
+  - data:
+      entity_id: switch.decorazioninatale
+    service: switch.turn_off
+- id: '1543769403642'
+  alias: Accendi Decorazioni Natale al Tramonto
+  trigger:
+  - event: sunset
+    offset: '30'
+    platform: sun
+  condition: []
+  action:
+  - data:
+      entity_id: switch.decorazioninatale
+    service: switch.turn_on
+- id: '1543773994051'
+  alias: Ricorda Inserimento Allarme
+  trigger:
+  - entity_id: binary_sensor.door_window_sensor_portafinestratavologiardino
+    for: '5'
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.door_window_sensor_portacasa
+    state: 'OFF'
+  - condition: state
+    entity_id: binary_sensor.door_window_sensor_portafinestracucina
+    state: 'OFF'
+  - condition: state
+    entity_id: binary_sensor.door_window_sensor_portafinestrasalone
+    state: 'OFF'
+  - condition: state
+    entity_id: binary_sensor.door_window_sensor_portafinestratavologiardino
+    state: 'OFF'
+  - condition: state
+    entity_id: binary_sensor.allarmeinseritocasa
+    state: 'off'
+  action:
+  - data:
+      entity_id: media_player.echo_plus__reinas
+      message: Ricordati di aver inserire l'allarme. Dopo controlla se Giovanna sta
+        bene
+    service: media_player.alexa_tts
+- id: '1543844777759'
+  alias: Salone OFF
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_tavolosalone
+    for: '2'
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - after: 00:00
+    before: '19:30'
+    condition: time
+  - after: '22:00'
+    before: 00:00
+    condition: time
+  action:
+  - data:
+      entity_id: switch.tavolosalone
+    service: light.turn_off
+- id: '1543868730181'
+  alias: Cale
+  trigger:
+  - entity_id: calendar.test_everything
+    from: 'OFF'
+    platform: state
+    to: 'ON'
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.echo_plus__reinas
+      message: Test message
+    service: media_player.alexa_tts
+- id: '1544208501954'
+  alias: Scale Taverna OFF
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_scaletaverna
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.scaletaverna
+    service: light.turn_off
+- id: '1544356757528'
+  alias: Start Daily Vacuum
+  trigger:
+  - platform: time
+    minutes: /45
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: device_tracker.galaxy_note_fan_edition
+      state: not_home
+    - condition: state
+      entity_id: input_boolean.daily_vacuum_first_run
+      state: 'off'
+    - condition: time
+      after: '11:00:00'
+      before: '21:00:00'
+    - condition: state
+      entity_id: input_boolean.disable_daily_vacuum
+      state: 'off'
+  action:
+  - delay: 00:00:15
+  - service: vacuum.turn_on
+    entity_id: vacuum.xiaomi_vacuum_cleaner
+  - service: homeassistant.turn_on
+    entity_id: input_boolean.daily_vacuum_first_run
+  hide_entity: true
+- id: '1554356757528'
+  alias: Allarme in assenza
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.motion_sensor_divano
+    to: on
+  - platform: state
+    entity_id: binary_sensor.motion_sensor_cabinaarmadio
+    to: on
+  - platform: state
+    entity_id: binary_sensor.door_window_sensor_portacasa
+    to: open
+  - platform: state
+    entity_id: binary_sensor.door_window_sensor_portafinestracucina
+    to: open
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.AllarmeDomotica
+    state: armed_away
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.AllarmeDomotica
+- id: 'Allarme Domotica'
+  alias: Send notification when alarm triggered
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.AllarmeDomotica
+    to: triggered
+  action:
+  - service: notify.notify
+    data:
+      message: Allarme
+      title: Movimento

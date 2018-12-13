@@ -1,0 +1,37 @@
+- cal_id: "thereinas2018@gmail.com"
+  entities:
+  - device_id: test_everything
+    name: Give me everything
+    track: true
+- cal_id: "*****@group.calendar.google.com"
+  entities:
+  - device_id: test_important
+    name: Important Stuff
+    track: true
+    search: "#Important"
+    offset: "!!"
+  - device_id: test_unimportant
+    name: UnImportant Stuff
+    track: true
+    search: "#UnImportant"
+
+- cal_id: '#contacts@group.v.calendar.google.com'
+  entities:
+  - device_id: contacts
+    ignore_availability: true
+    name: Contacts
+    track: true
+
+- cal_id: it.italian#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: festivita_in_italia
+    ignore_availability: true
+    name: "Festivit\xE0 in Italia"
+    track: true
+
+- cal_id: uo5t677ph22vd32nq1indi8tp4@group.calendar.google.com
+  entities:
+  - device_id: rifiuti
+    ignore_availability: true
+    name: Rifiuti
+    track: true

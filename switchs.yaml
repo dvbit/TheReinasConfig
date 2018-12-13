@@ -1,18 +1,25 @@
   - platform: xiaomi_miio
     name: Family Entertainment
-    host: XiaomiPowerStrip2.thereinas.it
-    token: 44ec5992d7cc132c72b3852e4610431b 
+    host: XiaomiPowerStrip2.fritz.box
+    token: 540c4d43640da87bc5c9800a611bb854
     model: zimi.powerstrip.v2
 
 
   - platform: xiaomi_miio
     name: Infrastruttura
-    host: XiaomiPowerStrip1.thereinas.it
-    token: d54a5a9733db09d12a7716406c0abfd7
+    host: XiaomiPowerStrip1.fritz.box
+    token: c63842974b4eba2ba2c051a651655896
     model: zimi.powerstrip.v2
 
   - platform: xiaomi_miio
     name: Altro_Salone
-    host: XiaomiPowerStrip3.thereinas.it
-    token: bbc3820e153a04f134214ab6f8ea3f19
+    host: XiaomiPowerStrip3.fritz.box
+    token: dcccbeb4c8f977c01264b4d11a8b4f26
     model: zimi.powerstrip.v2
+
+  - platform: command_line
+    switches:
+      restart:
+        command_on: "echo 'toorhass' | sudo -S systemctl restart home-assistant@homeassistant.service"
+        command_off: "echo 'toorhass' | sudo -S systemctl restart home-assistant@homeassistant.service"
+

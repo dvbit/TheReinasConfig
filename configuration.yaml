@@ -42,12 +42,31 @@ zone:
     icon: mdi:account-multiple
 #
 
+lovelace:
+  mode: yaml
+
+logger:
+  default: info
+  logs:
+     xeoma: debug    
+#    homeassistant.components.device_tracker: critical
+#    homeassistant.components.camera: critical
 
 # Show links to resources in log and frontend
 #introduction:
 
 # Enables configuration UI
 config:
+
+custom_updater:
+  card_urls:
+    - https://raw.githubusercontent.com/rdehuyss/homeassistant-lovelace-google-calendar-card/master/custom_updater.json
+
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: http://reinasserver.fritz.box:3218
 
 http:
   # Secrets are defined in the file secrets.yaml
@@ -98,39 +117,85 @@ tts:
 
 # Cloud
 cloud:
-
+  alexa:
+    filter:
+      include_entities:
+        - light.tavolosalone_2
+        - light.lucecucina
+        - light.cespuglioingressosalone
+        - light.cespugliodivanosalone
+        - light.idromassaggio 
+        - light.lettogionic
+        - switch.alberodinatale
+        - switch.decorazioninatale
+        - group.lucisalone
+        - group.luciesterno
+    entity_config:
+      light.tavolosalone_2:
+        name: Luce Tavolo Salone
+        description: la luce del Tavolo del Salone
+      light.lucecucina:
+        name: Luce cucina
+        description: la luce della cucina
+      light.cespuglioingressosalone:
+        name: Luce Ingresso
+        description: la luce dell'ingresso
+      light.cespugliodivanosalone:
+        name: Luce Divano
+        description: la luce del divano
+      light.idromassaggio:
+        name: Luce Idro
+        description: la luce dell'idro
+      light.lettogionic:
+        name: Luce Letto GioNic
+        description: la luce del letto Gio Nic
+      switch.alberodinatale:
+        name: albero di natale
+        description: albero di natale
+      switch.decorazioninatale:
+        name: decorazioni natale
+        description: decorazioni di natale
+      group.lucisalone:
+        name: luci salone
+        description: luci salone
+      group.luciesterno:
+        name: luci esterno
+        description: luci esterno
 
 mqtt:
-  broker: ReinasServer.thereinas.it
+  broker: ReinasServer.fritz.box
   port: 1883
   client_id: hass
   keepalive: 60
   discovery: true
   discovery_prefix: homeassistant
 
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+
 camera:
   - platform: xeoma
-    host: http://ReinasServer.Thereinas.it:10090
+    host: http://ReinasServer.fritz.box:10090
     username: !secret XeomaUser
     password: !secret XeomaPassword
     new_version: true
     cameras:
-      - image_name: Ingresso
-        name: Ingresso
-      - image_name: Cucina
-        name: Cucina
-      - image_name: Letto 
-        name: Letto
+      - image_name: salone
+        name: salone
+      - image_name: cucina
+        name: cucina
+      - image_name: letto
+        name: letto
 
   - platform: ffmpeg
     name: Letto_f
-    input: -rtsp_transport tcp -i rtsp://dafangletto.thereinas.it:8554/unicast
+    input: -rtsp_transport tcp -i rtsp://dafangletto.fritz.box:8554/unicast
   - platform: ffmpeg
     name: Ingresso_f
-    input: -rtsp_transport tcp -i rtsp://dafangingresso.thereinas.it:8554/unicast
+    input: -rtsp_transport tcp -i rtsp://dafangsalone.fritz.box:8554/unicast
   - platform: ffmpeg
     name: Cucina_f
-    input: -rtsp_transport tcp -i rtsp://dafangcucina.thereinas.it:8554/unicast
+    input: -rtsp_transport tcp -i rtsp://dafangcucina.fritz.box:8554/unicast
 
   - platform: mqtt
     topic: ReinasHome/TelecameraCucina
@@ -139,18 +204,24 @@ camera:
   - platform: mqtt
     topic: ReinasHome/TelecameraLetto
 
+#  - platform: arlo
+#    ffmpeg_arguments: '-pred 1 -q:v 2'
+
+
 xiaomi_aqara:
   discovery_retry: 15
   gateways:
     - mac: 34:CE:00:82:96:03
       key: !secret AquaraKey1
-    - mac: 7C:49:EB:B1:B5:77
-      key: !secret AquaraKey2
+      host: XiaomiGateway.fritz.box
+#    - mac: 7C:49:EB:B1:B5:77
+#      key: !secret AquaraKey2
+#      host: XiaomiGateway2.fritz.box
 
 remote:
   - platform: harmony
     name: ReinasHarmony
-    host: HarmonyHub.thereinas.it
+    host: HarmonyHub.fritz.box
 
 bmw_connected_drive:
   name:
@@ -170,7 +241,7 @@ evohome:
 
 device_tracker:
   - platform: unifi
-    host: ReinasServer.thereinas.it
+    host: ReinasServer.fritz.box
     username: !secret UnifiUser
     password: !secret UnifiPassword
     verify_ssl: false
@@ -179,39 +250,28 @@ ifttt:
   key: !secret IFTTKEY
 
 recorder:
-  db_url: mysql://hass:hasstoor@localhost/hass
+  db_url: mysql://hass:toorhass@localhost/hassdb
 
 influxdb:
-  host: Reinasserver.thereinas.it
+  host: Reinasserver.fritz.box
   port: 8086
   database: hass
-  username: hass
+  username: !secret influxuser
   password: !secret influxdbpassword
 
 
 vacuum:
   - platform: xiaomi_miio
-    host: rockrobo.thereinas.it
-    token: 7a3864656c797245775a4f514f356850
+    host: rockrobo.fritz.box
+    token: 4f73323044716757674f6b5a57534a61
 
 zwave:
-  usb_path: /dev/ttyACM0
+#  usb_path: /dev/ttyACM0
   usb_path: /dev/zwave
 
 #/etc/udev/rules.d/99-usb-serial.rules 
 #SUBSYSTEM=="tty", ATTRS{idVendor}=="0658", ATTRS{idProduct}=="0200", SYMLINK+="zwave"
 
-
-media_player:
-  - platform: soundtouch
-    host: SoundTouch.TheReinas.it
-    port: 8090
-    name: SoundtouchReinas
-
-  - platform: alexa
-    email: !secret amazonemail
-    password: !secret amazonpassword
-    url: amazon.it
 
 #google_assistant:
 #  project_id: homeassistantintegration-5af5b
@@ -310,9 +370,34 @@ input_text:
   scene_temp_var:
     initial: 'off:1'
 
+input_boolean:
+  daily_vacuum_first_run:
+    name: Daily Vacuum First Run
+    initial: 'off'
+  disable_daily_vacuum:
+    name: Disable Daily Vacuum Automation
+    initial: 'off'
+  disable_dustbin_notification:
+    name: Disable Dustbin Notification
+    initial: 'off'
+
+input_select:
+  vacuum_room:
+    name: Choose a room to clean
+    options:
+      - Select Input
+      - bedroom
+      - guest room
+      - dining room
+      - kitchen
+      - living room
+
+google:
+  client_id: !secret gcalclientid
+  client_secret: !secret gcalsecret
 
 hass_opensprinkler:
-  host: opensprinkler.thereinas.it
+  host: opensprinkler.fritz.box
   password: e1d8b87798de200a9feafd9c7d78d2bb
 
 #custom-ui
@@ -333,9 +418,33 @@ frontend:
 weather:
   - platform: yweather
 
+#- platform: mijnafvalwijzer
+#  postcode: !secret afvalwijzer_postcode
+#  huisnummer: !secret afvalwijzer_huisnummer
+#  toevoeging: !secret afvalwijzer_toevoeging
+
+alarm_control_panel:
+  - platform: manual
+    name: AllarmeDomotica
+#    code: 1234
+    pending_time: 30
+    delay_time: 20
+    trigger_time: 4
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      pending_time: 0
+      delay_time: 0
+
+  
+
+
 group: !include groups.yaml
 light: !include lights.yaml
 switch: !include switchs.yaml
 script: !include scripts.yaml
 automation: !include automations.yaml
 sensor: !include sensors.yaml
+notify: !include notify.yaml
+intent_script: !include intents.yaml
+media_player: !include media_player.yaml

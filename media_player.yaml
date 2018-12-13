@@ -1,0 +1,10 @@
+  - platform: soundtouch
+    host: SoundTouch.fritz.box
+    port: 8090
+    name: SoundtouchReinas
+
+  - platform: alexa
+    email: !secret amazonemail
+    password: !secret amazonpassword
+    url: amazon.it
+

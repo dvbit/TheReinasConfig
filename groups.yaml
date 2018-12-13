@@ -105,6 +105,8 @@ Energia_view:
     - sensor.Lavastoviglie
     - sensor.Lavatrice
     - sensor.Asciugatrice
+    - sensor.humidity_158d00016d0abc
+    - sensor.temperature_158d00016d0abc
 
 ############################################################################################
 #  Comfort
@@ -206,37 +208,40 @@ Esterno:
   entities:
     - group.LuciEsterno
 
-Salone:
-  name: Salone
+Luci Salone:
+  name: Luci Salone
   entities: 
     - light.cespugliodivanosalone
     - light.cespuglioingressosalone
     - light.tavolosalone_2
-    - sensor.illumination_tavolosalone
-    - binary_sensor.motion_sensor_tavolosalone
-    - binary_sensor.door_window_sensor_portafinestrasalone
-    - binary_sensor.door_window_sensor_portafinestracucina
-    - binary_sensor.door_window_sensor_portataverna
-    - binary_sensor.door_window_sensor_portacasa
-    - climate.salone
-    - camera.saloneingresso
-    - group.TelecameraIngresso
-    - media_player.echo_plus__reinas
+#    - sensor.illumination_tavolosalone
+#    - binary_sensor.motion_sensor_tavolosalone
+#    - binary_sensor.door_window_sensor_portafinestrasalone
+#    - binary_sensor.door_window_sensor_portafinestracucina
+#    - binary_sensor.door_window_sensor_portataverna
+#    - binary_sensor.door_window_sensor_portacasa
+#    - climate.salone
+#    - camera.saloneingresso
+#    - group.TelecameraIngresso
+#    - media_player.echo_plus__reinas
 
 Salone_view:
-  name: Salone
+  name: Luci Salone
   view: yes
   entities:
-    - group.Salone
+    - group.Luci_Salone
 
 LuciAle:
   name: Luci Ale
   entities:
-    - light.ledlettoale
-    - light.FarettoAlessandroTV
-    - light.FarettoAlessandroTV
+    - light.lettoale
+    - light.armadiale
+    - light.lampadaale
+    - light.lampadaale_ambient_light
+    - light.sotto_letto_ale
 
 Ale:
+  name: Luci Ale
   view: yes
   entities:
     - group.LuciAle
@@ -248,6 +253,7 @@ LuciGiardino:
     - light.giardinolontano
 
 Giardino:
+  name: Luci Giardino
   view: yes
   entities:
     - group.LuciGiardino

@@ -1,4 +1,17 @@
 title: Casa
+
+resources:
+  - url: /local/custom_ui/weather-card.js
+    type: js
+  - url: /local/vertical-stack-in-card.js?v=0.0.8
+    type: js
+  - url: /local/tracker-card.js?v=0
+    type: js
+  - url: https://unpkg.com/moment@2.22.2/moment.js
+    type: js
+  - url: /local/custom_ui/calendar-card.js
+    type: module
+
 views:
 
 ########################################################################################
@@ -10,7 +23,7 @@ views:
     cards:
       - type: vertical-stack
         cards:
-          - type: entity-button
+          - type: light
             entity: light.lucisalone
             tap_action: toggle
 ################
@@ -21,11 +34,14 @@ views:
               - type: entity-button
                 entity: light.cespuglioingressosalone
                 tap_action: toggle
-              - type: entity-button
+              - type: light
                 entity: light.cespugliodivanosalone
                 tap_action: toggle
               - type: entity-button
                 entity: light.tavolosalone_2
+                tap_action: toggle
+              - type: light
+                entity: light.tavolosalone
                 tap_action: toggle
 ################
 # Cucina
@@ -35,14 +51,11 @@ views:
             tap_action: toggle
           - type: horizontal-stack
             cards:
-             - type: entity-button
+             - type: light
                entity: light.lucecucina
                tap_action: toggle
-             - type: entity-button
-               entity: light.lucecucina
-               tap_action: toggle
-             - type: entity-button
-               entity: light.lucecucina
+             - type: light
+               entity: light.cucina
                tap_action: toggle
 ################
 # GioNic
@@ -52,11 +65,11 @@ views:
             tap_action: toggle
           - type: horizontal-stack
             cards:
-             - type: entity-button
+             - type: light
                entity: light.gionic
                tap_action: toggle
              - type: entity-button
-               entity: light.lettogionic_2
+               entity: light.lettogionic
                tap_action: toggle
              - type: entity-button
                entity: light.plug_lampadasale
@@ -109,34 +122,70 @@ views:
   - title: Energia
     panel: true
     cards:
-      - type: horizontal-stack
+      - type: vertical-stack
         cards:
-         - type: gauge
-           title: Scambio
-           unit_of_measurement: W
-           min: -3000
-           max: 3000
-           severity:
-             green: -3000
-             yellow: 0
-             red: 1500
-           entity: sensor.scambio_casa
-         - type: gauge
-           title: Consumo
-           unit_of_measurement: W
-           min: 0
-           max: 6000
-           severity:
-             green: 0
-             yellow: 1500
-             red: 3000
-           entity: sensor.consumo_casa
-         - type: gauge
-           title: Produzione
-           unit_of_measurement: W
-           min: 0
-           max: 3000
-           entity: sensor.produzione_casa
+        - type: horizontal-stack
+          cards:
+           - type: gauge
+             title: Scambio
+             unit_of_measurement: W
+             min: -3000
+             max: 3000
+             severity:
+               green: -3000
+               yellow: 0
+               red: 1500
+             entity: sensor.scambio_casa
+           - type: gauge
+             title: Consumo
+             unit_of_measurement: W
+             min: 0
+             max: 6000
+             severity:
+               green: 0
+               yellow: 1500
+               red: 3000
+             entity: sensor.consumo_casa
+           - type: gauge
+             title: Produzione
+             unit_of_measurement: W
+             min: 0
+             max: 3000
+             entity: sensor.produzione_casa
+        - type: horizontal-stack
+          cards:
+           - type: gauge
+             title: Piastra
+             unit_of_measurement: W
+             min: 0
+             max: 6000
+             entity: sensor.piastra
+           - type: gauge
+             title: Forno
+             unit_of_measurement: W
+             min: 0
+             max: 6000
+             entity: sensor.forno
+           - type: gauge
+             title: Lavastoviglie
+             unit_of_measurement: W
+             min: 0
+             max: 3000
+             entity: sensor.lavastoviglie
+        - type: horizontal-stack
+          cards:
+           - type: gauge
+             title: Lavatrice
+             unit_of_measurement: W
+             min: 0
+             max: 3000
+             entity: sensor.lavatrice
+           - type: gauge
+             title: Asciugatrice
+             unit_of_measurement: W
+             min: 0
+             max: 3000
+             entity: sensor.asciugatrice
 
 ########################################################################################
 # Confort
@@ -149,8 +198,14 @@ views:
         cards:
           - type: horizontal-stack
             cards:
-              - type: weather-forecast
-                entity: weather.yweather
+              - type: "custom:weather-card"
+                entity_weather: weather.yweather
+                entity_sun: sun.sun    
+#              - type: weather-forecast
+#                entity: weather.yweather
+              - type: iframe
+                name: Sat Italia
+                url: https://embed.windy.com/embed2.html
           - type: horizontal-stack
             cards:
                 - type: thermostat
@@ -177,3 +232,274 @@ views:
                   entity: climate.letto_taverna
                 - type: thermostat
                   entity: climate.salone_taverna
+
+########################################################################################
+# House Management
+########################################################################################
+
+  - title: House Economy
+    panel: true
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: iframe
+                name: Banca
+                url: https://clienti.chebanca.it/
+              - type: iframe
+                name: Acqua
+                url: https://my.acea.it/myacea/it/login 
+          - type: horizontal-stack
+            cards:
+              - type: iframe
+                name: Gas
+                url: https://sportellonline.linea-piu.it/Login
+              - type: iframe
+                name: Luce
+                url: https://www.enel.it/it/login
+
+
+########################################################################################
+# Cale
+########################################################################################
+  - title: Calendario
+    panel: true
+    cards:
+      - type: "custom:calendar-card"
+        entities:
+          - calendar.thereinas2018
+          - calendar.rifiuti
+      - type: "custom:calendar-card"
+        name: "Birthdays"
+        showProgressBar: false
+        numberOfDays: 14
+        entities:
+          - calendar.contacts
+       
+
+########################################################################################
+# Elettrodomestici
+########################################################################################
+
+  - title: Elettrodomestici
+    panel: true
+    cards:
+        - type: picture-elements
+          title: Vacuum
+          image: '/local/vacuum1.jpg'
+          elements:
+            - type: icon
+              icon: mdi:bell-ring
+              tap_action: call-service
+              entity: vacuum.xiaomi_vacuum_cleaner
+              service: vacuum.locate
+              style:
+               top: 90%
+               left: 80%
+               color: '#3090C7'
+            - type: icon
+              icon: mdi:crosshairs
+              tap_action: call-service
+              entity: vacuum.xiaomi_vacuum_cleaner
+              service: vacuum.clean_spot
+              style:
+               top: 90%
+               left: 65%
+               color: '#3090C7'
+            - type: icon
+              tap_action: call-service
+              icon: mdi:home
+              entity: vacuum.xiaomi_vacuum_cleaner
+              service: vacuum.return_to_base
+              style:
+               top: 90%
+               left: 50%
+               color: '#3090C7'
+            - type: icon
+              icon: mdi:stop
+              tap_action: call-service
+              entity: vacuum.xiaomi_vacuum_cleaner
+              service: vacuum.stop
+              style:
+               top: 90%
+               left: 35%
+               color: '#3090C7'
+            - type: icon
+              icon: mdi:play
+              tap_action: call-service
+              entity: vacuum.xiaomi_vacuum_cleaner
+              service: vacuum.start
+              style:
+               top: 90%
+               left: 20%
+               color: '#3090C7'
+            - type: state-label
+              entity: sensor.vacuum_operation
+              style:
+               top: 10%
+               left: 1%
+               color: rgb(255, 255, 255)
+               transform: translate(0%,-50%)
+               pointer-events: none
+               font-family: Trebuchet MS
+               font-size: 90%
+               font-weight: bold
+               border-color: rgb(34, 154, 210)
+               background-color: '#3090C7'
+               border-radius: 6px
+            - type: state-label
+              entity: sensor.vacuum_accessories
+              style:
+               top: 10%
+               right: 1%
+               color: rgb(255, 255, 255)
+               transform: translate(0%,-50%)
+               pointer-events: none
+               font-family: Trebuchet MS
+               font-size: 90%
+               font-weight: bold
+               border-color: rgb(34, 154, 210)
+               background-color: '#3090C7'
+               border-radius: 6px
+            - type: state-label
+              tap_action: more-info
+              entity: vacuum.xiaomi_vacuum_cleaner
+              style:
+               top: 14%
+               right: 38%
+               color: rgb(255, 255, 255)
+               transform: translate(0%,-50%)
+               font-family: Trebuchet MS
+               font-size: 150%
+               font-weight: bold
+               border-color: rgb(34, 154, 210)
+               border-radius: 6px
+               background-color: '#cccccc'
+            - type: state-label
+              entity: sensor.vacuum_cleanmainbrush
+              style:
+                top: 35%
+                right: 1%
+                color: '#ffffff'
+                transform: translate(0%,-50%)
+                pointer-events: none
+                font-family: Trebuchet MS
+                font-size: 76%
+                font-weight: bold
+                border-right-style: solid
+                border-color: rgb(34, 154, 210)
+            - type: state-label
+              entity: sensor.vacuum_cleansidebrush
+              style:
+                top: 45%
+                right: 1%
+                color: '#ffffff'
+                transform: translate(0%,-50%)
+                pointer-events: none
+                font-family: Trebuchet MS
+                font-size: 76%
+                font-weight: bold
+                border-right-style: solid
+                border-color: rgb(34, 154, 210)
+            - type: state-label
+              entity: sensor.vacuum_cleanfilter
+              style:
+                top: 55%
+                right: 1%
+                color: '#ffffff'
+                transform: translate(0%,-50%)
+                pointer-events: none
+                font-family: Trebuchet MS
+                font-size: 76%
+                font-weight: bold
+                border-right-style: solid
+                border-color: rgb(34, 154, 210)
+                opacity: 0.8
+            - type: state-label
+              entity: sensor.vacuum_sensordirtyleft
+              style:
+                top: 65%
+                right: 1%
+                color: '#ffffff'
+                transform: translate(0%,-50%)
+                pointer-events: none
+                font-family: Trebuchet MS
+                font-size: 76%
+                font-weight: bold
+                border-right-style: solid
+                border-color: rgb(34, 154, 210)
+            - type: state-label
+              entity: sensor.vacuum_status
+              style:
+                top: 40%
+                left: 1%
+                color: '#ffffff'
+                transform: translate(0%,-50%)
+                pointer-events: none
+                font-family: Trebuchet MS
+                font-size: 80%
+                font-weight: bold
+                border-left-style: solid
+                border-color: '#3090C7'
+            - type: state-label
+              entity: sensor.vacuum_battery
+              style:
+                top: 50%
+                left: 1%
+                color: '#ffffff'
+                transform: translate(0%,-50%)
+                pointer-events: none
+                font-family: Trebuchet MS
+                font-size: 80%
+                font-weight: bold
+                border-left-style: solid
+                border-color: rgb(34, 154, 210)
+            - type: state-label
+              entity: sensor.vacuum_fan_speed
+              style:
+                top: 60%
+                left: 1%
+                color: '#ffffff'
+                transform: translate(0%,-50%)
+                pointer-events: none
+                font-family: Trebuchet MS
+                font-size: 80%
+                font-weight: bold
+                border-left-style: solid
+                border-color: rgb(34, 154, 210)
+            - type: state-label
+              entity: sensor.vacuum_cleaned_area
+              prefix: "Area:"
+              style:
+                top: 79%
+                left: 31%
+                color: '#84a6ba'
+                transform: translate(0%,-50%)
+                pointer-events: none
+                font-family: Trebuchet MS
+                font-size: 80%
+                font-weight: bold
+            - type: state-label
+              entity: sensor.vacuum_cleaning_time
+              prefix: "Time:"
+              style:
+                top: 79%
+                left: 51%
+                color: '#84a6ba'
+                transform: translate(0%,-50%)
+                pointer-events: none
+                font-family: Trebuchet MS
+                font-size: 80%
+                font-weight: bold
+        - type: entities
+          entities:
+          - entity: input_select.vacuum_room
+        - type: glance
+          columns: 2
+          entities:
+          - entity: input_boolean.disable_dustbin_notification
+            name: Disable Notification
+          - entity: input_boolean.disable_daily_vacuum
+            name: Disable Daily Cleanup
+

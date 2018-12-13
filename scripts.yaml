@@ -1,42 +1,42 @@
-'1527317105052':
-  alias: Accendi_su_sky
+accendi_sky:
+  alias: Accendi Sky
   sequence:
   - data:
       activity: '32437309'
       entity_id: remote.reinasharmony
     service: remote.turn_on
-'1527317164198':
-  alias: Spegni_TV
+spegni_tv:
+  alias: Spegni TV
   sequence:
   - data:
       activity: '-1'
       entity_id: remote.reinasharmony
     service: remote.turn_off
-'1527317254378':
-  alias: Accendi_su_Fire
+ccendi_fire:
+  alias: Accendi Fire
   sequence:
   - data:
       activity: '32455770'
       entity_id: remote.reinasharmony
     service: remote.turn_on
-'1527317419136':
-  alias: Metti_in_pausa_TV
+metti_in_pausa:
+  alias: Metti in pausa
   sequence:
   - data:
       command: pause
       device: '22578664'
       entity_id: remote.reinasharmony
     service: remote.send_command
-'1527317562508':
-  alias: Metti_in_mute
+metti_in_mute:
+  alias: Metti in mute
   sequence:
   - data:
       command: mute
       device: '53039878'
       entity_id: remote.reinasharmony
     service: remote.send_command
-'1527318474690':
-  alias: Alza_Volume
+alza_volume:
+  alias: Alza Volume
   sequence:
   - data:
       command: VolumeUp
@@ -44,8 +44,8 @@
       entity_id: remote.reinasharmony
       num_repeats: '5'
     service: remote.send_command
-'1527318522444':
-  alias: Abbassa_Volume
+abbassa_volume:
+  alias: Abbassa Volume
   sequence:
   - data:
       command: VolumeDown
@@ -53,8 +53,8 @@
       entity_id: remote.reinasharmony
       num_repeats: '5'
     service: remote.send_command
-'1527319181708':
-  alias: Blu_Gradualmente_Salone
+blu_gradualmente_salone:
+  alias: Blu Gradualmente Salone
   sequence:
   - data:
       entity_id: switch.fibaro_system_fgs221_double_relay_switch_2x15kw_switch_3
@@ -65,7 +65,7 @@
       entity_id: light.salone
       transition: 1
     service: light.turn_on
-'1527322048354':
+accendi_cartoni:
   alias: Accendi_Cartoni
   sequence:
   - data:
@@ -97,7 +97,7 @@
       device: '22578664'
       entity_id: remote.reinasharmony
     service: remote.send_command
-'1527323082717':
+vedi_cartoni:
   alias: Vedi_Cartoni
   sequence:
   - data:
@@ -125,15 +125,15 @@
       device: '22578664'
       entity_id: remote.reinasharmony
     service: remote.send_command
-'1527350666611':
-  alias: Spegni_Gradualmente_Cucina
+spegni_gradualmente_cucina:
+  alias: Spegni Gradualmente Cucina
   sequence:
   - data:
       entity_id: light.Cucina
       transition: 1
     service: light.turn_off
-'1527350757895':
-  alias: Accendi_Gradualmente_Cucina
+accendi_gradualmente_cucina:
+  alias: Accendi Gradualmente Cucina
   sequence:
   - data:
       brightness: 0
@@ -147,15 +147,15 @@
       entity_id: light.Cucina
       transition: 1
     service: light.turn_on
-'1527352896646':
-  alias: Spegni_Gradualmente_Salone
+spegni_gradualmente_salone:
+  alias: Spegni Gradualmente Salone
   sequence:
   - data:
       entity_id: light.salone
       transition: 1
     service: light.turn_off
-'1527352900987':
-  alias: Accendi_Gradualmente_Salone
+accendi_gradualmente_salone:
+  alias: Accendi Gradualmente Salone
   sequence:
   - data:
       brightness: 255
@@ -163,7 +163,7 @@
       entity_id: light.salone
       transition: 1
     service: light.turn_on
-'1527433687310':
+no_menu_sky:
   alias: No Menu SKY
   sequence:
   - data:
@@ -171,7 +171,7 @@
       device: '22578664'
       entity_id: remote.reinasharmony
     service: remote.send_command
-'1527433706708':
+sky_exit:
   alias: Sky Exit
   sequence:
   - data:
@@ -179,19 +179,19 @@
       device: '22578664'
       entity_id: remote.reinasharmony
     service: remote.send_command
-'1527433728802':
-  alias: Sky Guide
+guida_sky:
+  alias: Guida Sky
   sequence:
   - data:
       command: Guide
       device: '22578664'
       entity_id: remote.reinasharmony
     service: remote.send_command
-'1541202190917':
+toggle_luci_esterno:
   alias: Toggle Luci Esterno
   sequence:
     service: light.toggle
-    data: 
+    data:
       entity_id: light.luciesterno
 wakeup_bedroom:
   alias: Wakeup lighting, smooth transition
@@ -237,4 +237,81 @@ wakeup_bedroom:
       kelvin: 5000
       transition: '{{ (( states.input_number.wakeup_duration.state | float * 60 /
         4 )| round ) | int }}'
-
+'1544368949171':
+  alias: New Script
+  sequence:
+  - data:
+      message: deuh@
+      title: fefwe
+    service: notify.notify
+vacuum_bedroom:
+  alias: Vacuum Bedroom
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 17500
+        - 18000
+        - 21800
+        - 21000
+        - 1
+vacuum_dining_room:
+  alias: Vacuum Dining Room
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 22750
+        - 23500
+        - 26000
+        - 26300
+        - 1
+vacuum_kitchen:
+  alias: Vacuum Kitchen
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 18800
+        - 21500
+        - 25500
+        - 27500
+        - 1
+vacuum_living_room:
+  alias: Vacuum Living Room
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 19500
+        - 21180
+        - 26000
+        - 26300
+        - 1
+vacuum_guestroom:
+  alias: Vacuum Guestroom
+  sequence:
+  - service: vacuum.send_command
+    data:
+      entity_id: vacuum.xiaomi_vacuum_cleaner
+      command: app_zoned_clean
+      params:
+      - - 17500
+        - 18000
+        - 21800
+        - 21000
+        - 1
+'1544650658654':
+  alias: Arma Allarme Domotica
+  sequence:
+  - data:
+      entity_id: AllarmeDomotica
+    service: alarm_control_panel.alarm_arm_away
