@@ -1,4 +1,4 @@
-title: Casa
+titlg: Casa
 
 resources:
   - url: /local/custom_ui/weather-card.js
@@ -9,7 +9,17 @@ resources:
     type: js
   - url: https://unpkg.com/moment@2.22.2/moment.js
     type: js
-  - url: /local/custom_ui/calendar-card.js
+  - url: /local/calendar-card.js?v=1.0.1
+    type: module
+  - url: /local/power-wheel-card.js?v=1
+    type: module
+  - url: /local/bignumber-card.js
+    type: js
+  - url: /local/mini-graph-card-bundle.js?v=0.1.0
+    type: module
+  - url: /local/tracker-card.js?v=0
+    type: js
+  - url: /local/custom-lovelace/swipe-card/swipe-card.js?v=1.1.0
     type: module
 
 views:
@@ -23,8 +33,8 @@ views:
     cards:
       - type: vertical-stack
         cards:
-          - type: light
-            entity: light.lucisalone
+          - type: entity-button
+            entity: light.luci_salone
             tap_action: toggle
 ################
 # Salone
@@ -32,59 +42,59 @@ views:
           - type: horizontal-stack
             cards:
               - type: entity-button
-                entity: light.cespuglioingressosalone
-                tap_action: toggle
-              - type: light
-                entity: light.cespugliodivanosalone
+                entity: light.ingresso
                 tap_action: toggle
               - type: entity-button
-                entity: light.tavolosalone_2
+                entity: light.divano
+                tap_action: toggle
+              - type: entity-button
+                entity: light.tavolo_salone
                 tap_action: toggle
               - type: light
-                entity: light.tavolosalone
+                entity: light.coloritavolosalone
                 tap_action: toggle
 ################
 # Cucina
 ################
           - type: entity-button
-            entity: light.lucisalone
+            entity: light.luci_cucina
             tap_action: toggle
           - type: horizontal-stack
             cards:
              - type: light
-               entity: light.lucecucina
+               entity: light.cucina
                tap_action: toggle
              - type: light
-               entity: light.cucina
+               entity: light.coloricucina
                tap_action: toggle
 ################
 # GioNic
 ################
           - type: entity-button
-            entity: light.lucigionic
+            entity: light.luci_gionic
             tap_action: toggle
           - type: horizontal-stack
             cards:
              - type: light
-               entity: light.gionic
+               entity: light.letto_gionic
                tap_action: toggle
              - type: entity-button
-               entity: light.lettogionic
+               entity: light.idro_gionic
                tap_action: toggle
              - type: entity-button
-               entity: light.plug_lampadasale
+               entity: light.lampada_sale
                tap_action: toggle
              - type: entity-button
-               entity: light.idromassaggio
+               entity: light.interno_cabina_gionic
                tap_action: toggle
              - type: entity-button
-               entity: light.esternocabina
+               entity: light.esterno_cabina_gionic
                tap_action: toggle
 ################
 # Esterno Portico
 ################
           - type: entity-button
-            entity: light.luciesterno
+            entity: light.luci_esterno
             tap_action: toggle
           - type: horizontal-stack
             cards:
@@ -104,15 +114,15 @@ views:
 # Esterno Giardino
 ################
           - type: entity-button
-            entity: light.lucigiardino
+            entity: light.luci_giardino
             tap_action: toggle
           - type: horizontal-stack
             cards:
              - type: entity-button
-               entity: light.giardinovicino
+               entity: light.giardino_vicino
                tap_action: toggle
              - type: entity-button
-               entity: light.giardinolontano
+               entity: light.giardino_lontano
                tap_action: toggle
 
 ########################################################################################
@@ -124,6 +134,10 @@ views:
     cards:
       - type: vertical-stack
         cards:
+        - type: "custom:power-wheel-card"
+          solar_power_entity: sensor.produzione_casa
+          grid_power_entity: sensor.scambio_casa
+          color_icons: true
         - type: horizontal-stack
           cards:
            - type: gauge
@@ -186,6 +200,27 @@ views:
              min: 0
              max: 3000
              entity: sensor.asciugatrice
+        - type: horizontal-stack
+          cards:
+           - type: gauge
+             title: infrastruttura
+             unit_of_measurement: W
+             min: 0
+             max: 1500
+             entity: sensor.consumo_infrastruttura
+           - type: gauge
+             title: infrastruttura
+             unit_of_measurement: W
+             min: 0
+             max: 1500
+             entity: sensor.consumo_family_entertainment
+           - type: gauge
+             title: infrastruttura
+             unit_of_measurement: W
+             min: 0
+             max: 1500
+             entity: sensor.consumo_altro_salone
+
 
 ########################################################################################
 # Confort
@@ -208,30 +243,30 @@ views:
                 url: https://embed.windy.com/embed2.html
           - type: horizontal-stack
             cards:
-                - type: thermostat
-                  entity: climate.salone
-                - type: thermostat
-                  entity: climate.gio_e_nic
-                - type: thermostat
-                  entity: climate.bagno_salone
+              - type: thermostat
+                entity: climate.salone
+              - type: thermostat
+                entity: climate.gio_e_nic
+              - type: thermostat
+                entity: climate.bagno_salone
           - type: horizontal-stack
             cards:
-                - type: thermostat
-                  entity: climate.bea
-                - type: thermostat
-                  entity: climate.ale
-                - type: thermostat
-                  entity: climate.bagno_su
+              - type: thermostat
+                entity: climate.bea
+              - type: thermostat
+                entity: climate.ale
+              - type: thermostat
+                entity: climate.bagno_su
           - type: horizontal-stack
             cards:
-                - type: thermostat
-                  entity: climate.salone_taverna
-                - type: thermostat
-                  entity: climate.bagno_taverna
-                - type: thermostat
-                  entity: climate.letto_taverna
-                - type: thermostat
-                  entity: climate.salone_taverna
+              - type: thermostat
+                entity: climate.salone_taverna
+              - type: thermostat
+                entity: climate.bagno_taverna
+              - type: thermostat
+                entity: climate.letto_taverna
+              - type: thermostat
+                entity: climate.salone_taverna
 
 ########################################################################################
 # House Management
@@ -502,4 +537,97 @@ views:
             name: Disable Notification
           - entity: input_boolean.disable_daily_vacuum
             name: Disable Daily Cleanup
+
+#############################################################################
+# Altro
+#############################################################################
+
+
+  - title: Altro
+    panel: true
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:bignumber-card
+            title: Temperatura Ale
+            entity: sensor.temperature_ale
+            scale: 30px
+            from: bottom
+            min: 0
+            max: 40
+            severity:
+              - value: 21
+                style: 'var(--label-badge-green)'
+              - value: 18
+                style: 'var(--label-badge-yellow)'
+              - value: 10
+                style: 'var(--label-badge-red)'
+          - type: custom:bignumber-card
+            title: Umidità Ale
+            entity: sensor.humidity_ale
+            scale: 30px
+            from: bottom
+            min: 0
+            max: 100
+            severity:
+              - value: 70
+                style: 'var(--label-badge-green)'
+              - value: 90
+                style: 'var(--label-badge-yellow)'
+              - value: 100
+                style: 'var(--label-badge-red)'
+          - type: custom:mini-graph-card
+            entity: sensor.humidity_ale
+            height: 100
+            line_width: 4
+            font_size: 75
+            color: '#3498db'
+          - type: custom:mini-graph-card
+            entity: sensor.temperature_ale
+            height: 100
+            line_width: 4
+            font_size: 75
+            color: '#3498db'
+
+#############################################################################
+# Tracker
+#############################################################################
+
+  - title: Tracker
+    panel: true
+    cards:
+      - type: custom:tracker-card
+        title:
+        trackers:
+          - sensor.custom_card_tracker
+          - sensor.custom_component_tracker
+
+#############################################################################
+# swipe
+#############################################################################
+
+
+
+  - title: swiper
+    cards:
+      - type: custom:swipe-card
+        parameters:
+          spaceBetween: 8
+          scrollbar:
+            hide: false
+            draggable: true
+            snapOnRelease: true
+        cards:
+          - type: entity-button
+            entity: light.esternoale
+            tap_action: toggle
+          - type: entity-button
+            entity: light.esternocancelletto
+            tap_action: toggle
+          - type: entity-button
+            entity: light.esternocucina
+            tap_action: toggle
+          - type: entity-button
+            entity: light.esternosalone
+            tap_action: toggle
 

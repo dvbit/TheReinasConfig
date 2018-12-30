@@ -1,21 +1,21 @@
-- alias: Accendi Luci Esterne al tramonto
+- id: 8676479df9d247669ef12e673133c8a8
+  alias: Luci Esterne ON tramonto
   trigger:
+  - event: sunset
     platform: sun
-    event: sunset
   condition:
   action:
+  - entity_id: group.LuciEsterno
     service: homeassistant.turn_on
-    entity_id: group.LuciEsterno
-  id: 8676479df9d247669ef12e673133c8a8
-- alias: Spegni Luci Esterne all'alba
+- id: 8676479ef9d247669ef12e673133c8a8
+  alias: Luci Esterne OFF alba
   trigger:
+  - event: sunrise
     platform: sun
-    event: sunrise
   condition:
   action:
+  - entity_id: group.LuciEsterno
     service: homeassistant.turn_off
-    entity_id: group.LuciEsterno
-  id: 8676479ef9d247669ef12e673133c8a8
 - alias: WakeUp Light Bedroom
   trigger:
     platform: template
@@ -43,22 +43,16 @@
     service: script.wakeup_bedroom
   id: 22a2b5b47dda48a48bf111d0456675bd
 - id: '1541267648714'
-  alias: AccendiLuceAleSePresenzaeBuio
+  alias: SottoLettoAle On
   trigger:
-  - entity_id: binary_sensor.motion_sensor_158d00024e7487
-    from: 'OFF'
+  - entity_id: binary_sensor.motion_sensor_sottolettoale
+    from: 'off'
     platform: state
-    to: 'ON'
-  condition:
-  - below: '1000'
-    condition: numeric_state
-    entity_id: sensor.illumination_158d00024e7487
+    to: 'on'
+  condition: []
   action:
   - data:
-      light.FarettoAlessandroTV:
-    service: light.turn_on
-  - data:
-      light.FarettoAlessandroLetto:
+      entity_id: light.sotto_letto_ale
     service: light.turn_on
 - id: '1541894435257'
   alias: Cucina ON
@@ -110,7 +104,7 @@
     platform: state
     to: 'on'
   condition:
-  - below: '500'
+  - below: '400'
     condition: numeric_state
     entity_id: sensor.illumination_tavolosalone
   action:
@@ -124,7 +118,10 @@
     from: 'off'
     platform: state
     to: 'on'
-  condition: []
+  condition:
+  - below: '5'
+    condition: numeric_state
+    entity_id: sensor.fibaro_system_fgms001_motion_sensor_luminance
   action:
   - data:
       entity_id: switch.cespuglioingressosalone
@@ -150,9 +147,9 @@
   - data: {}
     service: script.blu_gradualmente_salone
 - id: '1542222080214'
-  alias: Accendi Led Letto Alessandro
+  alias: Led Letto Alessandro ON
   trigger:
-  - entity_id: binary_sensor.motion_sensor_sottolettto
+  - entity_id: binary_sensor.motion_sensor_sottoletto
     from: 'off'
     platform: state
     to: 'on'
@@ -162,7 +159,7 @@
       entity_id: light.sotto_letto_ale
     service: light.turn_on
 - id: '1542222429134'
-  alias: Spegni Led Letto Alessandro
+  alias: Led Letto Alessandro OFF
   trigger:
   - entity_id: binary_sensor.motion_sensor_sottolettto
     from: 'on'
@@ -187,12 +184,12 @@
       entity_id: switch.lucecucina
     service: switch.turn_off
 - id: '1542310620823'
-  alias: Ingresso off
+  alias: Ingresso OFF
   trigger:
   - entity_id: binary_sensor.sensor_ingresso
-    from: 'ON'
+    from: 'on'
     platform: state
-    to: 'OFF'
+    to: 'off'
   condition: []
   action:
   - data:
@@ -201,12 +198,12 @@
 - id: '1542375912752'
   alias: Ale on
   trigger:
-  - entity_id: binary_sensor.motion_sensor_alessandro
+  - entity_id: binary_sensor.motion_sensor_ale
     from: 'off'
     platform: state
     to: 'on'
   condition:
-  - below: '50'
+  - below: '40'
     condition: numeric_state
     entity_id: sensor.illumination_ale
   action:
@@ -232,9 +229,9 @@
       entity_id: light.lettoale
     service: light.turn_off
 - id: '1542395170608'
-  alias: GioNic 1 ON
+  alias: GioNic ON
   trigger:
-  - entity_id: binary_sensor.motion_sensor_158d00015d4d01
+  - entity_id: binary_sensor.motion_sensor_lettogionic
     from: 'off'
     platform: state
     to: 'on'
@@ -244,9 +241,9 @@
       entity_id: switch.lettogionic
     service: switch.turn_on
 - id: '1542395285346'
-  alias: GioNic 1 Off
+  alias: GioNic Off
   trigger:
-  - entity_id: binary_sensor.motion_sensor_gionic1
+  - entity_id: binary_sensor.motion_sensor_lettogionic
     from: 'on'
     platform: state
     to: 'off'
@@ -291,7 +288,7 @@
       entity_id: light.lavabo
     service: light.turn_on
 - id: '1543769237079'
-  alias: Spegni Albero e decorazioni con allarme
+  alias: Albero e decorazioni OFF quando allarme ON
   trigger:
   - entity_id: binary_sensor.allarmeinseritocasa
     from: 'off'
@@ -306,7 +303,7 @@
       entity_id: switch.decorazioninatale
     service: switch.turn_off
 - id: '1543769403642'
-  alias: Accendi Decorazioni Natale al Tramonto
+  alias: Decorazioni Natale ON Tramonto
   trigger:
   - event: sunset
     offset: '30'
@@ -318,33 +315,26 @@
     service: switch.turn_on
 - id: '1543773994051'
   alias: Ricorda Inserimento Allarme
-  trigger:
-  - entity_id: binary_sensor.door_window_sensor_portafinestratavologiardino
-    for: '5'
-    from: 'on'
-    platform: state
-    to: 'off'
+  trigger: []
   condition:
-  - condition: state
-    entity_id: binary_sensor.door_window_sensor_portacasa
-    state: 'OFF'
-  - condition: state
-    entity_id: binary_sensor.door_window_sensor_portafinestracucina
-    state: 'OFF'
-  - condition: state
-    entity_id: binary_sensor.door_window_sensor_portafinestrasalone
-    state: 'OFF'
-  - condition: state
-    entity_id: binary_sensor.door_window_sensor_portafinestratavologiardino
-    state: 'OFF'
-  - condition: state
-    entity_id: binary_sensor.allarmeinseritocasa
-    state: 'off'
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.door_window_sensor_portafinestracucina
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.door_window_sensor_portafinestrasalone
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.door_window_sensor_portafinestratavologiardino
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.door_window_sensor_portacasa
+      state: 'off'
   action:
   - data:
       entity_id: media_player.echo_plus__reinas
-      message: Ricordati di aver inserire l'allarme. Dopo controlla se Giovanna sta
-        bene
+      message: 'Attenzione : ricorda di inserire l allarme'
     service: media_player.alexa_tts
 - id: '1543844777759'
   alias: Salone OFF
@@ -418,36 +408,139 @@
   - service: homeassistant.turn_on
     entity_id: input_boolean.daily_vacuum_first_run
   hide_entity: true
-- id: '1554356757528'
-  alias: Allarme in assenza
+- id: '1544869421042'
+  alias: Garage ON
   trigger:
-  - platform: state
-    entity_id: binary_sensor.motion_sensor_divano
-    to: on
-  - platform: state
-    entity_id: binary_sensor.motion_sensor_cabinaarmadio
-    to: on
-  - platform: state
-    entity_id: binary_sensor.door_window_sensor_portacasa
-    to: open
-  - platform: state
-    entity_id: binary_sensor.door_window_sensor_portafinestracucina
-    to: open
+  - entity_id: binary_sensor.basculantegarage
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.door_window_sensor_portagarage
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.motion_sensor_garage
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.garage
+    service: light.turn_on
+- id: '1544869508848'
+  alias: 'Garage OFF '
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_garage
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.garage
+    service: light.turn_off
+- id: '1544909525210'
+  alias: Idro ON
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_idromassaggio
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: light.idromassaggio
+    service: light.turn_on
+- id: '1544909595412'
+  alias: Idro OFF
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_idromassaggio
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.idromassaggio
+    service: light.turn_off
+- id: '1544915322081'
+  alias: Divano OFF
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_divano
+    for: '3'
+    from: 'ON'
+    platform: state
+    to: 'OFF'
+  condition: []
+  action:
+  - data:
+      entity_id: light.cespugliodivanosalone
+    service: light.turn_off
+- id: '1545477612289'
+  alias: Porta Casa Aperta
+  trigger:
+  - entity_id: binary_sensor.door_window_sensor_portacasa
+    for: 
+      minutes: 3
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.echo_plus__reinas
+      message: Attenzione la Porta di casa è aperta
+    service: media_player.alexa_tts
+- id: '1545584908191'
+  alias: Avviso Distacco
+  trigger:
+  - above: '3000'
+    entity_id: sensor.scambio_casa
+    platform: numeric_state
+  condition: []
+  action:
+  - data_template:
+      entity_id: media_player.echo_plus__reinas
+      message: 'Attenzione: consumo elevato energia elettrica. Potrebbe avvenire distacco
+        {{states (''sensor.scambio_casa'') }}'
+    service: media_player.alexa_tts
+  - data_template:
+      message: 'Consumo attuale {{states (''sensor.scambio_casa'') }}'
+      title: Avviso Consumo
+    service: notify.pushover
+- id: '1545585674370'
+  alias: SottoLettoAle OFF
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_sottolettoale
+    from: 'ON'
+    platform: state
+    to: 'OFF'
+  condition: []
+  action:
+  - data:
+      entity_id: light.sotto_letto_ale
+    service: light.turn_off
+- id: id031
+  alias: Disconnetti tablet (prog)
+  trigger:
+    platform: time
+    minutes: /5
+    seconds: '0'
   condition:
-  - condition: state
-    entity_id: alarm_control_panel.AllarmeDomotica
-    state: armed_away
+    condition: template
+    value_template: '{{ ((now().strftime("%s") | int ) | timestamp_custom("%H:%M"))
+      == states.sensor.internetcuttime.state  }}'
   action:
-    service: alarm_control_panel.alarm_trigger
-    entity_id: alarm_control_panel.AllarmeDomotica
-- id: 'Allarme Domotica'
-  alias: Send notification when alarm triggered
+  - service: shell_command.cut_internet_tablet
+- id: id032
+  alias: Disconnetti fire (prog)
   trigger:
-  - platform: state
-    entity_id: alarm_control_panel.AllarmeDomotica
-    to: triggered
+    platform: time
+    minutes: /5
+    seconds: '0'
+  condition:
+    condition: template
+    value_template: '{{ ((now().strftime("%s") | int ) | timestamp_custom("%H:%M"))
+      == states.sensor.internetcuttime.state  }}'
   action:
-  - service: notify.notify
-    data:
-      message: Allarme
-      title: Movimento
+  - service: shell_command.cut_internet_fire

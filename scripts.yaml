@@ -238,7 +238,7 @@ wakeup_bedroom:
       transition: '{{ (( states.input_number.wakeup_duration.state | float * 60 /
         4 )| round ) | int }}'
 '1544368949171':
-  alias: New Script
+  alias: Notifica
   sequence:
   - data:
       message: deuh@
@@ -315,3 +315,36 @@ vacuum_guestroom:
   - data:
       entity_id: AllarmeDomotica
     service: alarm_control_panel.alarm_arm_away
+automazione_gionic_off:
+  alias: Automazione GioNic OFF
+  sequence:
+    service: automation.turn_off
+    data:
+      entity_id: automation.idro_off, automation.idro_on, automation.gionic_on, automation.gionic_off
+automazione_gionic_on:
+  alias: Automazione GioNic ON
+  sequence:
+    service: automation.turn_on
+    data:
+      entity_id: automation.idro_off, automation.idro_on, automation.gionic_on, automation.gionic_off
+'1545473372472':
+  alias: Prova Alexa
+  sequence:
+  - data:
+      entity_id: media_player.echo_plus__reinas
+      message: soffia il naso {{ states.sensor.produzione_casa.state }}
+    service: media_player.alexa_tts
+'1545663639118':
+  alias: Stato Energia
+  sequence:
+  - data_template:
+      entity_id: media_player.echo_plus__reinas
+      message: "La produzione è di {{ states.sensor.produzione_casa.state }} watt , il consumo {{ states.sensor.consumo_casa.state }}  watt , lo scambio {{ states.sensor.scambio_casa.state }} watt"
+    service: media_player.alexa_tts
+'1545688639118':
+  alias: Temperatura Salone
+  sequence:
+  - data_template:
+      entity_id: media_player.echo_plus__reinas
+      message: "In salone ci sono {{ states.sensor.climate.salone.auto.current_temperature }} gradi"
+    service: media_player.alexa_tts

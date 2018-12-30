@@ -40,7 +40,7 @@
         unit_of_measurement: 'min'
 
   - platform: hue
-    ip_address: Philipshue.thereinas.it
+    ip_address: Philipshue.fritz.box
     token: !secret huetoken
 
   - platform: template
@@ -143,7 +143,7 @@
 
   - platform: fritzbox_callmonitor
     host: fritz.box
-    user: dvbit
+    user: !secret fritzboxuser
     password: !secret fritzboxpassword
     name: Telefono
     phonebook: 0
@@ -260,3 +260,33 @@
         value_template: 'Operation'
       vacuum_accessories:
         value_template: 'Maintenance'
+
+  - platform: template
+    sensors:
+     consumo_infrastruttura:
+        value_template: '{% if states.switch.infrastruttura.attributes["load_power"] is defined %}{{ (states.switch.infrastruttura.attributes["load_power"] | float ) | round(0)}}{% else %}-{% endif %}'
+        unit_of_measurement: 'w'
+        friendly_name: Consumo Infrastruttura
+
+  - platform: template
+    sensors:
+      consumo_altro_salone:
+        value_template: '{% if states.switch.altro_salone.attributes["load_power"] is defined %}{{ (states.switch.altro_salone.attributes["load_power"] | float ) | round(0)}}{% else %}-{% endif %}'
+        unit_of_measurement: 'w'
+        friendly_name: Consumo Altro Salone
+
+  - platform: template
+    sensors:
+      consumo_family_entertainment:
+        value_template: '{% if states.switch.family_entertainment.attributes["load_power"] is defined %}{{ (states.switch.family_entertainment.attributes["load_power"] | float ) | round(0)}}{% else %}-{% endif %}'
+        unit_of_measurement: 'w'
+        friendly_name: Consumo Family Entertainment
+
+  - platform: template
+    sensors:
+      internetcuttime:
+        friendly_name: Switch off at
+        entity_id:
+          - input_slider.internet_cut_hour
+          - input_slider.internet_cut_minutes
+        value_template: '{{ "%0.02d:%0.02d" | format(states("input_slider.internet_cut_hour") | int, states("input_slider.internet_cut_minutes") | int) }}'

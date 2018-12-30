@@ -1,1 +1,8 @@
 binary_sensor.motion_sensor_gionic1: {}
+light.lucecucina: {}
+light.lettogionic:
+  icon: palette-advanced
+switch.internet_fire:
+  assumed_state: false
+switch.internet_tablet:
+  assumed_state: false

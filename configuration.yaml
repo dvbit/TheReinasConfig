@@ -61,6 +61,11 @@ config:
 custom_updater:
   card_urls:
     - https://raw.githubusercontent.com/rdehuyss/homeassistant-lovelace-google-calendar-card/master/custom_updater.json
+    - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
+    - https://raw.githubusercontent.com/kuuji/button-card/master/tracker.json
+    - https://raw.githubusercontent.com/bramkragten/custom-ui/master/updater.json
+  component_urls:
+    - https://raw.githubusercontent.com/robmarkcole/Hue-sensors-HASS/master/custom_updater.json
 
 panel_iframe:
   configurator:
@@ -120,33 +125,33 @@ cloud:
   alexa:
     filter:
       include_entities:
-        - light.tavolosalone_2
-        - light.lucecucina
-        - light.cespuglioingressosalone
-        - light.cespugliodivanosalone
-        - light.idromassaggio 
-        - light.lettogionic
+        - light.tavolo_salone
+        - light.cucina
+        - light.ingresso
+        - light.divano
+        - light.idro_gionic
+        - light.letto_gionic
         - switch.alberodinatale
         - switch.decorazioninatale
         - group.lucisalone
         - group.luciesterno
     entity_config:
-      light.tavolosalone_2:
+      light.tavolo_salone:
         name: Luce Tavolo Salone
         description: la luce del Tavolo del Salone
-      light.lucecucina:
+      light.cucina:
         name: Luce cucina
         description: la luce della cucina
-      light.cespuglioingressosalone:
+      light.ingresso:
         name: Luce Ingresso
         description: la luce dell'ingresso
-      light.cespugliodivanosalone:
+      light.divano:
         name: Luce Divano
         description: la luce del divano
-      light.idromassaggio:
+      light.idro_gionic:
         name: Luce Idro
         description: la luce dell'idro
-      light.lettogionic:
+      light.letto_gionic:
         name: Luce Letto GioNic
         description: la luce del letto Gio Nic
       switch.alberodinatale:
@@ -161,6 +166,24 @@ cloud:
       group.luciesterno:
         name: luci esterno
         description: luci esterno
+
+intent_script:
+  RunScriptIntent:
+    action:
+      service: script.turn_on
+      data_template:
+        entity_id: script.{{ Script | replace(" ", "_") }}
+    speech:
+      type: plain
+      text: Va bene
+
+#  amzn1.ask.skill.31d2ff24-5617-448b-8cdc-1c666520a0b2:
+#    action:
+#      service: script.turn_on
+#      entity_id: script.accendi_sky
+#    speech:
+#      type: plain
+#      text: OK
 
 mqtt:
   broker: ReinasServer.fritz.box
@@ -179,13 +202,13 @@ camera:
     username: !secret XeomaUser
     password: !secret XeomaPassword
     new_version: true
-    cameras:
-      - image_name: salone
-        name: salone
-      - image_name: cucina
-        name: cucina
-      - image_name: letto
-        name: letto
+#    cameras:
+#      - image_name: salone
+#        name: salone
+#      - image_name: cucina
+#        name: cucina
+#      - image_name: letto
+#        name: letto
 
   - platform: ffmpeg
     name: Letto_f
@@ -212,11 +235,11 @@ xiaomi_aqara:
   discovery_retry: 15
   gateways:
     - mac: 34:CE:00:82:96:03
+      key: !secret AquaraKey0
+      host: XiaomiGateway0.fritz.box
+    - mac: 7C:49:EB:19:03:79
       key: !secret AquaraKey1
-      host: XiaomiGateway.fritz.box
-#    - mac: 7C:49:EB:B1:B5:77
-#      key: !secret AquaraKey2
-#      host: XiaomiGateway2.fritz.box
+      host: XiaomiGateway1.fritz.box
 
 remote:
   - platform: harmony
@@ -302,36 +325,10 @@ weblink:
 #      - CHAT_ID_2
 #      - CHAT_ID_3
 
-#sensor:
-#  - platform: template
-#    sensors:
-#      solar_angle:
-#        friendly_name: "Sun angle"
-#        unit_of_measurement: 'degrees'
-#        value_template: "{{ states.sun.sun.attributes.elevation }}"
-
-#      sunrise:
-#        friendly_name: 'Sunrise'
-#        value_template: "{{ states.sun.sun.attributes.next_rising }}"
-
 #      MediaSalone:
 #        friendly_name: 'Reinas Media'
 #        value_template: "{{ states.sun.sun.attributes.next_rising }}"
 #        value_template: "{{ states.remote.reinasharmony.attributes.current_activity }}"
-
-#      Consumo_infrastruttura:
-#        friendly_name: "Consumo Infrastruttura"
-#        unit_of_measurement: 'W'
-#        value_template: "{{ states.switch.infrastruttura.attributes.load_power }}"
-
-#      ConsumoInfrastruttura:
-#        unit_of_measurement: 'W'
-#        value_template: "{{ states.switch.infrastruttura.attributes.load_power }}"
-
-#      ConsumoEntertainment:
-#        friendly_name: "Consumo Entertainment"
-#        unit_of_measurement: 'W'
-#        value_template: "{{ states.switch.family_entertainment.attributes.load_power }}"
 
 input_number:
   wakeup_hour:
@@ -355,16 +352,26 @@ input_number:
     min: 5
     max: 60
     step: 5
-
-input_boolean:
-  wakeup:
-    name: 'Enable wakeup light'
-    icon: mdi:power
-    initial: off
-  wakeup_weekends:
-    name: 'Wakeup weekends'
-    icon: mdi:power
-    initial: off
+  internet_cut_time:
+    name: 'Disconnection time (min)'
+    initial: 120
+    min: 2
+    max: 240
+    step: 1
+  internet_cut_hour:
+    name: Hour
+    icon: mdi:timer
+    initial: 1
+    min: 0
+    max: 23
+    step: 1
+  internet_cut_minutes:
+    name: Minutes
+    icon: mdi:timer
+    initial: 05
+    min: 0
+    max: 55
+    step: 5
 
 input_text:
   scene_temp_var:
@@ -381,16 +388,29 @@ input_boolean:
     name: Disable Dustbin Notification
     initial: 'off'
 
+  wakeup:
+    name: 'Enable wakeup light'
+    icon: mdi:power
+    initial: off
+  wakeup_weekends:
+    name: 'Wakeup weekends'
+    icon: mdi:power
+    initial: off
+
 input_select:
   vacuum_room:
     name: Choose a room to clean
     options:
       - Select Input
-      - bedroom
-      - guest room
-      - dining room
-      - kitchen
-      - living room
+      - salone 
+      - ingresso 
+      - salone solo divano
+      - salone solo tavolo
+      - cucina
+      - stanza da letto
+      - stanza esclusa cabina e bagno
+      - bagno
+      - cabina
 
 google:
   client_id: !secret gcalclientid
@@ -436,7 +456,7 @@ alarm_control_panel:
       pending_time: 0
       delay_time: 0
 
-  
+#alexa:  
 
 
 group: !include groups.yaml
@@ -448,3 +468,4 @@ sensor: !include sensors.yaml
 notify: !include notify.yaml
 intent_script: !include intents.yaml
 media_player: !include media_player.yaml
+timer: !include timers.yaml

@@ -105,8 +105,9 @@ Energia_view:
     - sensor.Lavastoviglie
     - sensor.Lavatrice
     - sensor.Asciugatrice
-    - sensor.humidity_158d00016d0abc
-    - sensor.temperature_158d00016d0abc
+    - sensor.consumo_infrastruttura
+    - sensor.consumo_family_entertainment
+    - sensor.consumo_altro_salone
 
 ############################################################################################
 #  Comfort
@@ -184,11 +185,12 @@ wakeuplight:
 LuciGioNic:
   name: Luci GioNic
   entities:
-    - light.plug_lampadasale
-    - light.esternocabina
-    - light.idromassaggio
-    - light.gionic
-    - light.lettogionic_2
+    - light.lampada_sale
+    - light.esterno_cabina_gionic
+    - light.interno_cabina_gionic
+    - light.idro_gionic
+    - light.letto_gionic
+    - light.colorilettogionic
   
 Luci GioNic:
   view: yes
@@ -211,9 +213,10 @@ Esterno:
 Luci Salone:
   name: Luci Salone
   entities: 
-    - light.cespugliodivanosalone
-    - light.cespuglioingressosalone
-    - light.tavolosalone_2
+    - light.divano
+    - light.ingresso
+    - light.tavolo_salone
+    - light.coloritavolosalone
 #    - sensor.illumination_tavolosalone
 #    - binary_sensor.motion_sensor_tavolosalone
 #    - binary_sensor.door_window_sensor_portafinestrasalone
@@ -249,14 +252,49 @@ Ale:
 LuciGiardino:
   name: Luci Giardino
   entities:
-    - light.giardinovicino
-    - light.giardinolontano
+    - light.giardino_vicino
+    - light.giardino_lontano
 
 Giardino:
   name: Luci Giardino
   view: yes
   entities:
     - group.LuciGiardino
+
+LuciCucina:
+  name: Luci Cucina
+  entities:
+    - light.cucina
+    - light.coloricucina
+
+Cucina:
+  name: Luci Cucina
+  view: yes
+  entities:
+    - group.LuciCucina
+
+LuciPrimoPiano:
+  name: Luci Primo Piano
+  entities:
+    - light.cucina
+    - light.cucina
+    - light.cucina_2
+    - light.divano
+    - light.ingresso
+    - light.tavolosalone_2
+    - light.lampada_sale
+    - light.esterno_cabina
+    - light.idro_gionic
+    - light.letto_gionic
+    - light.lettogionic_2
+    - light.interno_cabina
+    - light.bagnosalone_2
+
+Primo Piano:
+  name: Luci Primo Piano
+  view: yes
+  entities:
+    - group.LuciPrimoPiano
 
 group_opensprinkler:
     name: 'Open Sprinkler'
@@ -289,4 +327,18 @@ group opensprinkler_controller :
   view: yes
   entities:
     - group.group_opensprinkler_controller
+
+internet:
+  view: yes
+  name: 'Internet'
+  control: hidden
+  entities:
+    - automation.disconnetti_tablet_prog
+    - automation.disconnetti_fire_prog
+    - input_number.internet_cut_time
+    - input_number.internet_cut_hour
+    - input_number.internet_cut_minutes
+    - sensor.internetcuttime
+    - switch.internet_tablet
+    - switch.internet_fire
 

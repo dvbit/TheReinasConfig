@@ -58,224 +58,242 @@
 # Switch->Light Template
 #######################################################################################################
 
-  - platform: template
-    lights:
-      cespugliodivanosalone:
-        friendly_name: "Divano"
-        level_template: '{{ 255 if is_state("switch.cespugliodivanosalone", "on") else 0 }}'
-        value_template: '{{ is_state("switch.cespugliodivanosalone", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.cespugliodivanosalone
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.cespugliodivanosalone
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.cespugliodivanosalone
-
-      lucecucina:
-        friendly_name: "Cucina"
-        level_template: '{{ 255 if is_state("switch.lucecucina", "on") else 0 }}'
-        value_template: '{{ is_state("switch.lucecucina", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.lucecucina
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.lucecucina
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.lucecucina
-
-      cespuglioingressosalone:
-        friendly_name: "Ingresso"
-        level_template: '{{ 255 if is_state("switch.cespuglioingressosalone", "on") else 0 }}'
-        value_template: '{{ is_state("switch.cespuglioingressosalone", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.cespuglioingressosalone
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.cespuglioingressosalone
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.cespuglioingressosalone
-
-      tavolosalone:
-        friendly_name: "Tavolo Salone"
-        level_template: '{{ 255 if is_state("switch.tavolosalone", "on") else 0 }}'
-        value_template: '{{ is_state("switch.tavolosalone", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.tavolosalone
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.tavolosalone
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.tavolosalone
-
-      lettogionic:
-        friendly_name: "Letto GioNic"
-        level_template: '{{ 255 if is_state("switch.lettogionic", "on") else 0 }}'
-        value_template: '{{ is_state("switch.lettogionic", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.lettogionic
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.lettogionic
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.lettogionic
-
-      idromassaggio:
-        friendly_name: "Idro GioNic"
-        level_template: '{{ 255 if is_state("switch.idromassaggio", "on") else 0 }}'
-        value_template: '{{ is_state("switch.idromassaggio", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.idromassaggio
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.idromassaggio
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.idromassaggio
-
-      esternocabina:
-        friendly_name: "Esterno Cabina GioNic"
-        level_template: '{{ 255 if is_state("switch.esternocabina", "on") else 0 }}'
-        value_template: '{{ is_state("switch.esternocabina", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.esternocabina
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.esternocabina
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.esternocabina
-
-      internocabina:
-        friendly_name: "Interno Cabina GioNic"
-        level_template: '{{ 255 if is_state("switch.internocabina", "on") else 0 }}'
-        value_template: '{{ is_state("switch.internocabina", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.internocabina
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.internocabina
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.internocabina
-      
-      giardinolontano:
-        friendly_name: "Giardino Lontano"
-        level_template: '{{ 255 if is_state("switch.giardinolontano", "on") else 0 }}'
-        value_template: '{{ is_state("switch.giardinolontano", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.giardinolontano
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.giardinolontano
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.giardinolontano
-
-      giardinovicino:
-        friendly_name: "Giardino Vicino"
-        level_template: '{{ 255 if is_state("switch.giardinovicino", "on") else 0 }}'
-        value_template: '{{ is_state("switch.giardinovicino", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.giardinovicino
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.giardinovicino
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.giardinovicino
-
-      plug_lampadasale:
-        friendly_name: "Lampada Sale"
-        level_template: '{{ 255 if is_state("switch.plug_lampadasale", "on") else 0 }}'
-        value_template: '{{ is_state("switch.plug_lampadasale", "on") }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.plug_lampadasale
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.plug_lampadasale
-        set_level:
-          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
-          entity_id: switch.plug_lampadasale
-
+#  - platform: template
+#    lights:
+#      cespugliodivanosalone:
+#        friendly_name: "Divano"
+#        level_template: '{{ 255 if is_state("switch.cespugliodivanosalone", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.cespugliodivanosalone", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.cespugliodivanosalone
+#        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.cespugliodivanosalone
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.cespugliodivanosalone
+#
+#      lucecucina:
+#        friendly_name: "Cucina"
+#        level_template: '{{ 255 if is_state("switch.lucecucina", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.lucecucina", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.lucecucina
+#        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.lucecucina
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.lucecucina
+#
+#      cespuglioingressosalone:
+#        friendly_name: "Ingresso"
+#        level_template: '{{ 255 if is_state("switch.cespuglioingressosalone", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.cespuglioingressosalone", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.cespuglioingressosalone
+#        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.cespuglioingressosalone
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.cespuglioingressosalone
+#
+#      tavolosalone:
+#        friendly_name: "Tavolo Salone"
+#        level_template: '{{ 255 if is_state("switch.tavolosalone", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.tavolosalone", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.tavolosalone
+#        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.tavolosalone
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.tavolosalone
+#
+#      lettogionic:
+#        friendly_name: "Letto GioNic"
+#        level_template: '{{ 255 if is_state("switch.lettogionic", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.lettogionic", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.lettogionic
+#        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.lettogionic
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.lettogionic
+#
+#      idromassaggio:
+#        friendly_name: "Idro GioNic"
+#        level_template: '{{ 255 if is_state("switch.idromassaggio", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.idromassaggio", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.idromassaggio
+#        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.idromassaggio
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.idromassaggio
+#
+#      esternocabina:
+#        friendly_name: "Esterno Cabina GioNic"
+#        level_template: '{{ 255 if is_state("switch.esternocabina", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.esternocabina", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.esternocabina
+#        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.esternocabina
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.esternocabina
+#
+#      internocabina:
+#        friendly_name: "Interno Cabina GioNic"
+#        level_template: '{{ 255 if is_state("switch.internocabina", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.internocabina", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.internocabina
+#        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.internocabina
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.internocabina
+#      
+#      giardinolontano:
+#        friendly_name: "Giardino Lontano"
+#        level_template: '{{ 255 if is_state("switch.giardinolontano", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.giardinolontano", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.giardinolontano
+#        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.giardinolontano
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.giardinolontano
+#
+#      giardinovicino:
+#        friendly_name: "Giardino Vicino"
+#        level_template: '{{ 255 if is_state("switch.giardinovicino", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.giardinovicino", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.giardinovicino
+#        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.giardinovicino
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.giardinovicino
+#
+#      plug_lampadasale:
+#        friendly_name: "Lampada Sale"
+#        level_template: '{{ 255 if is_state("switch.plug_lampadasale", "on") else 0 }}'
+#        value_template: '{{ is_state("switch.plug_lampadasale", "on") }}'
+#        turn_on:
+#          service: switch.turn_on
+#          entity_id: switch.plug_lampadasale
+##        turn_off:
+#          service: switch.turn_off
+#          entity_id: switch.plug_lampadasale
+#        set_level:
+#          service_template: switch.turn_'{{ "off" if brightness == 0 else "on" }}'
+#          entity_id: switch.plug_lampadasale
+#
 
 
 #######################################################################################################
 #  Switch
 #######################################################################################################
  
-#  - platform: switch
-#    name: Divano1
-#    entity_id: switch.cespugliodivanosalone
+  - platform: switch
+    name: Divano
+    entity_id: switch.cespugliodivanosalone
 
-#    name: Cucina1
-#    entity_id: switch.switch
-#
-#    name: Ingresso1
-#    entity_id: switch.switch_2
+  - platform: switch
+    name: Cucina
+    entity_id: switch.lucecucina
 
-#    friendly_name: TavoloSalone1
-#    entity_id: switch.switch_3
+  - platform: switch
+    name: Ingresso
+    entity_id: switch.cespuglioingressosalone
 
-#    name: LettoGioNic1
-#    entity_id: switch.lettogionic
+  - platform: switch
+    name: Tavolo Salone
+    entity_id: switch.tavolosalone
 
-#    name: IdroGioNic1
-#    entity_id: switch.idromassaggio
+  - platform: switch
+    name: Letto GioNic
+    entity_id: switch.lettogionic
 
-#    name: EsternoCabinaGioNic1
-#    entity_id: switch.esternocabina
+  - platform: switch
+    name: Idro GioNic
+    entity_id: switch.idromassaggio
 
-#    name: InternoCabinaGioNic1
-#    entity_id: switch.internocabina
+  - platform: switch
+    name: Esterno Cabina GioNic
+    entity_id: switch.esternocabina
 
-#    name: GiardinoLontano1
-#    entity_id: switch.giardinolontano
+  - platform: switch
+    name: Interno Cabina GioNic
+    entity_id: switch.internocabina
 
-#    name: GiardinoVicino1
-#    entity_id: switch.giardinovicino
+  - platform: switch
+    name: Giardino Lontano
+    entity_id: switch.giardinolontano
 
-#    name: LampadaSale
-#    entity_id: switch.plug_lampadasale
+  - platform: switch
+    name: Giardino Vicino
+    entity_id: switch.giardinovicino
+
+  - platform: switch
+    name: Lampada Sale
+    entity_id: switch.plug_lampadasale
 
 #######################################################################################################
 #  Light Groups
 #######################################################################################################
 
   - platform: group
-    name: LuciGioNic
+    name: Luci Cucina
     entities:
-      - light.plug_lampadasale
-      - light.esternocabina
-      - light.idromassaggio
-      - light.gionic
-      - light.lettogionic_2
+      - light.cucina
+      - light.coloricucina
 
   - platform: group
-    name: LuciSalone
+    name: Luci GioNic
     entities:
-      - light.cespugliodivanosalone
-      - light.cespuglioingressosalone
-      - light.tavolosalone_2
+      - light.lampada_sale
+      - light.esterno_cabina_gionic
+      - light.interno_cabina_gionic
+      - light.idro_gionic
+      - light.letto_gionic
+      - light.colorilettogionic
 
   - platform: group
-    name: LuciEsterno
+    name: Luci Salone
+    entities:
+      - light.divano
+      - light.ingresso
+      - light.tavolo_salone
+      - light.coloritavolosalone
+
+  - platform: group
+    name: Luci Esterno
     entities:
       - light.esternoale
       - light.esternocancelletto
@@ -283,7 +301,7 @@
       - light.esternosalone
 
   - platform: group
-    name: LuciGiardino
+    name: Luci Giardino
     entities:
-      - light.giardinovicino
-      - light.giardinolontano
+      - light.giardino_vicino
+      - light.giardino_lontano

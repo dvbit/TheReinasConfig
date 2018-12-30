@@ -21,5 +21,18 @@
     switches:
       restart:
         command_on: "echo 'toorhass' | sudo -S systemctl restart home-assistant@homeassistant.service"
-        command_off: "echo 'toorhass' | sudo -S systemctl restart home-assistant@homeassistant.service"
+        command_off: "echo 'toorhass' | sudo -S systemctl stop home-assistant@homeassistant.service"
 
+  - platform: command_line
+    switches:
+      internet_tablet:
+        command_on: "/home/homeassistant/.homeassistant/shell_scripts/control_internet.sh 84:8e:df:37:dd:11 on"
+        command_off: "/home/homeassistant/.homeassistant/shell_scripts/control_internet.sh 84:8e:df:37:dd:11 off"
+        friendly_name: Disconnetti tablet (manuale)
+
+  - platform: command_line
+    switches:
+      internet_fire:
+        command_on: "/home/homeassistant/.homeassistant/shell_scripts/control_internet.sh f0:27:2d:ad:80:f3 on"
+        command_off: "/home/homeassistant/.homeassistant/shell_scripts/control_internet.sh f0:27:2d:ad:80:f3 off"
+        friendly_name: Disconnetti fire (manuale)
