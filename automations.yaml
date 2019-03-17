@@ -118,10 +118,7 @@
     from: 'off'
     platform: state
     to: 'on'
-  condition:
-  - below: '5'
-    condition: numeric_state
-    entity_id: sensor.fibaro_system_fgms001_motion_sensor_luminance
+  condition: []
   action:
   - data:
       entity_id: switch.cespuglioingressosalone
@@ -186,7 +183,8 @@
 - id: '1542310620823'
   alias: Ingresso OFF
   trigger:
-  - entity_id: binary_sensor.sensor_ingresso
+  - entity_id: binary_sensor.movimentoingresso
+    for: '3'
     from: 'on'
     platform: state
     to: 'off'
@@ -208,10 +206,7 @@
     entity_id: sensor.illumination_ale
   action:
   - data:
-      entity_id: light.armadiale
-    service: light.turn_on
-  - data:
-      entity_id: light.lettoale
+      entity_id: light.faretti_ale
     service: light.turn_on
 - id: '1542387063132'
   alias: Ale Off
@@ -223,15 +218,12 @@
   condition: []
   action:
   - data:
-      entity_id: light.armadiale
-    service: light.turn_off
-  - data:
-      entity_id: light.lettoale
+      entity_id: light.faretti_ale
     service: light.turn_off
 - id: '1542395170608'
   alias: GioNic ON
   trigger:
-  - entity_id: binary_sensor.motion_sensor_lettogionic
+  - entity_id: sensor.motion_lettonic_motion_sensor
     from: 'off'
     platform: state
     to: 'on'
@@ -243,7 +235,7 @@
 - id: '1542395285346'
   alias: GioNic Off
   trigger:
-  - entity_id: binary_sensor.motion_sensor_lettogionic
+  - entity_id: sensor.motion_lettogio_motion_sensor
     from: 'on'
     platform: state
     to: 'off'
@@ -333,24 +325,18 @@
       state: 'off'
   action:
   - data:
-      entity_id: media_player.echo_plus__reinas
+      entity_id: media_player.echoplusreina
       message: 'Attenzione : ricorda di inserire l allarme'
     service: media_player.alexa_tts
 - id: '1543844777759'
   alias: Salone OFF
   trigger:
   - entity_id: binary_sensor.motion_sensor_tavolosalone
-    for: '2'
+    for: '25'
     from: 'on'
     platform: state
     to: 'off'
-  condition:
-  - after: 00:00
-    before: '19:30'
-    condition: time
-  - after: '22:00'
-    before: 00:00
-    condition: time
+  condition: []
   action:
   - data:
       entity_id: switch.tavolosalone
@@ -365,7 +351,7 @@
   condition: []
   action:
   - data:
-      entity_id: media_player.echo_plus__reinas
+      entity_id: media_player.echoplusreina
       message: Test message
     service: media_player.alexa_tts
 - id: '1544208501954'
@@ -383,7 +369,7 @@
 - id: '1544356757528'
   alias: Start Daily Vacuum
   trigger:
-  - platform: time
+  - platform: time_pattern
     minutes: /45
     seconds: 0
   condition:
@@ -443,7 +429,7 @@
 - id: '1544909525210'
   alias: Idro ON
   trigger:
-  - entity_id: binary_sensor.motion_sensor_idromassaggio
+  - entity_id: sensor.motion_lettonic_motion_sensor
     from: 'off'
     platform: state
     to: 'on'
@@ -455,7 +441,7 @@
 - id: '1544909595412'
   alias: Idro OFF
   trigger:
-  - entity_id: binary_sensor.motion_sensor_idromassaggio
+  - entity_id: sensor.motion_lettonic_motion_sensor
     platform: state
     to: 'off'
   condition: []
@@ -480,7 +466,7 @@
   alias: Porta Casa Aperta
   trigger:
   - entity_id: binary_sensor.door_window_sensor_portacasa
-    for: 
+    for:
       minutes: 3
     from: 'off'
     platform: state
@@ -494,18 +480,18 @@
 - id: '1545584908191'
   alias: Avviso Distacco
   trigger:
-  - above: '3000'
+  - above: '4500'
     entity_id: sensor.scambio_casa
     platform: numeric_state
   condition: []
   action:
   - data_template:
-      entity_id: media_player.echo_plus__reinas
+      entity_id: media_player.echoplusreinas
       message: 'Attenzione: consumo elevato energia elettrica. Potrebbe avvenire distacco
         {{states (''sensor.scambio_casa'') }}'
     service: media_player.alexa_tts
   - data_template:
-      message: 'Consumo attuale {{states (''sensor.scambio_casa'') }}'
+      message: Consumo attuale {{states ('sensor.scambio_casa') }}
       title: Avviso Consumo
     service: notify.pushover
 - id: '1545585674370'
@@ -523,7 +509,7 @@
 - id: id031
   alias: Disconnetti tablet (prog)
   trigger:
-    platform: time
+    platform: time_pattern
     minutes: /5
     seconds: '0'
   condition:
@@ -535,7 +521,7 @@
 - id: id032
   alias: Disconnetti fire (prog)
   trigger:
-    platform: time
+    platform: time_pattern
     minutes: /5
     seconds: '0'
   condition:
@@ -544,3 +530,151 @@
       == states.sensor.internetcuttime.state  }}'
   action:
   - service: shell_command.cut_internet_fire
+- id: idaala1
+  alias: Allarme
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.motion_sensor_ale
+    to: Detected
+  - platform: state
+    entity_id: binary_sensor.motion_sensor_divano
+    to: Detected
+  - platform: state
+    entity_id: binary_sensor.motion_sensor_cabinaarmadio
+    to: Detected
+  - platform: state
+    entity_id: binary_sensor.motion_sensor_cucina
+    to: Detected
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.allarmedomotica
+    state: armed_away
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.allarmedomotica
+
+- id: '1547500906025'
+  alias: Vialetto ON
+  trigger:
+  - entity_id: binary_sensor.door_window_sensor_portacasa
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sensor.period_of_day
+    state: night
+  action:
+  - data:
+      entity_id: light.luci_cammino_ingresso
+    service: light.turn_on
+  - data:
+      entity_id: light.luce_porta_ingresso
+    service: light.turn_on
+- id: '1547501663527'
+  alias: Vialetto OFF
+  trigger:
+  - entity_id: binary_sensor.door_window_sensor_portacasa
+    for: '5'
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: sensor.period_of_day
+    state: night
+  action:
+  - data:
+      entity_id: light.luce_porta_ingresso
+    service: light.turn_off
+  - data:
+      entity_id: light.luci_cammino_ingresso
+    service: light.turn_off
+- id: '1547589861657'
+  alias: Chiusura ON
+  trigger:
+  - entity_id: binary_sensor.allarmeinseritocasa
+    for: '1'
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: Porta_Di_Casa
+    service: lock.lock
+- id: '1547589928444'
+  alias: Chiusura OFF
+  trigger:
+  - entity_id: binary_sensor.allarmeinseritocasa
+    for: '1'
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: Porta_Di_Casa
+    service: lock.unlock
+- id: '1547921960598'
+  alias: Ingresso On 2
+  trigger:
+  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.cespuglioingressosalone
+    service: switch.turn_on
+- id: '1547922053165'
+  alias: Ingresso Off2
+  trigger:
+  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
+    for: '2'
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.cespuglioingressosalone
+    service: switch.turn_off
+- id: '15443222053165'
+  alias: pingpong
+  trigger:
+    platform: event
+    event_type: telegram_command
+    event_data:
+      command: /start
+  action:
+  - service: notify.telegram
+    data:
+      message: commands
+      data:
+        keyboard:
+        - /ping, /alarm
+        - /siren
+- id: '1549229216941'
+  alias: Frigo Sempre ON
+  trigger:
+  - entity_id: zwave.cucinapresaalimentazionefrigorifero
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: switch.switch_20
+    service: switch.turn_on
+  alias: 'Notifica Allarme '
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.allarmedomotica
+      to: 'triggered'
+  action:
+    - data:
+        entity_id: media_player.echoplusreina
+        message: Test message
+      service: media_player.alexa_tts

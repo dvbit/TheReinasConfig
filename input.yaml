@@ -1,0 +1,122 @@
+input_number:
+  wakeup_hour:
+    name: Hour
+    icon: mdi:clock-in
+    initial: 6
+    min: 0
+    max: 23
+    step: 1
+  wakeup_minutes:
+    name: Minutes
+    icon: mdi:clock-in
+    initial: 30
+    min: 0
+    max: 55
+    step: 5
+  wakeup_duration:
+    name: Light fadein
+    icon: mdi:clock-in
+    initial: 10
+    min: 5
+    max: 60
+    step: 5
+  internet_cut_time:
+    name: 'Disconnection time (min)'
+    initial: 120
+    min: 2
+    max: 240
+    step: 1
+  internet_cut_hour:
+    name: Hour
+    icon: mdi:timer
+    initial: 1
+    min: 0
+    max: 23
+    step: 1
+  internet_cut_minutes:
+    name: Minutes
+    icon: mdi:timer
+    initial: 05
+    min: 0
+    max: 55
+    step: 5
+
+  piante_retro_timer:
+      min: 1
+      max: 30
+      step: 1
+      mode: slider
+  piante_fronte_timer:
+      min: 1
+      max: 30
+      step: 1
+      mode: slider
+  alfonsi_timer:
+      min: 1
+      max: 30
+      step: 1
+      mode: slider
+  baldini_timer:
+      min: 1
+      max: 30
+      step: 1
+      mode: slider
+  siepe_timer:
+      min: 1
+      max: 30
+      step: 1
+      mode: slider
+  avanti_timer:
+      min: 1
+      max: 30
+      step: 1
+      mode: slider
+  fondo_timer:
+      min: 1
+      max: 30
+      step: 1
+      mode: slider
+  spare_timer:
+      min: 1
+      max: 30
+      step: 1
+      mode: slider
+
+
+input_text:
+  scene_temp_var:
+    initial: 'off:1'
+
+input_boolean:
+  daily_vacuum_first_run:
+    name: Daily Vacuum First Run
+    initial: 'off'
+  disable_daily_vacuum:
+    name: Disable Daily Vacuum Automation
+    initial: 'off'
+  disable_dustbin_notification:
+    name: Disable Dustbin Notification
+    initial: 'off'
+
+  wakeup:
+    name: 'Enable wakeup light'
+    icon: mdi:power
+    initial: off
+  wakeup_weekends:
+    name: 'Wakeup weekends'
+    icon: mdi:power
+    initial: off
+
+input_select:
+  vacuum_room:
+    name: Choose a room to clean
+    options:
+      - Select Input
+      - salone 
+      - ingresso 
+      - salone solo divano
+      - salone solo tavolo
+      - cucina
+      - stanza da letto
+      - stanza esclusa cabina e bagno
+      - bagno

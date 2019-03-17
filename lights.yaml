@@ -253,6 +253,22 @@
     entity_id: switch.internocabina
 
   - platform: switch
+    name: Lampadario Bea
+    entity_id: switch.fibaro_system_unknown_type0203_id1000_switch_3
+
+  - platform: switch
+    name: faretti ale
+    entity_id: switch.luciale
+
+  - platform: switch
+    name: Luci Cammino Ingresso
+    entity_id: switch.lucifronte
+
+  - platform: switch
+    name: Luce Porta Ingresso
+    entity_id: switch.luceportaingresso
+
+  - platform: switch
     name: Giardino Lontano
     entity_id: switch.giardinolontano
 
@@ -305,3 +321,10 @@
     entities:
       - light.giardino_vicino
       - light.giardino_lontano
+
+  - platform: group
+    name: Luci Scale
+    entities:
+      - light.spotsu
+      - light.spotgiu
+

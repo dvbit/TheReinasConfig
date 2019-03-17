@@ -1,5 +1,3 @@
-#github backup
-
 homeassistant:
   # Name of the location where Home Assistant is running
   name: !secret Location
@@ -47,10 +45,6 @@ lovelace:
 
 logger:
   default: info
-  logs:
-     xeoma: debug    
-#    homeassistant.components.device_tracker: critical
-#    homeassistant.components.camera: critical
 
 # Show links to resources in log and frontend
 #introduction:
@@ -59,13 +53,20 @@ logger:
 config:
 
 custom_updater:
+  track:
+    - components
+    - cards
+    - python_scripts
   card_urls:
-    - https://raw.githubusercontent.com/rdehuyss/homeassistant-lovelace-google-calendar-card/master/custom_updater.json
-    - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
-    - https://raw.githubusercontent.com/kuuji/button-card/master/tracker.json
-    - https://raw.githubusercontent.com/bramkragten/custom-ui/master/updater.json
+    - https://raw.githubusercontent.com/rdehuyss/homeassistant-lovelace-google-calendar-card/master/custom_updater.json?v=0
+    - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json?v=0
+    - https://raw.githubusercontent.com/kuuji/button-card/master/tracker.json?v=0
+    - https://raw.githubusercontent.com/bramkragten/custom-ui/master/updater.json?v=0
   component_urls:
     - https://raw.githubusercontent.com/robmarkcole/Hue-sensors-HASS/master/custom_updater.json
+    - https://raw.githubusercontent.com/danobot/entity-controller/master/tracker.json
+    - https://raw.githubusercontent.com/zxdavb/evohome/master/custom_components.json
+    - https://raw.githubusercontent.com/vinteo/hass-opensprinkler/master/custom_components.json
 
 panel_iframe:
   configurator:
@@ -77,12 +78,10 @@ http:
   # Secrets are defined in the file secrets.yaml
   api_password: !secret api_password
 #per ritornare a https://thereinas.it levare commenti sotto e port forward 443->8123
-#  ssl_certificate: /etc/letsencrypt/live/thereinas.it/fullchain.pem
-# ssl_key: /etc/letsencrypt/live/thereinas.it/privkey.pem
-# base_url: thereinas.it
+#  ssl_certificate: /etc/letsencrypt/live/thereinas.it/cert.pem
+#  ssl_key: /etc/letsencrypt/live/thereinas.it/privkey.pem
+#  base_url: thereinas.it
 
-  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  # base_url: example.duckdns.org:8123
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -99,6 +98,7 @@ discovery:
     - harmony
     - bose_soundtouch
     - philips_hue
+    - songpal
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -135,6 +135,8 @@ cloud:
         - switch.decorazioninatale
         - group.lucisalone
         - group.luciesterno
+      include_domains:
+        - group
     entity_config:
       light.tavolo_salone:
         name: Luce Tavolo Salone
@@ -167,16 +169,6 @@ cloud:
         name: luci esterno
         description: luci esterno
 
-intent_script:
-  RunScriptIntent:
-    action:
-      service: script.turn_on
-      data_template:
-        entity_id: script.{{ Script | replace(" ", "_") }}
-    speech:
-      type: plain
-      text: Va bene
-
 #  amzn1.ask.skill.31d2ff24-5617-448b-8cdc-1c666520a0b2:
 #    action:
 #      service: script.turn_on
@@ -195,41 +187,6 @@ mqtt:
 
 ffmpeg:
   ffmpeg_bin: /usr/bin/ffmpeg
-
-camera:
-  - platform: xeoma
-    host: http://ReinasServer.fritz.box:10090
-    username: !secret XeomaUser
-    password: !secret XeomaPassword
-    new_version: true
-#    cameras:
-#      - image_name: salone
-#        name: salone
-#      - image_name: cucina
-#        name: cucina
-#      - image_name: letto
-#        name: letto
-
-  - platform: ffmpeg
-    name: Letto_f
-    input: -rtsp_transport tcp -i rtsp://dafangletto.fritz.box:8554/unicast
-  - platform: ffmpeg
-    name: Ingresso_f
-    input: -rtsp_transport tcp -i rtsp://dafangsalone.fritz.box:8554/unicast
-  - platform: ffmpeg
-    name: Cucina_f
-    input: -rtsp_transport tcp -i rtsp://dafangcucina.fritz.box:8554/unicast
-
-  - platform: mqtt
-    topic: ReinasHome/TelecameraCucina
-  - platform: mqtt
-    topic: ReinasHome/TelecameraIngresso
-  - platform: mqtt
-    topic: ReinasHome/TelecameraLetto
-
-#  - platform: arlo
-#    ffmpeg_arguments: '-pred 1 -q:v 2'
-
 
 xiaomi_aqara:
   discovery_retry: 15
@@ -268,6 +225,9 @@ device_tracker:
     username: !secret UnifiUser
     password: !secret UnifiPassword
     verify_ssl: false
+  - platform: fritz
+    username: !secret fritzboxuser
+    password: !secret fritzboxpassword
 
 ifttt:
   key: !secret IFTTKEY
@@ -282,19 +242,23 @@ influxdb:
   username: !secret influxuser
   password: !secret influxdbpassword
 
+#/etc/udev/rules.d/99-usb-serial.rules 
+#SUBSYSTEM=="tty", ATTRS{idVendor}=="0658", ATTRS{idProduct}=="0200", SYMLINK+="zwave"
+
+zwave:
+  usb_path: /dev/zwave
 
 vacuum:
   - platform: xiaomi_miio
     host: rockrobo.fritz.box
     token: 4f73323044716757674f6b5a57534a61
 
-zwave:
-#  usb_path: /dev/ttyACM0
-  usb_path: /dev/zwave
-
-#/etc/udev/rules.d/99-usb-serial.rules 
-#SUBSYSTEM=="tty", ATTRS{idVendor}=="0658", ATTRS{idProduct}=="0200", SYMLINK+="zwave"
-
+cover:
+  platform: opengarage
+  covers:
+      garage:
+        host:  opengarage.fritz.box
+        device_key: !secret opengaragekey
 
 #google_assistant:
 #  project_id: homeassistantintegration-5af5b
@@ -317,100 +281,129 @@ weblink:
     - name: Grafana
       url: http://192.168.2.2:3000/
 
-#telegram_bot:
-#  - platform: polling
-#    api_key: !secret telegram_apikey
-#    allowed_chat_ids:
-#      - CHAT_ID_1
-#      - CHAT_ID_2
-#      - CHAT_ID_3
+#input_number:
+#  wakeup_hour:
+#    name: Hour
+#    icon: mdi:clock-in
+#    initial: 6
+#    min: 0
+#    max: 23
+#    step: 1
+#  wakeup_minutes:
+#    name: Minutes
+#    icon: mdi:clock-in
+#    initial: 30
+#    min: 0
+#    max: 55
+#    step: 5
+#  wakeup_duration:
+#    name: Durata Sveglia
+#    icon: mdi:clock-in
+#    initial: 10
+#    min: 5
+#    max: 60
+#    step: 5
+#  internet_cut_time:
+#    name: 'Disconnection time (min)'
+#    initial: 120
+#    min: 2
+#    max: 240
+#    step: 1
+#  internet_cut_hour:
+#    name: Hour
+#    icon: mdi:timer
+#    initial: 1
+#    min: 0
+#    max: 23
+#    step: 1
+#  internet_cut_minutes:
+#    name: Minutes
+#    icon: mdi:timer
+#    initial: 05
+#    min: 0
+#    max: 55
+#    step: 5
+#
+#  piante_retro_timer:
+#      min: 1
+#      max: 30
+#      step: 1
+#      mode: slider
+#  piante_fronte_timer:
+#      min: 1
+#      max: 30
+#      step: 1
+#      mode: slider
+#  alfonsi_timer:
+#      min: 1
+#      max: 30
+##      step: 1
+#      mode: slider
+#  baldini_timer:
+#      min: 1
+#      max: 30
+##      step: 1
+#      mode: slider
+#  siepe_timer:
+#      min: 1
+#      max: 30
+#      step: 1
+#      mode: slider
+#  avanti_timer:
+#      min: 1
+#      max: 30
+#      step: 1
+#      mode: slider
+#  fondo_timer:
+#      min: 1
+#      max: 30
+#      step: 1
+#      mode: slider
+#  spare_timer:
+#      min: 1
+#      max: 30
+#      step: 1
+#      mode: slider
+#
+#
+#input_text:
+#  scene_temp_var:
+#    initial: 'off:1'
 
-#      MediaSalone:
-#        friendly_name: 'Reinas Media'
-#        value_template: "{{ states.sun.sun.attributes.next_rising }}"
-#        value_template: "{{ states.remote.reinasharmony.attributes.current_activity }}"
-
-input_number:
-  wakeup_hour:
-    name: Hour
-    icon: mdi:clock-in
-    initial: 6
-    min: 0
-    max: 23
-    step: 1
-  wakeup_minutes:
-    name: Minutes
-    icon: mdi:clock-in
-    initial: 30
-    min: 0
-    max: 55
-    step: 5
-  wakeup_duration:
-    name: Light fadein
-    icon: mdi:clock-in
-    initial: 10
-    min: 5
-    max: 60
-    step: 5
-  internet_cut_time:
-    name: 'Disconnection time (min)'
-    initial: 120
-    min: 2
-    max: 240
-    step: 1
-  internet_cut_hour:
-    name: Hour
-    icon: mdi:timer
-    initial: 1
-    min: 0
-    max: 23
-    step: 1
-  internet_cut_minutes:
-    name: Minutes
-    icon: mdi:timer
-    initial: 05
-    min: 0
-    max: 55
-    step: 5
-
-input_text:
-  scene_temp_var:
-    initial: 'off:1'
-
-input_boolean:
-  daily_vacuum_first_run:
-    name: Daily Vacuum First Run
-    initial: 'off'
-  disable_daily_vacuum:
-    name: Disable Daily Vacuum Automation
-    initial: 'off'
-  disable_dustbin_notification:
-    name: Disable Dustbin Notification
-    initial: 'off'
-
-  wakeup:
-    name: 'Enable wakeup light'
-    icon: mdi:power
-    initial: off
-  wakeup_weekends:
-    name: 'Wakeup weekends'
-    icon: mdi:power
-    initial: off
-
-input_select:
-  vacuum_room:
-    name: Choose a room to clean
-    options:
-      - Select Input
-      - salone 
-      - ingresso 
-      - salone solo divano
-      - salone solo tavolo
-      - cucina
-      - stanza da letto
-      - stanza esclusa cabina e bagno
-      - bagno
-      - cabina
+#input_boolean:
+#  daily_vacuum_first_run:
+#    name: Daily Vacuum First Run
+#    initial: 'off'
+#  disable_daily_vacuum:
+#    name: Disable Daily Vacuum Automation
+#    initial: 'off'
+#  disable_dustbin_notification:
+#    name: Disable Dustbin Notification
+#    initial: 'off'
+#
+#  wakeup:
+#    name: 'Enable wakeup light'
+#    icon: mdi:power
+#    initial: off
+#  wakeup_weekends:
+#    name: 'Wakeup weekends'
+#    icon: mdi:power
+#    initial: off
+#
+#input_select:
+#  vacuum_room:
+#    name: Scegli la stanza da pulire
+#    options:
+#      - Select Input
+#      - salone 
+#      - ingresso 
+#      - salone solo divano
+#      - salone solo tavolo
+#      - cucina
+#      - stanza da letto
+#      - stanza esclusa cabina e bagno
+#      - bagno
+#      - cabina
 
 google:
   client_id: !secret gcalclientid
@@ -438,15 +431,10 @@ frontend:
 weather:
   - platform: yweather
 
-#- platform: mijnafvalwijzer
-#  postcode: !secret afvalwijzer_postcode
-#  huisnummer: !secret afvalwijzer_huisnummer
-#  toevoeging: !secret afvalwijzer_toevoeging
-
 alarm_control_panel:
   - platform: manual
     name: AllarmeDomotica
-#    code: 1234
+    code: 1234
     pending_time: 30
     delay_time: 20
     trigger_time: 4
@@ -456,8 +444,44 @@ alarm_control_panel:
       pending_time: 0
       delay_time: 0
 
-#alexa:  
+lock:
+  - platform: nuki
+    host: AndroidHomeassistantBridge.fritz.box
+    token: !secret nukitoken
 
+lightingsm:
+  tavolosalone:
+    sensor: binary_sensor.motion_sensor_tavolosalone
+    sensor_type_duration: True
+    entity: light.tavolo_salone 
+    delay: 180
+    overrides:
+      - sensor.llim_tavolosalone
+      - input_boolean.auto_tavolosalone
+    service_data:
+      brightness: 100
+    night_mode:
+      delay: 60
+      service_data:
+        brightness: 20
+      start_time: '23:00:00'                  # required
+      end_time: '06:30:00'                    # required
+
+telegram_bot:
+  - platform: polling
+    api_key: !secret telegram_bot_key
+    allowed_chat_ids: !secret telegram_bot_chat_ids
+
+alexa_media:
+  accounts:
+    - email: !secret amazonemail
+      password: !secret amazonpassword
+      url: amazon.it
+
+binary_sensor:
+  - platform: hue_custom
+device_tracker:
+  - platform: hue_custom
 
 group: !include groups.yaml
 light: !include lights.yaml
@@ -465,7 +489,14 @@ switch: !include switchs.yaml
 script: !include scripts.yaml
 automation: !include automations.yaml
 sensor: !include sensors.yaml
-notify: !include notify.yaml
+binary_sensor: !include binary_sensors.yaml
 intent_script: !include intents.yaml
 media_player: !include media_player.yaml
 timer: !include timers.yaml
+camera: !include cameras.yaml
+notify: !include notify.yaml
+input_boolean: !include input_boolean.yaml
+input_text: !include input_text.yaml
+input_select: !include input_select.yaml
+input_number: !include input_number.yaml
+input_datetime: !include input_datetime.yaml

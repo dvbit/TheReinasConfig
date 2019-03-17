@@ -1,0 +1,8 @@
+  orainiziodim:
+    name: Ora Inizio Dim
+    has_date: false
+    has_time: true
+  orafinedim:
+    name: Ora Fine Dim
+    has_date: false
+    has_time: true

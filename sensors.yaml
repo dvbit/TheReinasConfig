@@ -1,105 +1,8 @@
-  - name: Illuminance
-    platform: illuminance
-    api_key: !secret wu_apikey
-    query: pws:IBRACCIA6
-    scan_interval:
-      minutes: 5
-
-  - platform: template
-    sensors:
-      wakeup_alarm_time:
-        friendly_name: 'Alarm time'
-        value_template: '{% if states.input_number.wakeup_hour.state|length == 3 %}0{% endif %}{{ states.input_number.wakeup_hour.state | int }}:{% if states.input_number.wakeup_minutes.state|length == 3 %}0{% endif %}{{ states.input_number.wakeup_minutes.state | int }}'
-
-  - platform: template
-    sensors:
-      wakeup_start_time_lights:
-        friendly_name: 'Fade-in start time'
-        value_template: >
-          {% if states.sensor.wakeup_alarm_time and states.input_number.wakeup_duration %}
-          {% set alarmtime = states.sensor.wakeup_alarm_time.state %}
-          {% set alarm_hour = alarmtime.split(":")[0] | int %}
-          {% set alarm_min = alarmtime.split(":")[1] | int %}
-          {% set light_dur = states.input_number.wakeup_duration.state | int %}
-          {% set alarm_min_light = alarm_min - light_dur %}
-          {% if alarm_min_light  < 0 %}
-          {% set alarm_min_light = alarm_min_light + 60 %}
-          {% set alarm_hour_light = alarm_hour - 1 %}
-          {% if alarm_hour_light < 0 %}{% set alarm_hour_light = 23 %}{% endif %}
-          {% if alarm_hour_light < 10 %}0{% endif %}{{ alarm_hour_light}}:{% if alarm_min_light < 10 %}0{% endif %}{{ alarm_min_light }}
-          {% else %}
-          {% if alarm_hour < 10 %}0{% endif %}{{ alarm_hour }}:{% if alarm_min_light < 10 %}0{% endif %}{{ alarm_min_light }}
-          {% endif %}
-          {% endif %}
-
-  - platform: template
-    sensors:
-      wakeup_fadein_duration:
-        friendly_name: 'Fade-in duration'
-        value_template: '{{ states.input_number.wakeup_duration.state | int }}'
-        unit_of_measurement: 'min'
-
-  - platform: hue
-    ip_address: Philipshue.fritz.box
-    token: !secret huetoken
-
-  - platform: template
-    sensors:
-      solar_angle:
-        friendly_name: "Sun angle"
-        unit_of_measurement: 'degrees'
-        value_template: "{{ states.sun.sun.attributes.elevation }}"
-
-      media:
-        value_template: '{{ states.remote.reinasharmony.attributes.current_activity }}'
-        friendly_name: "Media"
-  
-  - platform: command_line
-    name: SSL cert expiry
-    unit_of_measurement: days
-    scan_interval: 10800
-    command: "ssl-cert-check -b -c /etc/letsencrypt/live/thereinas.it/cert.pem | awk '{ print $NF }'"
-
-  - platform: command_line
-    name: db_file_size
-    command: "du -m /media/data/mysql/hass | cut -f1"
-    unit_of_measurement: 'MB'
-    value_template: '{{ value | int - 1 }}'
-
-
-#  - platform: viaggiatreno
-#    train_id: 12279
-#    station_id: S08409
-
-  - platform: yr
-
-  - platform: systemmonitor
-    resources:
-      - type: disk_use_percent
-        arg: /home
-      - type: disk_use_percent
-        arg: /media/data
-      - type: memory_free
-      - type: memory_use
-#      - type: memory_use_percent 	 
-#      - type: memory_use 	 
-#      - type: memory_free 	 
-#      - type: swap_use_percent 	 
-#      - type: swap_use 	 
-#      - type: swap_free 	 
-#      - type: load_1m 	 
-#      - type: load_5m 	 
-#      - type: load_15m 	
-#      - type: processor_use 	 
-#      - type: last_boot 	 
-#      - type: since_last_boot
-#      - type: network_in eth0
-#      - type: network_out eth0
-#      - type: packets_in eth0
-#      - type: packets_out eth0
-#      - type: ipv4_address eth0
-
-  - platform: version
+#############################################################################################################################
+#
+# mqtt 
+#
+#############################################################################################################################
 
   - platform: mqtt
     state_topic: "emon/emonpi/power1"
@@ -141,35 +44,155 @@
     name: "Asciugatrice"
     unit_of_measurement: "W"
 
-  - platform: fritzbox_callmonitor
-    host: fritz.box
-    user: !secret fritzboxuser
-    password: !secret fritzboxpassword
-    name: Telefono
-    phonebook: 0
+#############################################################################################################################
+#
+# illuminance Outdoor illuminance estimated from weather conditions reported by Weather Underground
+# https://community.home-assistant.io/t/outdoor-illuminance-estimated-from-weather-conditions-reported-by-weather-underground/52756
+#
+#############################################################################################################################
 
-  - platform: fritzbox_netmonitor
 
-  - platform: time_date
-    display_options:
-      - 'time'
-      - 'date'
-      - 'date_time'
-      - 'time_date'
-      - 'time_utc'
-      - 'beat'
+  - name: Illuminance
+    platform: illuminance
+    api_key: !secret wu_apikey
+    query: pws:IBRACCIA6
+    scan_interval:
+      minutes: 5
 
-  - platform: speedtest
-    minute:
-      - 30
-    monitored_conditions:
-      - ping
-      - download
-      - upload
+
+#############################################################################################################################
+#
+# Gradual wakeup : Phillips Hue Wakeup Light with fade-in
+# https://community.home-assistant.io/t/phillips-hue-wakeup-light-with-fade-in/18688
+#
+#############################################################################################################################
 
 
   - platform: template
     sensors:
+      wakeup_alarm_time:
+        friendly_name: 'Orario Sveglia'
+        value_template: '{% if states.input_number.wakeup_hour.state|length == 3 %}0{% endif %}{{ states.input_number.wakeup_hour.state | int }}:{% if states.input_number.wakeup_minutes.state|length == 3 %}0{% endif %}{{ states.input_number.wakeup_minutes.state | int }}'
+
+      wakeup_start_time_lights:
+        friendly_name: 'Orario Inizio Luce'
+        value_template: >
+          {% if states.sensor.wakeup_alarm_time and states.input_number.wakeup_duration %}
+          {% set alarmtime = states.sensor.wakeup_alarm_time.state %}
+          {% set alarm_hour = alarmtime.split(":")[0] | int %}
+          {% set alarm_min = alarmtime.split(":")[1] | int %}
+          {% set light_dur = states.input_number.wakeup_duration.state | int %}
+          {% set alarm_min_light = alarm_min - light_dur %}
+          {% if alarm_min_light  < 0 %}
+          {% set alarm_min_light = alarm_min_light + 60 %}
+          {% set alarm_hour_light = alarm_hour - 1 %}
+          {% if alarm_hour_light < 0 %}{% set alarm_hour_light = 23 %}{% endif %}
+          {% if alarm_hour_light < 10 %}0{% endif %}{{ alarm_hour_light}}:{% if alarm_min_light < 10 %}0{% endif %}{{ alarm_min_light }}
+          {% else %}
+          {% if alarm_hour < 10 %}0{% endif %}{{ alarm_hour }}:{% if alarm_min_light < 10 %}0{% endif %}{{ alarm_min_light }}
+          {% endif %}
+          {% endif %}
+
+      wakeup_fadein_duration:
+        friendly_name: 'Durata Schiarimento'
+        value_template: '{{ states.input_number.wakeup_duration.state | int }}'
+        unit_of_measurement: 'min'
+
+      period_of_day:
+        friendly_name: 'periodo del giorno'
+        value_template: >-
+          {% if (as_timestamp(states.sun.sun.attributes.next_dusk)) - (as_timestamp(states.sun.sun.attributes.next_setting)) < 0 %}
+            dusk
+          {% elif (as_timestamp(states.sun.sun.attributes.next_rising)) - (as_timestamp(states.sun.sun.attributes.next_dawn)) < 0 %}
+            dawn
+          {% elif (states.sun.sun.attributes.elevation) < -4 %}
+            night
+          {% else %}
+            day
+          {% endif %}
+        icon_template: >-
+          {% if (as_timestamp(states.sun.sun.attributes.next_dusk)) - (as_timestamp(states.sun.sun.attributes.next_setting)) < 0 %}
+            mdi:weather-sunset-down
+          {% elif (as_timestamp(states.sun.sun.attributes.next_rising)) - (as_timestamp(states.sun.sun.attributes.next_dawn)) < 0 %}
+            mdi:weather-sunset-up
+          {% elif (states.sun.sun.attributes.elevation) < -4 %}
+            mdi:weather-night
+          {% else %}
+            mdi:weather-sunny
+          {% endif %}
+
+      rifiuti:
+        friendly_name: 'Rifiuti da ritirare'
+        value_template: >-
+          {% if now().weekday() in (0,)  %}
+            'Lunedi'
+          {% elif now().weekday() in (1,)  %}
+            'Martedi'
+          {% elif now().weekday() in (2,)  %}
+            'Mercoledi'
+          {% elif now().weekday() in (3,)  %}
+            'Giovedi'
+          {% elif now().weekday() in (4,)  %}
+            'Venerdi'
+          {% elif now().weekday() in (5,)  %}
+            'Sabato'
+          {% else %}
+            'Domenica'
+          {% endif %}
+        icon_template: >-
+          {% if now().weekday() in (0,)  %}
+            mdi:weather-night
+          {% elif now().weekday() in (1,)  %}
+            mdi:weather-night
+          {% elif now().weekday() in (2,)  %}
+            mdi:weather-night
+          {% elif now().weekday() in (3,)  %}
+            mdi:weather-night
+          {% elif now().weekday() in (4,)  %}
+            mdi:weather-night
+          {% elif now().weekday() in (5,)  %}
+            mdi:weather-night
+          {% else %}
+            mdi:weather-night
+          {% endif %}
+
+# Template example
+      solar_angle:
+        friendly_name: "Inclinazione Sole"
+        unit_of_measurement: 'degrees'
+        value_template: "{{ states.sun.sun.attributes.elevation }}"
+
+#############################################################################################################################
+#
+#  My Sensors
+#
+#############################################################################################################################
+
+      llim_tavolosalone:
+        friendly_name: "Soglia Luce Salone"
+        value_template: "{{ states.sensor.illumination_tavolosalone.state | int > 400 }}"
+    
+      dimluce:
+        friendly_name: "Dimming Luce Attivo"
+        value_template: "{{ now().hour | int >= 0 and now().hour | int < 7 }}"
+
+
+      movimento_lettogio:
+        friendly_name: "Movimento Letto Gio"
+        value_template: "{{ states.binary_sensor.motion_lettogio_motion  }}"
+
+#      consumofrigo:
+#        friendly_name: "Consumo Frigo"
+#        unit_of_measurement: 'Watt'
+#        value_template: " {{ states.sensor.fibaro_system_plug_frigorifero_consumo.state | float * -1}}"
+
+
+      media:
+        value_template: '{{ states.remote.reinasharmony.attributes.current_activity }}'
+        friendly_name: "Media"
+
+# Xiaomi vacuum
+#  
       vacuum_status:
         friendly_name: Status
         entity_id:
@@ -197,41 +220,41 @@
         value_template: 'Mode: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.fan_speed }}'
         icon_template: 'mdi:speedometer'
       vacuum_battery:
-        friendly_name: Vacuum Battery
+        friendly_name: Batteria Aspirapolvere
         entity_id:
           - vacuum.xiaomi_vacuum_cleaner
         value_template: 'Battery: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level }}'
         unit_of_measurement: '%'
         icon_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_icon }}'
       vacuum_cleaning_time:
-        friendly_name: Time of Last Cycle
+        friendly_name: Ultima Pulizia
         entity_id:
           - vacuum.xiaomi_vacuum_cleaner
         value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time }}'
         icon_template: 'mdi:timer'
       vacuum_cleaned_area:
-        friendly_name: Area of Last Cycle
+        friendly_name: Ultima Area Pulita
         unit_of_measurement: 'm ²'
         entity_id:
           - vacuum.xiaomi_vacuum_cleaner
         value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaned_area }}'
         icon_template: 'mdi:ruler'
       vacuum_cleanmainbrush:
-        friendly_name: Replace main brush
+        friendly_name: Sostituzione Spazzola Principale
         unit_of_measurement: 'h'
         entity_id:
           - vacuum.xiaomi_vacuum_cleaner
         value_template: 'Main Brush: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.main_brush_left }}'
         icon_template: 'mdi:screwdriver'
       vacuum_cleansidebrush:
-        friendly_name: Replace side brush
+        friendly_name: Sostituzione Spazzola Laterale
         unit_of_measurement: 'h'
         entity_id:
           - vacuum.xiaomi_vacuum_cleaner
         value_template: 'Side brush: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.side_brush_left }}'
         icon_template: 'mdi:screwdriver'
       vacuum_cleanfilter:
-        friendly_name: Replace filter
+        friendly_name: Sostituzione Filtro
         unit_of_measurement: 'h'
         entity_id:
           - vacuum.xiaomi_vacuum_cleaner
@@ -245,7 +268,7 @@
         value_template: 'Sensor: {{ states.vacuum.xiaomi_vacuum_cleaner.attributes.sensor_dirty_left }}'
         icon_template: 'mdi:screwdriver'
       vacuum_do_not_disturb:
-        friendly_name: Do Not Disturb
+        friendly_name: Non Disturbare
         entity_id:
           - vacuum.xiaomi_vacuum_cleaner
         value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.do_not_disturb }}'
@@ -261,32 +284,166 @@
       vacuum_accessories:
         value_template: 'Maintenance'
 
-  - platform: template
-    sensors:
-     consumo_infrastruttura:
+
+#############################################################################################################################
+#
+#  Sensori Energia
+#
+#############################################################################################################################
+
+      consumo_infrastruttura:
         value_template: '{% if states.switch.infrastruttura.attributes["load_power"] is defined %}{{ (states.switch.infrastruttura.attributes["load_power"] | float ) | round(0)}}{% else %}-{% endif %}'
         unit_of_measurement: 'w'
         friendly_name: Consumo Infrastruttura
 
-  - platform: template
-    sensors:
       consumo_altro_salone:
         value_template: '{% if states.switch.altro_salone.attributes["load_power"] is defined %}{{ (states.switch.altro_salone.attributes["load_power"] | float ) | round(0)}}{% else %}-{% endif %}'
         unit_of_measurement: 'w'
         friendly_name: Consumo Altro Salone
 
-  - platform: template
-    sensors:
       consumo_family_entertainment:
         value_template: '{% if states.switch.family_entertainment.attributes["load_power"] is defined %}{{ (states.switch.family_entertainment.attributes["load_power"] | float ) | round(0)}}{% else %}-{% endif %}'
         unit_of_measurement: 'w'
         friendly_name: Consumo Family Entertainment
 
-  - platform: template
-    sensors:
+#############################################################################################################################
+#
+#  Gestione internet Tablet
+#
+#############################################################################################################################
+
       internetcuttime:
         friendly_name: Switch off at
         entity_id:
           - input_slider.internet_cut_hour
           - input_slider.internet_cut_minutes
         value_template: '{{ "%0.02d:%0.02d" | format(states("input_slider.internet_cut_hour") | int, states("input_slider.internet_cut_minutes") | int) }}'
+
+#############################################################################################################################
+#
+#  OpenGarage
+#
+#############################################################################################################################
+
+      garage_status:
+        friendly_name: 'Basculante Garage'
+        value_template: '{% if states.cover.basculante_garage %}
+            {% if states.cover.basculante_garage.attributes["door_state"] == "open" %}
+              Open
+            {% elif states.cover.basculante_garage.attributes["door_state"] == "closed" %}
+              Closed
+            {% elif states.cover.basculante_garage.attributes["door_state"] == "opening" %}
+              Opening
+            {% elif states.cover.basculante_garage.attributes["door_state"] == "closing" %}
+              Closing
+            {% else %}
+              Unknown
+            {% endif %}
+            {% else %}
+            n/a
+            {% endif %}'
+      garage_car_present:
+        friendly_name: 'Auto in Garage'
+        value_template: '{% if states.cover.basculante_garage %}
+            {% if states.cover.basculante_garage.state == "open" %}
+              n/a
+            {% elif ((states.cover.basculante_garage.attributes["distance_sensor"] > 50) and (states.cover.basculante_garage.attributes["distance_sensor"] < 150)) %}
+              Yes
+            {% else %}
+              No
+            {% endif %}
+            {% else %}
+            n/a
+            {% endif %}'
+
+#############################################################################################################################
+#
+#  Hue Custom
+#  https://github.com/robmarkcole/Hue-sensors-HASS
+#
+#############################################################################################################################
+
+  - platform: hue_custom
+  
+#############################################################################################################################
+#
+#  OpenGarage
+#
+#############################################################################################################################
+
+  - platform: command_line
+    name: SSL cert expiry
+    unit_of_measurement: days
+    scan_interval: 10800
+    command: "ssl-cert-check -b -c /etc/letsencrypt/live/thereinas.it/cert.pem | awk '{ print $NF }'"
+
+
+#  - platform: viaggiatreno
+#    train_id: 12279
+#    station_id: S08409
+
+  - platform: yr
+
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: disk_use_percent
+        arg: /media/data
+      - type: memory_free
+      - type: memory_use
+#      - type: memory_use_percent 	 
+#      - type: memory_use 	 
+#      - type: memory_free 	 
+#      - type: swap_use_percent 	 
+#      - type: swap_use 	 
+#      - type: swap_free 	 
+#      - type: load_1m 	 
+#      - type: load_5m 	 
+#      - type: load_15m 	
+#      - type: processor_use 	 
+#      - type: last_boot 	 
+#      - type: since_last_boot
+#      - type: network_in eth0
+#      - type: network_out eth0
+#      - type: packets_in eth0
+#      - type: packets_out eth0
+#      - type: ipv4_address eth0
+
+  - platform: version
+
+
+#############################################################################################################################
+#
+# Fritz 
+#
+#############################################################################################################################
+
+  - platform: fritzbox_callmonitor
+    host: fritz.box
+    user: !secret fritzboxuser
+    password: !secret fritzboxpassword
+    name: Telefono
+    phonebook: 0
+
+  - platform: fritzbox_netmonitor
+
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'
+
+#  - platform: speedtest
+#    minute:
+#      - 30
+#    monitored_conditions:
+#      - ping
+#      - download
+#      - upload
+
+
+

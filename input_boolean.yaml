@@ -1,0 +1,22 @@
+  daily_vacuum_first_run:
+    name: Primo Avvio Pulizia Quotidiana
+    initial: 'off'
+  disable_daily_vacuum:
+    name: Disabilita Pulizia Quotidiana
+    initial: 'off'
+  disable_dustbin_notification:
+    name: Disabilita Notifica Sacchetto
+    initial: 'off'
+
+  wakeup:
+    name: 'Abilita Sveglia'
+    icon: mdi:power
+    initial: off
+  wakeup_weekends:
+    name: 'Abilita Sveglia Fine Settimana'
+    icon: mdi:power
+    initial: off
+
+  auto_tavolosalone:
+    name: 'automazione luce tavolo salone'
+    initial: on

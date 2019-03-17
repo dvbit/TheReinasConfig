@@ -2,7 +2,7 @@ accendi_sky:
   alias: Accendi Sky
   sequence:
   - data:
-      activity: '32437309'
+      activity: '37753211'
       entity_id: remote.reinasharmony
     service: remote.turn_on
 spegni_tv:
@@ -12,11 +12,11 @@ spegni_tv:
       activity: '-1'
       entity_id: remote.reinasharmony
     service: remote.turn_off
-ccendi_fire:
-  alias: Accendi Fire
+accendi_smarttv:
+  alias: Accendi smarttv
   sequence:
   - data:
-      activity: '32455770'
+      activity: '37753407'
       entity_id: remote.reinasharmony
     service: remote.turn_on
 metti_in_pausa:
@@ -24,7 +24,7 @@ metti_in_pausa:
   sequence:
   - data:
       command: pause
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
 metti_in_mute:
@@ -32,7 +32,7 @@ metti_in_mute:
   sequence:
   - data:
       command: mute
-      device: '53039878'
+      device: ''
       entity_id: remote.reinasharmony
     service: remote.send_command
 alza_volume:
@@ -40,7 +40,7 @@ alza_volume:
   sequence:
   - data:
       command: VolumeUp
-      device: '53039878'
+      device: ''
       entity_id: remote.reinasharmony
       num_repeats: '5'
     service: remote.send_command
@@ -49,7 +49,7 @@ abbassa_volume:
   sequence:
   - data:
       command: VolumeDown
-      device: '53039878'
+      device: ''
       entity_id: remote.reinasharmony
       num_repeats: '5'
     service: remote.send_command
@@ -70,12 +70,12 @@ accendi_cartoni:
   sequence:
   - data:
       command: Exit
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
   - data:
       command: Exit
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
   - data:
@@ -84,17 +84,17 @@ accendi_cartoni:
     service: remote.turn_on
   - data:
       command: '6'
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
   - data:
       command: '0'
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
   - data:
       command: '0'
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
 vedi_cartoni:
@@ -102,27 +102,27 @@ vedi_cartoni:
   sequence:
   - data:
       command: Exit
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
   - data:
       command: Exit
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
   - data:
       command: '6'
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
   - data:
       command: '0'
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
   - data:
       command: '0'
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
 spegni_gradualmente_cucina:
@@ -168,7 +168,7 @@ no_menu_sky:
   sequence:
   - data:
       command: Exit
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
 sky_exit:
@@ -176,7 +176,7 @@ sky_exit:
   sequence:
   - data:
       command: Exit
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
 guida_sky:
@@ -184,7 +184,7 @@ guida_sky:
   sequence:
   - data:
       command: Guide
-      device: '22578664'
+      device: '60325705'
       entity_id: remote.reinasharmony
     service: remote.send_command
 toggle_luci_esterno:
@@ -241,9 +241,13 @@ wakeup_bedroom:
   alias: Notifica
   sequence:
   - data:
-      message: deuh@
-      title: fefwe
-    service: notify.notify
+      message: Messaggio
+      title: ha funzionato
+    service: notify.pushover
+  - data:
+      entity_id: media_player.echo_plus__reinas
+      message: ha funzionato
+    service: media_player.alexa_tts
 vacuum_bedroom:
   alias: Vacuum Bedroom
   sequence:
@@ -331,20 +335,29 @@ automazione_gionic_on:
   alias: Prova Alexa
   sequence:
   - data:
-      entity_id: media_player.echo_plus__reinas
+      entity_id: media_player.echoplusreina
       message: soffia il naso {{ states.sensor.produzione_casa.state }}
     service: media_player.alexa_tts
 '1545663639118':
   alias: Stato Energia
   sequence:
   - data_template:
-      entity_id: media_player.echo_plus__reinas
-      message: "La produzione è di {{ states.sensor.produzione_casa.state }} watt , il consumo {{ states.sensor.consumo_casa.state }}  watt , lo scambio {{ states.sensor.scambio_casa.state }} watt"
+      entity_id: media_player.echoplusreina
+      message: La produzione è di {{ states.sensor.produzione_casa.state }} watt ,
+        il consumo {{ states.sensor.consumo_casa.state }}  watt , lo scambio {{ states.sensor.scambio_casa.state
+        }} watt
     service: media_player.alexa_tts
 '1545688639118':
   alias: Temperatura Salone
   sequence:
   - data_template:
-      entity_id: media_player.echo_plus__reinas
-      message: "In salone ci sono {{ states.sensor.climate.salone.auto.current_temperature }} gradi"
+      entity_id: media_player.echoplusreina
+      message: In salone ci sono {{ states.sensor.climate.salone.auto.current_temperature
+        }} gradi
     service: media_player.alexa_tts
+'5545688639118':
+  alias: Test Notifica Android
+  sequence:
+    service: notify.android
+    data:
+      message: test msg

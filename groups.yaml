@@ -10,85 +10,95 @@ Sicurezza_view:
   name: Sicurezza
   view: yes
   entities:
+     - binary_sensor.motion_lettogio_motion_sensor
+     - binary_sensor.motion_lettonic_motion_sensor
+     - binary_sensor.motion_bagnosalone_motion_sensor
+     - binary_sensor.motion_bagnobeaale_motion_sensor
+     - binary_sensor.motion_scale_motion_sensor
      - binary_sensor.allarmeassentecasa
      - binary_sensor.allarmeinseritocasa
-     - binary_sensor.sensor_garage 
+     - sensor.garage_status
+     - binary_sensor.motion_sensor_ale
+     - binary_sensor.motion_sensor_cabinaarmadio
+     - binary_sensor.motion_sensor_cucina
+     - binary_sensor.motion_sensor_divano
+     - binary_sensor.motion_sensor_doccia
+     - binary_sensor.motion_sensor_garage
+     - binary_sensor.motion_sensor_lettogionic
+     - binary_sensor.motion_sensor_scaletaverna
+     - binary_sensor.motion_sensor_sottolettoale
+     - binary_sensor.motion_sensor_tavolosalone
      - binary_sensor.door_window_sensor_portafinestrasalone
      - binary_sensor.door_window_sensor_portafinestracucina
      - binary_sensor.door_window_sensor_portataverna
      - binary_sensor.door_window_sensor_portacasa
-     - sensor.motion_lettogio_motion_sensor
-     - sensor.motion_lettonic_motion_sensor
-     - sensor.motion_bagnosalone_motion_sensor
-     - sensor.motion_bagnobeaale_motion_sensor
-     - sensor.motion_scale_motion_sensor
-     - camera.saloneingresso
-     - camera.salonecucina
-     - camera.giovannanicola
+     - camera.ingresso
+     - camera.cucina
+     - camera.letto
      - group.TelecameraIngresso
      - group.TelecameraLetto
      - group.TelecameraCucina
 
-TelecameraIngresso:
-   name: TelecameraIngresso
-   entities:
-     - camera.TelecameraIngresso
-     - switch.TelecameraIngresso_h264_rtsp_server
-     - switch.TelecameraIngresso_mjpeg_rtsp_server
-     - sensor.TelecameraIngresso
-     - device_tracker.TelecameraIngresso
-     - sensor.TelecameraIngresso_light_sensor
-     - switch.TelecameraIngresso_ir_filter
-     - switch.TelecameraIngresso_ir_led
-     - switch.TelecameraIngresso_night_mode
-     - switch.TelecameraIngresso_night_mode_auto
-     - switch.TelecameraIngresso_blue_led
-     - switch.TelecameraIngresso_yellow_led
-     - switch.TelecameraIngresso_motion_detection
-     - switch.TelecameraIngresso_motion_tracking
-     - camera.TelecameraIngresso_motion_snapshot
-     - binary_sensor.TelecameraIngresso_motion_sensor
+#TelecameraIngresso:
+#   name: TelecameraIngresso
+#   entities:
+#     - camera.TelecameraIngresso
+#     - switch.TelecameraIngresso_h264_rtsp_server
+#     - switch.TelecameraIngresso_mjpeg_rtsp_server
+#     - sensor.TelecameraIngresso
+#     - device_tracker.TelecameraIngresso
+#     - sensor.TelecameraIngresso_light_sensor
+#     - switch.TelecameraIngresso_ir_filter
+#     - switch.TelecameraIngresso_ir_led
+#     - switch.TelecameraIngresso_night_mode
+#     - switch.TelecameraIngresso_night_mode_auto
+#     - switch.TelecameraIngresso_blue_led
+#     - switch.TelecameraIngresso_yellow_led
+#     - switch.TelecameraIngresso_motion_detection
+##     - switch.TelecameraIngresso_motion_tracking
+#     - camera.TelecameraIngresso_motion_snapshot
+#     - binary_sensor.TelecameraIngresso_motion_sensor
+#
+#TelecameraLetto:
+#   name: TelecameraLetto
+#   entities:
+#     - camera.TelecameraLetto
+##     - switch.TelecameraLetto_h264_rtsp_server
+#     - switch.TelecameraLetto_mjpeg_rtsp_server
+#     - sensor.TelecameraLetto
+#     - device_tracker.TelecameraLetto
+#     - sensor.TelecameraLetto_light_sensor
+#     - switch.TelecameraLetto_ir_filter
+#     - switch.TelecameraLetto_ir_led
+#     - switch.TelecameraLetto_night_mode
+#     - switch.TelecameraLetto_night_mode_auto
+#     - switch.TelecameraLetto_blue_led
+#     - switch.TelecameraLetto_yellow_led
+##     - switch.TelecameraLetto_motion_detection
+#     - switch.TelecameraLetto_motion_tracking
+#     - camera.TelecameraLetto_motion_snapshot
+#     - binary_sensor.TelecameraLetto_motion_sensor
 
-TelecameraLetto:
-   name: TelecameraLetto
-   entities:
-     - camera.TelecameraLetto
-     - switch.TelecameraLetto_h264_rtsp_server
-     - switch.TelecameraLetto_mjpeg_rtsp_server
-     - sensor.TelecameraLetto
-     - device_tracker.TelecameraLetto
-     - sensor.TelecameraLetto_light_sensor
-     - switch.TelecameraLetto_ir_filter
-     - switch.TelecameraLetto_ir_led
-     - switch.TelecameraLetto_night_mode
-     - switch.TelecameraLetto_night_mode_auto
-     - switch.TelecameraLetto_blue_led
-     - switch.TelecameraLetto_yellow_led
-     - switch.TelecameraLetto_motion_detection
-     - switch.TelecameraLetto_motion_tracking
-     - camera.TelecameraLetto_motion_snapshot
-     - binary_sensor.TelecameraLetto_motion_sensor
-
-TelecameraCucina:
-   name: TelecameraCucina
-   entities:
-     - camera.TelecameraCucina
-     - switch.TelecameraCucina_h264_rtsp_server
-     - switch.TelecameraCucina_mjpeg_rtsp_server
-     - sensor.TelecameraCucina
-     - device_tracker.TelecameraCucina
-     - sensor.TelecameraCucina_light_sensor
-     - switch.TelecameraCucina_ir_filter
-     - switch.TelecameraCucina_ir_led
-     - switch.TelecameraCucina_night_mode
-     - switch.TelecameraCucina_night_mode_auto
-     - switch.TelecameraCucina_blue_led
-     - switch.TelecameraCucina_yellow_led
-     - switch.TelecameraCucina_motion_detection
-     - switch.TelecameraCucina_motion_tracking
-     - camera.TelecameraCucina_motion_snapshot
-     - binary_sensor.TelecameraCucina_motion_sensor
-
+#TelecameraCucina:
+#   name: TelecameraCucina
+#   entities:
+#     - camera.TelecameraCucina
+#     - switch.TelecameraCucina_h264_rtsp_server
+#     - switch.TelecameraCucina_mjpeg_rtsp_server
+#     - sensor.TelecameraCucina
+#     - device_tracker.TelecameraCucina
+#     - sensor.TelecameraCucina_light_sensor
+#     - switch.TelecameraCucina_ir_filter
+#     - switch.TelecameraCucina_ir_led
+#     - switch.TelecameraCucina_night_mode
+#     - switch.TelecameraCucina_night_mode_auto
+#     - switch.TelecameraCucina_blue_led
+#     - switch.TelecameraCucina_yellow_led
+#     - switch.TelecameraCucina_motion_detection
+#     - switch.TelecameraCucina_motion_tracking
+#     - camera.TelecameraCucina_motion_snapshot
+#     - binary_sensor.TelecameraCucina_motion_sensor
+#
 ############################################################################################
 #  Energia
 ############################################################################################
@@ -144,26 +154,26 @@ Hue_view:
 
 Hue:
   entities:
-    - sensor.motion_lettogio_motion_sensor
-    - sensor.motion_lettonic_motion_sensor
-    - sensor.motion_bagnosalone_motion_sensor
-    - sensor.motion_bagnobeaale_motion_sensor
-    - sensor.motion_scale_motion_sensor
-    - sensor.motion_lettogio_motion_temperature
-    - sensor.motion_lettonic_motion_temperature
-    - sensor.motion_bagnosalone_motion_temperature
-    - sensor.motion_bagnobeaale_motion_temperature
-    - sensor.motion_scale_motion_temperature
-    - sensor.motion_lettogio_motion_light_level
-    - sensor.motion_lettonic_motion_light_level
-    - sensor.motion_bagnosalone_motion_light_level
-    - sensor.motion_bagnobeaale_motion_light_level
-    - sensor.motion_scale_motion_light_level
-    - sensor.motion_lettogio_motion_lux
-    - sensor.motion_lettonic_motion_lux
-    - sensor.motion_bagnosalone_motion_lux
-    - sensor.motion_bagnobeaale_motion_lux
-    - sensor.motion_scale_motion_lux
+    - binary_sensor.motion_lettogio_motion_sensor
+    - binary_sensor.motion_lettonic_motion_sensor
+    - binary_sensor.motion_bagnosalone_motion_sensor
+    - binary_sensor.motion_bagnobeaale_motion_sensor
+    - binary_sensor.motion_scale_motion_sensor
+    - binary_sensor.motion_lettogio_motion_temperature
+    - binary_sensor.motion_lettonic_motion_temperature
+    - binary_sensor.motion_bagnosalone_motion_temperature
+    - binary_sensor.motion_bagnobeaale_motion_temperature
+    - binary_sensor.motion_scale_motion_temperature
+    - binary_sensor.motion_lettogio_motion_light_level
+    - binary_sensor.motion_lettonic_motion_light_level
+    - binary_sensor.motion_bagnosalone_motion_light_level
+    - binary_sensor.motion_bagnobeaale_motion_light_level
+    - binary_sensor.motion_scale_motion_light_level
+    - binary_sensor.motion_lettogio_motion_lux
+    - binary_sensor.motion_lettonic_motion_lux
+    - binary_sensor.motion_bagnosalone_motion_lux
+    - binary_sensor.motion_bagnobeaale_motion_lux
+    - binary_sensor.motion_scale_motion_lux
 
 wakeuplight:
   name: Sveglia
@@ -200,12 +210,14 @@ Luci GioNic:
 LuciEsterno:
   name: Luci Esterno
   entities: 
+    - light.luce_porta_ingresso
+    - light.luci_cammino_ingresso
     - light.esternoale
     - light.esternocancelletto
     - light.esternocucina
     - light.esternosalone
 
-Esterno:
+Luci Esterno:
   view: yes
   entities:
     - group.LuciEsterno
@@ -237,17 +249,42 @@ Salone_view:
 LuciAle:
   name: Luci Ale
   entities:
+    - light.faretti_ale
     - light.lettoale
     - light.armadiale
     - light.lampadaale
     - light.lampadaale_ambient_light
     - light.sotto_letto_ale
 
-Ale:
+Luci Ale:
   name: Luci Ale
   view: yes
   entities:
     - group.LuciAle
+
+LuciBea:
+  name: Luci Bea
+  entities:
+    - light.lampadario_bea
+
+Luci Bea:
+  name: Luci Bea
+  view: yes
+  entities:
+    - group.LuciBea
+
+LuciBagnoBeaAle:
+  name: Luci Bagno Bea Ale
+  entities:
+    - light.wc
+    - light.doccia
+    - light.lavabo
+
+Luci BagnoBeaAle:
+  name: Luci Bagno Bea Ale
+  view: yes
+  entities:
+    - group.LuciBagnoBeaAle
 
 LuciGiardino:
   name: Luci Giardino
@@ -255,7 +292,7 @@ LuciGiardino:
     - light.giardino_vicino
     - light.giardino_lontano
 
-Giardino:
+Luci Giardino:
   name: Luci Giardino
   view: yes
   entities:
@@ -267,20 +304,21 @@ LuciCucina:
     - light.cucina
     - light.coloricucina
 
-Cucina:
+Luci Cucina:
   name: Luci Cucina
   view: yes
   entities:
     - group.LuciCucina
 
-LuciPrimoPiano:
-  name: Luci Primo Piano
+LuciPianoTerra:
+  name: Luci Piano Terra
   entities:
     - light.cucina
     - light.cucina
     - light.cucina_2
     - light.divano
     - light.ingresso
+    - light.tavolo_salone
     - light.tavolosalone_2
     - light.lampada_sale
     - light.esterno_cabina
@@ -289,44 +327,128 @@ LuciPrimoPiano:
     - light.lettogionic_2
     - light.interno_cabina
     - light.bagnosalone_2
+    - light.spotgiu
 
-Primo Piano:
+Luci PianoTerra Piano:
+  name: Luci Piano Terra
+  view: yes
+  entities:
+    - group.LuciPianoTerra
+
+LuciScale:
+  name: Luci Scale
+  entities:
+    - light.spotsu
+    - light.spotgiu
+
+Luci Scale:
+  name: Luci Scale
+  view: yes
+  entities:
+    - group.LuciScale
+
+
+LuciPrimoPiano:
+  name: Luci Primo Piano
+  entities:
+    - light.faretti_ale
+    - light.lettoale
+    - light.armadiale
+    - light.lampadaale
+    - light.lampadaale_ambient_light
+    - light.sotto_letto_ale
+    - light.lampadario_bea
+    - light.wc
+    - light.doccia
+    - light.lavabo
+    - light.spotsu
+
+
+Luci Primo Piano:
   name: Luci Primo Piano
   view: yes
   entities:
     - group.LuciPrimoPiano
 
-group_opensprinkler:
-    name: 'Open Sprinkler'
-    control: hidden
-    entities:
-      - sensor.os_lastrun
-      - sensor.os_rain
-      - sensor.os_schedule_1
-      - sensor.os_schedule_2
-        #continue with all your schedules
-      - sensor.os_station_1
-      - sensor.os_station_2
+LuciCasa:
+  name: Luci Casa
+  entities:
+    - light.cucina
+    - light.cucina
+    - light.cucina_2
+    - light.divano
+    - light.ingresso
+    - light.tavolo_salone
+    - light.tavolosalone_2
+    - light.lampada_sale
+    - light.esterno_cabina
+    - light.idro_gionic
+    - light.letto_gionic
+    - light.lettogionic_2
+    - light.interno_cabina
+    - light.bagnosalone_2
+    - light.faretti_ale
+    - light.lettoale
+    - light.armadiale
+    - light.lampadaale
+    - light.lampadaale_ambient_light
+    - light.sotto_letto_ale
+    - light.lampadario_bea
+    - light.wc
+    - light.doccia
+    - light.lavabo
 
-group opensprinkler :
+Luci Casa:
+  name: Luci Casa
   view: yes
   entities:
-    - group.group_opensprinkler
+    - group.LuciCasa
 
-group_opensprinkler_controller:
-    name: 'Open Sprinkler controller'
-    control: hidden
-    entities:
-      - scene.os_program_1
-      - scene.os_program_2
-      #continue with all your schedules
-      - scene.os_station_1
-      - scene.os_station_2
+############################################################################################
+#  irrigazione
+############################################################################################
 
-group opensprinkler_controller :
+Irrigazioneg:
+  name: Irrigazione
+  entities:
+    - switch.piante_fronte
+    - binary_sensor.piante_fronte
+    - input_number.piante_fronte
+    - switch.piante_retro
+    - binary_sensor.piante_retro
+    - input_number.piante_retro
+    - binary_sensor.alfonsi
+    - switch.alfonsi
+    - input_number.alfonsi
+    - binary_sensor.baldini
+    - switch.baldini
+    - input_number.baldini
+    - binary_sensor.fondo
+    - switch.fondo
+    - input_number.fondo
+    - binary_sensor.siepe
+    - switch.siepe
+    - input_number.siepe
+    - binary_sensor.avanti
+    - switch.avanti
+    - input_number.avanti
+    - binary_sensor.spare
+    - switch.spare
+    - input_number.spare
+    - scene.irriav
+    - scene.irridi
+    - scene.gocciolatoi
+    - scene.siepedx
+
+irrigazione:
+  name: irrigazione
   view: yes
   entities:
-    - group.group_opensprinkler_controller
+    - group.irrigazioneg
+
+############################################################################################
+#  internet
+############################################################################################
 
 internet:
   view: yes
@@ -342,3 +464,14 @@ internet:
     - switch.internet_tablet
     - switch.internet_fire
 
+############################################################################################
+#  garage
+############################################################################################
+
+garage:
+  view: yes
+  name: Garage
+  entities:
+    - cover.garage
+    - sensor.garage_status
+    - sensor.garage_car_present

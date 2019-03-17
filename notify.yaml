@@ -1,4 +1,9 @@
   - name: pushover
     platform: pushover
-    api_key: secret !apipushover
-    user_key: secret !userpushover
+    api_key: a3i1yirbf1iajw8d4ydtbpu8nw2by2
+    user_key: ur7KgHHqXddb6ynuDqMcEYfgZKQ8k1
+  - name: telegram
+    platform: telegram
+    chat_id: !secret telegram_bot_main_chat_id
+  - name: android
+    platform: fcm-android

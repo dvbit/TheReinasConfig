@@ -6,3 +6,6 @@ switch.internet_fire:
   assumed_state: false
 switch.internet_tablet:
   assumed_state: false
+light.divano: {}
+light.coloritavolosalone:
+  icon: mdi:palette

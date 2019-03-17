@@ -1,9 +1,11 @@
-titlg: Casa
+title: Casa
 
 resources:
+  - url: /local/tracker-card.js?v=1.2.5
+    type: js
   - url: /local/custom_ui/weather-card.js
     type: js
-  - url: /local/vertical-stack-in-card.js?v=0.0.8
+  - url: /local/vertical-stack-in-card.js?v=v0.1.1
     type: js
   - url: /local/tracker-card.js?v=0
     type: js
@@ -15,12 +17,20 @@ resources:
     type: module
   - url: /local/bignumber-card.js
     type: js
-  - url: /local/mini-graph-card-bundle.js?v=0.1.0
+  - url: /local/mini-graph-card-bundle.js?v=0.3.0
     type: module
-  - url: /local/tracker-card.js?v=0
+  - url: /local/custom-lovelace/swipe-card/swipe-card.js?v=2.0.0
+    type: module
+  - url: /local/button-card.js
+    type: module
+  - url: /local/slider-entity-row.js
     type: js
-  - url: /local/custom-lovelace/swipe-card/swipe-card.js?v=1.1.0
-    type: module
+  - url: /local/card-tools.js?v=deb8e3
+    type: js
+  - url: /local/layout-card.js
+    type: js
+  - url: /local/color-picker.js?v=59a4be
+    type: js
 
 views:
 
@@ -29,101 +39,185 @@ views:
 ########################################################################################
 
   - title: Luce
+    icon: mdi:lightbulb
+    path: luce
     panel: true
     cards:
       - type: vertical-stack
         cards:
-          - type: entity-button
-            entity: light.luci_salone
-            tap_action: toggle
+          - type: vertical-stack
+            cards:
+              - type: custom:button-card
+                entity: light.luci_salone
+                icon: mdi:sofa
+                color: auto
+#            tap_action: 
+#              action: toggle
 ################
 # Salone
 ################
-          - type: horizontal-stack
-            cards:
-              - type: entity-button
-                entity: light.ingresso
-                tap_action: toggle
-              - type: entity-button
-                entity: light.divano
-                tap_action: toggle
-              - type: entity-button
-                entity: light.tavolo_salone
-                tap_action: toggle
-              - type: light
-                entity: light.coloritavolosalone
-                tap_action: toggle
+              - type: horizontal-stack
+                cards:
+                  - type:  custom:button-card
+#                    tap_action: 
+#                      action: toggle
+                    entity: light.ingresso
+                    icon: mdi:door
+                  - type:  custom:button-card
+#                    tap_action: 
+#                      action: toggle
+                    entity: light.divano
+                    icon: mdi:sofa
+                  - type:  custom:color-picker
+                    entity: light.coloritavolosalone
+#                tap_action: 
+#                  action: toggle
+                    icon: mdi:food-variant
+                  - type:  custom:button-card
+                    entity: light.tavolo_salone
+#                tap_action: 
+#                  action: toggle
+                    icon: mdi:food-variant
 ################
 # Cucina
 ################
-          - type: entity-button
-            entity: light.luci_cucina
-            tap_action: toggle
-          - type: horizontal-stack
+          - type: vertical-stack
             cards:
-             - type: light
-               entity: light.cucina
-               tap_action: toggle
-             - type: light
-               entity: light.coloricucina
-               tap_action: toggle
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    entity: light.luci_cucina
+#                tap_action: 
+#                  action: toggle
+                    icon: mdi:silverware
+              - type: horizontal-stack
+                cards:
+                 - type: entity-button
+                   entity: light.cucina
+                   tap_action: 
+                     action: toggle
+                 - type: light
+                   entity: light.coloricucina
+                   tap_action: 
+                     action: toggle
 ################
 # GioNic
 ################
-          - type: entity-button
-            entity: light.luci_gionic
-            tap_action: toggle
-          - type: horizontal-stack
+          - type: vertical-stack
             cards:
-             - type: light
-               entity: light.letto_gionic
-               tap_action: toggle
-             - type: entity-button
-               entity: light.idro_gionic
-               tap_action: toggle
-             - type: entity-button
-               entity: light.lampada_sale
-               tap_action: toggle
-             - type: entity-button
-               entity: light.interno_cabina_gionic
-               tap_action: toggle
-             - type: entity-button
-               entity: light.esterno_cabina_gionic
-               tap_action: toggle
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    entity: light.luci_gionic
+#                tap_action: 
+#              action: toggle
+                    icon: mdi:bed-empty
+                  - type: horizontal-stack
+                    cards:
+                     - type: light
+                       entity: light.letto_gionic
+                       tap_action: 
+                         action: toggle
+                     - type: entity-button
+                       entity: light.idro_gionic
+                       tap_action: 
+                         action: toggle
+                     - type: entity-button
+                       entity: light.lampada_sale
+                       tap_action: 
+                         action: toggle
+                     - type: entity-button
+                       entity: light.interno_cabina_gionic
+                       tap_action: 
+                         action: toggle
+                     - type: entity-button
+                       entity: light.esterno_cabina_gionic
+                       tap_action: 
+                         action: toggle
 ################
 # Esterno Portico
 ################
-          - type: entity-button
-            entity: light.luci_esterno
-            tap_action: toggle
-          - type: horizontal-stack
+          - type: vertical-stack
             cards:
-             - type: entity-button
-               entity: light.esternoale
-               tap_action: toggle
-             - type: entity-button
-               entity: light.esternocancelletto
-               tap_action: toggle
-             - type: entity-button
-               entity: light.esternocucina
-               tap_action: toggle
-             - type: entity-button
-               entity: light.esternosalone
-               tap_action: toggle
+              - type: horizontal-stack
+                cards:
+                  - type: entity-button
+                    entity: light.luci_esterno
+                    tap_action: 
+                      action: toggle
+                  - type: horizontal-stack
+                    cards:
+                      - type: entity-button
+                        entity: light.esternoale
+                        tap_action: 
+                          action: toggle
+                      - type: entity-button
+                        entity: light.esternocancelletto
+                        tap_action: 
+                          action: toggle
+                      - type: entity-button
+                        entity: light.esternocucina
+                        tap_action: 
+                          action: toggle
+                      - type: entity-button
+                        entity: light.esternosalone
+                        tap_action: 
+                          action: toggle
 ################
 # Esterno Giardino
 ################
-          - type: entity-button
-            entity: light.luci_giardino
-            tap_action: toggle
-          - type: horizontal-stack
+          - type: vertical-stack
             cards:
-             - type: entity-button
-               entity: light.giardino_vicino
-               tap_action: toggle
-             - type: entity-button
-               entity: light.giardino_lontano
-               tap_action: toggle
+              - type: horizontal-stack
+                cards:
+                  - type: entity-button
+                    entity: light.luci_giardino
+                    tap_action: 
+                      action: toggle
+                  - type: horizontal-stack
+                    cards:
+                      - type: entity-button
+                        entity: light.giardino_vicino
+                        tap_action: 
+                          action: toggle
+                      - type: entity-button
+                        entity: light.giardino_lontano
+                        tap_action: 
+                          action: toggle
+          - type: custom:layout-card
+            layout: horizontal
+            column_num: 6
+            cards:
+              - type: picture
+                image: /local/7072_big.jpg
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/0
+              - type: picture
+                image: /local/7072_big.jpg
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/1
+              - type: picture
+                image: /local/7072_big.jpg
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/2
+              - type: picture
+                image: /local/7072_big.jpg
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/3
+              - type: picture
+                image: /local/7072_big.jpg
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/4
+              - type: picture
+                image: /local/7072_big.jpg
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace/5
 
 ########################################################################################
 # Energia
@@ -148,7 +242,7 @@ views:
              severity:
                green: -3000
                yellow: 0
-               red: 1500
+               red: 3000
              entity: sensor.scambio_casa
            - type: gauge
              title: Consumo
@@ -157,8 +251,8 @@ views:
              max: 6000
              severity:
                green: 0
-               yellow: 1500
-               red: 3000
+               yellow: 4500
+               red: 6000
              entity: sensor.consumo_casa
            - type: gauge
              title: Produzione
@@ -173,19 +267,37 @@ views:
              unit_of_measurement: W
              min: 0
              max: 6000
+             severity:
+               green: 0
+               yellow: 4500
+               red: 6000
              entity: sensor.piastra
            - type: gauge
              title: Forno
              unit_of_measurement: W
              min: 0
              max: 6000
+             severity:
+               green: 0
+               yellow: 4500
+               red: 6000
              entity: sensor.forno
            - type: gauge
              title: Lavastoviglie
              unit_of_measurement: W
              min: 0
              max: 3000
+             severity:
+               green: 0
+               yellow: 1500
+               red: 3000
              entity: sensor.lavastoviglie
+           - type: gauge
+             title: Frigorifero
+             unit_of_measurement: W
+             min: 0
+             max: 500
+             entity: sensor.fibaro_system_plug_frigorifero_consumo
         - type: horizontal-stack
           cards:
            - type: gauge
@@ -233,9 +345,9 @@ views:
         cards:
           - type: horizontal-stack
             cards:
-              - type: "custom:weather-card"
-                entity_weather: weather.yweather
-                entity_sun: sun.sun    
+#              - type: "custom:weather-card"
+#                entity_weather: weather.yweather
+#                entity_sun: sun.sun    
 #              - type: weather-forecast
 #                entity: weather.yweather
               - type: iframe
@@ -579,7 +691,7 @@ views:
           - type: custom:mini-graph-card
             entity: sensor.humidity_ale
             height: 100
-            line_width: 4
+            line_width: 8
             font_size: 75
             color: '#3498db'
           - type: custom:mini-graph-card
@@ -588,6 +700,26 @@ views:
             line_width: 4
             font_size: 75
             color: '#3498db'
+          - type: picture
+            image: /local/7072_big.jpg
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/ultimo
+          - type: picture
+            image: /local/7072_big.jpg
+            tap_action:
+              action: call-service
+              service: light.toggle
+              service_data:
+                entity_id: light.divano
+          - type: media-control
+            entity: media_player.soundtouchreinas
+          - type: media-control
+            entity: media_player.echo_plus__reinas
+          - type: media-control
+            entity: media_player.fire_tv_bea
+          - type: media-control
+            entity: media_player.fire_tv_salone
 
 #############################################################################
 # Tracker
@@ -607,10 +739,11 @@ views:
 #############################################################################
 
 
-
-  - title: swiper
+  - title: wiper
+    panel: true
     cards:
       - type: custom:swipe-card
+        card_width: '85px'
         parameters:
           spaceBetween: 8
           scrollbar:
@@ -618,16 +751,233 @@ views:
             draggable: true
             snapOnRelease: true
         cards:
-          - type: entity-button
-            entity: light.esternoale
-            tap_action: toggle
-          - type: entity-button
-            entity: light.esternocancelletto
-            tap_action: toggle
-          - type: entity-button
-            entity: light.esternocucina
-            tap_action: toggle
-          - type: entity-button
-            entity: light.esternosalone
-            tap_action: toggle
+          - type: sensor
+            entity: sensor.produzione_casa
+            column_width: 50%
+          - type: sensor
+            entity: sensor.consumo_casa
+            column_width: 50%
 
+
+#############################################################################
+# Picture Element
+#############################################################################
+
+  - title: ultimo
+    path: ultimo
+    cards:
+    - type: picture-elements
+      image: /local/7072_big.jpg
+      elements:
+        - type: state-icon
+          tap_action:
+            action: toggle
+          entity: switch.cespugliodivanosalone
+          style:
+            top: 50%
+            left: 50%
+        - type: state-icon
+          tap_action:
+            action: toggle
+          entity: switch.cespuglioingressosalone
+          style:
+            top: 10%
+            left: 10%
+
+#############################################################################
+# alarm
+#############################################################################
+
+  - title: alarm
+    path: alarm
+    cards:
+      - type: alarm-panel
+        entity: alarm_control_panel.allarmedomotica
+
+  - title: test
+    path: test
+    cards:
+      - type: custom:layout-card
+        layout: horizontal
+        column_num: 6
+        cards:
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0
+          - type: picture
+            image: /local/square.png
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/0

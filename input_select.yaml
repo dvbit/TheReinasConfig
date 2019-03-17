@@ -1,0 +1,12 @@
+  vacuum_room:
+    name: Scegli l'area da pulire
+    options:
+      - Select Input
+      - salone 
+      - ingresso 
+      - salone solo divano
+      - salone solo tavolo
+      - cucina
+      - stanza da letto
+      - stanza esclusa cabina e bagno
+      - bagno
