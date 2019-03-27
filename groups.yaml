@@ -175,6 +175,10 @@ Hue:
     - binary_sensor.motion_bagnobeaale_motion_lux
     - binary_sensor.motion_scale_motion_lux
 
+############################################################################################
+#  Sveglia
+############################################################################################
+
 wakeuplight:
   name: Sveglia
   control: hidden

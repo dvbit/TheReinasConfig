@@ -40,8 +40,8 @@ zone:
     icon: mdi:account-multiple
 #
 
-lovelace:
-  mode: yaml
+#lovelace:
+#  mode: yaml
 
 logger:
   default: info
@@ -219,16 +219,6 @@ evohome:
   username: !secret EvoHomeUser
   password: !secret EvoHomePassword
 
-device_tracker:
-  - platform: unifi
-    host: ReinasServer.fritz.box
-    username: !secret UnifiUser
-    password: !secret UnifiPassword
-    verify_ssl: false
-  - platform: fritz
-    username: !secret fritzboxuser
-    password: !secret fritzboxpassword
-
 ifttt:
   key: !secret IFTTKEY
 
@@ -281,130 +271,6 @@ weblink:
     - name: Grafana
       url: http://192.168.2.2:3000/
 
-#input_number:
-#  wakeup_hour:
-#    name: Hour
-#    icon: mdi:clock-in
-#    initial: 6
-#    min: 0
-#    max: 23
-#    step: 1
-#  wakeup_minutes:
-#    name: Minutes
-#    icon: mdi:clock-in
-#    initial: 30
-#    min: 0
-#    max: 55
-#    step: 5
-#  wakeup_duration:
-#    name: Durata Sveglia
-#    icon: mdi:clock-in
-#    initial: 10
-#    min: 5
-#    max: 60
-#    step: 5
-#  internet_cut_time:
-#    name: 'Disconnection time (min)'
-#    initial: 120
-#    min: 2
-#    max: 240
-#    step: 1
-#  internet_cut_hour:
-#    name: Hour
-#    icon: mdi:timer
-#    initial: 1
-#    min: 0
-#    max: 23
-#    step: 1
-#  internet_cut_minutes:
-#    name: Minutes
-#    icon: mdi:timer
-#    initial: 05
-#    min: 0
-#    max: 55
-#    step: 5
-#
-#  piante_retro_timer:
-#      min: 1
-#      max: 30
-#      step: 1
-#      mode: slider
-#  piante_fronte_timer:
-#      min: 1
-#      max: 30
-#      step: 1
-#      mode: slider
-#  alfonsi_timer:
-#      min: 1
-#      max: 30
-##      step: 1
-#      mode: slider
-#  baldini_timer:
-#      min: 1
-#      max: 30
-##      step: 1
-#      mode: slider
-#  siepe_timer:
-#      min: 1
-#      max: 30
-#      step: 1
-#      mode: slider
-#  avanti_timer:
-#      min: 1
-#      max: 30
-#      step: 1
-#      mode: slider
-#  fondo_timer:
-#      min: 1
-#      max: 30
-#      step: 1
-#      mode: slider
-#  spare_timer:
-#      min: 1
-#      max: 30
-#      step: 1
-#      mode: slider
-#
-#
-#input_text:
-#  scene_temp_var:
-#    initial: 'off:1'
-
-#input_boolean:
-#  daily_vacuum_first_run:
-#    name: Daily Vacuum First Run
-#    initial: 'off'
-#  disable_daily_vacuum:
-#    name: Disable Daily Vacuum Automation
-#    initial: 'off'
-#  disable_dustbin_notification:
-#    name: Disable Dustbin Notification
-#    initial: 'off'
-#
-#  wakeup:
-#    name: 'Enable wakeup light'
-#    icon: mdi:power
-#    initial: off
-#  wakeup_weekends:
-#    name: 'Wakeup weekends'
-#    icon: mdi:power
-#    initial: off
-#
-#input_select:
-#  vacuum_room:
-#    name: Scegli la stanza da pulire
-#    options:
-#      - Select Input
-#      - salone 
-#      - ingresso 
-#      - salone solo divano
-#      - salone solo tavolo
-#      - cucina
-#      - stanza da letto
-#      - stanza esclusa cabina e bagno
-#      - bagno
-#      - cabina
-
 google:
   client_id: !secret gcalclientid
   client_secret: !secret gcalsecret
@@ -451,9 +317,12 @@ lock:
 
 lightingsm:
   tavolosalone:
-    sensor: binary_sensor.motion_sensor_tavolosalone
+    sensors: 
+      - binary_sensor.motion_sensor_tavolosalone
     sensor_type_duration: True
-    entity: light.tavolo_salone 
+    entities: 
+      - light.tavolo_salone 
+      - light.coloritavolosalone
     delay: 180
     overrides:
       - sensor.llim_tavolosalone
@@ -478,11 +347,7 @@ alexa_media:
       password: !secret amazonpassword
       url: amazon.it
 
-binary_sensor:
-  - platform: hue_custom
-device_tracker:
-  - platform: hue_custom
-
+device_tracker: !include device_tracker.yaml
 group: !include groups.yaml
 light: !include lights.yaml
 switch: !include switchs.yaml

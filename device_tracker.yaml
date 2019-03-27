@@ -1,0 +1,9 @@
+  - platform: unifi
+    host: ReinasServer.fritz.box
+    username: !secret UnifiUser
+    password: !secret UnifiPassword
+    verify_ssl: false
+  - platform: fritz
+    username: !secret fritzboxuser
+    password: !secret fritzboxpassword
+  - platform: hue_custom

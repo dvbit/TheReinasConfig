@@ -170,7 +170,11 @@
 
       llim_tavolosalone:
         friendly_name: "Soglia Luce Salone"
-        value_template: "{{ states.sensor.illumination_tavolosalone.state | int > 400 }}"
+        value_template: "{{ states.sensor.illumination_tavolosalone.state | int < 400 }}"
+    
+      ulim_doccia:
+        friendly_name: "Soglia Umidità Doccia"
+        value_template: "{{ states.sensor.humidity_doccia.state | int < 70 }}"
     
       dimluce:
         friendly_name: "Dimming Luce Attivo"
@@ -327,14 +331,14 @@
 
       garage_status:
         friendly_name: 'Basculante Garage'
-        value_template: '{% if states.cover.basculante_garage %}
-            {% if states.cover.basculante_garage.attributes["door_state"] == "open" %}
+        value_template: '{% if states.cover.my_opengarage %}
+            {% if states.cover.my_opengarage.attributes["door_state"] == "open" %}
               Open
-            {% elif states.cover.basculante_garage.attributes["door_state"] == "closed" %}
+            {% elif states.cover.my_opengarage.attributes["door_state"] == "closed" %}
               Closed
-            {% elif states.cover.basculante_garage.attributes["door_state"] == "opening" %}
+            {% elif states.cover.my_opengarage.attributes["door_state"] == "opening" %}
               Opening
-            {% elif states.cover.basculante_garage.attributes["door_state"] == "closing" %}
+            {% elif states.cover.my_opengarage.attributes["door_state"] == "closing" %}
               Closing
             {% else %}
               Unknown
@@ -344,10 +348,10 @@
             {% endif %}'
       garage_car_present:
         friendly_name: 'Auto in Garage'
-        value_template: '{% if states.cover.basculante_garage %}
-            {% if states.cover.basculante_garage.state == "open" %}
+        value_template: '{% if states.cover.my_opengarage %}
+            {% if states.cover.my_opengarage.state == "open" %}
               n/a
-            {% elif ((states.cover.basculante_garage.attributes["distance_sensor"] > 50) and (states.cover.basculante_garage.attributes["distance_sensor"] < 150)) %}
+            {% elif ((states.cover.my_opengarage.attributes["distance_sensor"] > 50) and (states.cover.my_opengarage.attributes["distance_sensor"] < 150)) %}
               Yes
             {% else %}
               No
@@ -367,7 +371,7 @@
   
 #############################################################################################################################
 #
-#  OpenGarage
+#  Command Line
 #
 #############################################################################################################################
 
@@ -376,6 +380,7 @@
     unit_of_measurement: days
     scan_interval: 10800
     command: "ssl-cert-check -b -c /etc/letsencrypt/live/thereinas.it/cert.pem | awk '{ print $NF }'"
+    
 
 
 #  - platform: viaggiatreno
