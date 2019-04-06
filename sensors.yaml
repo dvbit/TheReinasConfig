@@ -168,6 +168,16 @@
 #
 #############################################################################################################################
 
+      temperatura_bagnobeaale:
+        friendly_name: 'Temperatura Bagno Bea Ale'
+        value_template: '{{states.binary_sensor.motion_lettogio_motion_sensor.attributes.temperature}}'
+        unit_of_measurement: °C
+
+      illuminazione_bagnobeaale:
+        friendly_name: 'Iluuminazione Bagno Bea Ale'
+        value_template: '{{states.binary_sensor.motion_lettogio_motion_sensor.attributes.lx}}'
+        unit_of_measurement: lux
+
       llim_tavolosalone:
         friendly_name: "Soglia Luce Salone"
         value_template: "{{ states.sensor.illumination_tavolosalone.state | int < 400 }}"

@@ -35,9 +35,11 @@ Sicurezza_view:
      - camera.ingresso
      - camera.cucina
      - camera.letto
+     - camera.taverna
      - group.TelecameraIngresso
      - group.TelecameraLetto
      - group.TelecameraCucina
+     - group.TelecameraTaverna
 
 #TelecameraIngresso:
 #   name: TelecameraIngresso

@@ -49,7 +49,10 @@
     from: 'off'
     platform: state
     to: 'on'
-  condition: []
+  condition:
+  - below: '10'
+    condition: numeric_state
+    entity_id: sensor.illumination_ale
   action:
   - data:
       entity_id: light.sotto_letto_ale
@@ -62,7 +65,7 @@
     platform: state
     to: 'on'
   condition:
-  - below: '40'
+  - below: '30'
     condition: numeric_state
     entity_id: sensor.illumination_lxcucina
   action:
@@ -104,7 +107,7 @@
     platform: state
     to: 'on'
   condition:
-  - below: '400'
+  - below: '200'
     condition: numeric_state
     entity_id: sensor.illumination_tavolosalone
   action:
@@ -112,13 +115,16 @@
       entity_id: switch.tavolosalone
     service: switch.turn_on
 - id: '1542046339391'
-  alias: Ingresso ON
+  alias: Ingresso ON Movimento
   trigger:
-  - entity_id: binary_sensor.door_window_sensor_portacasa
-    from: 'off'
+  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
+    from: 'OFF'
     platform: state
-    to: 'on'
-  condition: []
+    to: 'ON'
+  condition:
+  - condition: state
+    entity_id: switch.cespuglio
+    state: 'OFF'
   action:
   - data:
       entity_id: switch.cespuglioingressosalone
@@ -159,6 +165,7 @@
   alias: Led Letto Alessandro OFF
   trigger:
   - entity_id: binary_sensor.motion_sensor_sottolettto
+    for: '2'
     from: 'on'
     platform: state
     to: 'off'
@@ -182,17 +189,9 @@
     service: switch.turn_off
 - id: '1542310620823'
   alias: Ingresso OFF
-  trigger:
-  - entity_id: binary_sensor.movimentoingresso
-    for: '3'
-    from: 'on'
-    platform: state
-    to: 'off'
+  trigger: []
   condition: []
-  action:
-  - data:
-      entity_id: switch.cespuglioingressosalone
-    service: switch.turn_off
+  action: []
 - id: '1542375912752'
   alias: Ale on
   trigger:
@@ -211,7 +210,8 @@
 - id: '1542387063132'
   alias: Ale Off
   trigger:
-  - entity_id: binary_sensor.motion_sensor_alessandro
+  - entity_id: binary_sensor.motion_sensor_sottolettoale
+    for: '1'
     from: 'on'
     platform: state
     to: 'off'
@@ -267,7 +267,7 @@
 - id: '1543177385955'
   alias: Doccia ON
   trigger:
-  - entity_id: binary_sensor.motion_sensor_doccia
+  - entity_id: binary_sensor.motion_bagnobeaale_motion_sensor
     from: 'off'
     platform: state
     to: 'on'
@@ -278,6 +278,9 @@
     service: light.turn_on
   - data:
       entity_id: light.lavabo
+    service: light.turn_on
+  - data:
+      entity_id: light.wc
     service: light.turn_on
 - id: '1543769237079'
   alias: Albero e decorazioni OFF quando allarme ON
@@ -552,7 +555,6 @@
   action:
     service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.allarmedomotica
-
 - id: '1547500906025'
   alias: Vialetto ON
   trigger:
@@ -575,10 +577,10 @@
   alias: Vialetto OFF
   trigger:
   - entity_id: binary_sensor.door_window_sensor_portacasa
-    for: '5'
-    from: 'on'
+    for: '3'
+    from: 'ON'
     platform: state
-    to: 'off'
+    to: 'OFF'
   condition:
   - condition: state
     entity_id: sensor.period_of_day
@@ -617,25 +619,25 @@
       entity_id: Porta_Di_Casa
     service: lock.unlock
 - id: '1547921960598'
-  alias: Ingresso On 2
+  alias: Ingresso On Porta
   trigger:
-  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
-    from: 'off'
+  - entity_id: binary_sensor.door_window_sensor_portacasa
+    from: 'OFF'
     platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data:
-      entity_id: switch.cespuglioingressosalone
-    service: switch.turn_on
+    to: 'ON'
+  condition:
+  - below: '10'
+    condition: numeric_state
+    entity_id: sensor.fibaro_system_fgms001_motion_sensor_luminance_4
+  action: []
 - id: '1547922053165'
-  alias: Ingresso Off2
+  alias: Ingresso Off Movimento
   trigger:
   - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
-    for: '2'
-    from: 'on'
+    for: '1'
+    from: 'ON'
     platform: state
-    to: 'off'
+    to: 'OFF'
   condition: []
   action:
   - data:
@@ -657,24 +659,34 @@
         - /ping, /alarm
         - /siren
 - id: '1549229216941'
-  alias: Frigo Sempre ON
+  alias: 'Notifica Allarme '
   trigger:
-  - entity_id: zwave.cucinapresaalimentazionefrigorifero
-    from: 'on'
-    platform: state
-    to: 'off'
+  - platform: state
+    entity_id: alarm_control_panel.allarmedomotica
+    to: triggered
   condition: []
   action:
   - data:
-      entity_id: switch.switch_20
-    service: switch.turn_on
-  alias: 'Notifica Allarme '
+      entity_id: media_player.echoplusreina
+      message: Test message
+    service: media_player.alexa_tts
+- id: '1553965250245'
+  alias: Doccia ON Sempre se Doccia
   trigger:
-    - platform: state
-      entity_id: alarm_control_panel.allarmedomotica
-      to: 'triggered'
+  - above: '70'
+    entity_id: sensor.humidity_doccia
+    platform: numeric_state
+  condition: []
   action:
-    - data:
-        entity_id: media_player.echoplusreina
-        message: Test message
-      service: media_player.alexa_tts
+  - service: automation.turn_off
+- id: '1553965263712'
+  alias: Doccia OFF Sempre se NON Doccia
+  trigger:
+  - below: '70'
+    entity_id: sensor.humidity_doccia
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      entity_id: automation.doccia_off
+    service: automation.turn_on

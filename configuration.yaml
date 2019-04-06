@@ -40,8 +40,8 @@ zone:
     icon: mdi:account-multiple
 #
 
-#lovelace:
-#  mode: yaml
+lovelace:
+  mode: yaml
 
 logger:
   default: info
@@ -92,6 +92,8 @@ updater:
   # Optional, allows Home Assistant developers to focus on popular components.
   # include_used_components: true
 
+system_health:
+
 # Discover some devices automatically
 discovery:
   ignore:
@@ -135,6 +137,9 @@ cloud:
         - switch.decorazioninatale
         - group.lucisalone
         - group.luciesterno
+        - group.lucigionic
+        - group.luciale
+        - group.lucicucina
       include_domains:
         - group
     entity_config:
@@ -165,9 +170,12 @@ cloud:
       group.lucisalone:
         name: luci salone
         description: luci salone
-      group.luciesterno:
-        name: luci esterno
-        description: luci esterno
+      group.luciale:
+        name: luci ale
+        description: luci ale
+      group.lucicucina:
+        name: luci cucina
+        description: luci cucina
 
 #  amzn1.ask.skill.31d2ff24-5617-448b-8cdc-1c666520a0b2:
 #    action:
@@ -332,8 +340,8 @@ lightingsm:
     night_mode:
       delay: 60
       service_data:
-        brightness: 20
-      start_time: '23:00:00'                  # required
+        brightness: 50
+      start_time: '00:00:00'                  # required
       end_time: '06:30:00'                    # required
 
 telegram_bot:
