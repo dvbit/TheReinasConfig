@@ -1,6 +1,6 @@
   - platform: xiaomi_miio
-    name: Family Entertainment
-    host: XiaomiPowerStrip2.fritz.box
+    name: Altro_Salone
+    host: XiaomiPowerStrip3.fritz.box
     token: 540c4d43640da87bc5c9800a611bb854
     model: zimi.powerstrip.v2
 
@@ -12,8 +12,8 @@
     model: zimi.powerstrip.v2
 
   - platform: xiaomi_miio
-    name: Altro_Salone
-    host: XiaomiPowerStrip3.fritz.box
+    name: Family Entertainment
+    host: XiaomiPowerStrip2.fritz.box
     token: dcccbeb4c8f977c01264b4d11a8b4f26
     model: zimi.powerstrip.v2
 

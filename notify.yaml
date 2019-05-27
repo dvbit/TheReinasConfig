@@ -7,3 +7,5 @@
     chat_id: !secret telegram_bot_main_chat_id
   - name: android
     platform: fcm-android
+  - name: alexa_media
+    platform: alexa_media

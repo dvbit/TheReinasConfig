@@ -6,4 +6,4 @@
   - platform: fritz
     username: !secret fritzboxuser
     password: !secret fritzboxpassword
-  - platform: hue_custom
+#  - platform: hue_custom

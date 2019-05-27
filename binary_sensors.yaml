@@ -19,6 +19,4 @@
     country: IT
     province: RM
 
-  - platform: hue_custom
-# this is a test
-#jodjqs
+#  - platform: hue_custom

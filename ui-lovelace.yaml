@@ -31,6 +31,10 @@ resources:
     type: js
   - url: /local/color-picker.js?v=59a4be
     type: js
+  - url: /local/custom_ui/dark-sky-weather-card.js?v=7.1
+    type: module
+  - url: /customcards/github/maykar/lovelace-swipe-navigation.js?track=true
+    type: js
 
 views:
 

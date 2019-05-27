@@ -24,7 +24,7 @@ Sicurezza_view:
      - binary_sensor.motion_sensor_divano
      - binary_sensor.motion_sensor_doccia
      - binary_sensor.motion_sensor_garage
-     - binary_sensor.motion_sensor_lettogionic
+     - binary_sensor.motion_sensor_lettoCameraLetto
      - binary_sensor.motion_sensor_scaletaverna
      - binary_sensor.motion_sensor_sottolettoale
      - binary_sensor.motion_sensor_tavolosalone
@@ -32,14 +32,12 @@ Sicurezza_view:
      - binary_sensor.door_window_sensor_portafinestracucina
      - binary_sensor.door_window_sensor_portataverna
      - binary_sensor.door_window_sensor_portacasa
+     - camera.salone
      - camera.ingresso
      - camera.cucina
      - camera.letto
-     - camera.taverna
-     - group.TelecameraIngresso
-     - group.TelecameraLetto
-     - group.TelecameraCucina
-     - group.TelecameraTaverna
+     - camera.cito2
+     - camera.videocitofono
 
 #TelecameraIngresso:
 #   name: TelecameraIngresso
@@ -149,33 +147,33 @@ Tempo_view:
     - sensor.forecast_6
     - sensor.forecast_7
 
-Hue_view:
-  view: yes
-  entities:
-    - group.Hue
+#Hue_view:
+#  view: yes
+#  entities:
+#    - group.Hue
 
-Hue:
-  entities:
-    - binary_sensor.motion_lettogio_motion_sensor
-    - binary_sensor.motion_lettonic_motion_sensor
-    - binary_sensor.motion_bagnosalone_motion_sensor
-    - binary_sensor.motion_bagnobeaale_motion_sensor
-    - binary_sensor.motion_scale_motion_sensor
-    - binary_sensor.motion_lettogio_motion_temperature
-    - binary_sensor.motion_lettonic_motion_temperature
-    - binary_sensor.motion_bagnosalone_motion_temperature
-    - binary_sensor.motion_bagnobeaale_motion_temperature
-    - binary_sensor.motion_scale_motion_temperature
-    - binary_sensor.motion_lettogio_motion_light_level
-    - binary_sensor.motion_lettonic_motion_light_level
-    - binary_sensor.motion_bagnosalone_motion_light_level
-    - binary_sensor.motion_bagnobeaale_motion_light_level
-    - binary_sensor.motion_scale_motion_light_level
-    - binary_sensor.motion_lettogio_motion_lux
-    - binary_sensor.motion_lettonic_motion_lux
-    - binary_sensor.motion_bagnosalone_motion_lux
-    - binary_sensor.motion_bagnobeaale_motion_lux
-    - binary_sensor.motion_scale_motion_lux
+#Hue:
+#  entities:
+#    - binary_sensor.motion_lettogio_motion_sensor
+#    - binary_sensor.motion_lettonic_motion_sensor
+#    - binary_sensor.motion_bagnosalone_motion_sensor
+#    - binary_sensor.motion_bagnobeaale_motion_sensor
+#    - binary_sensor.motion_scale_motion_sensor
+#    - binary_sensor.motion_lettogio_motion_temperature
+#    - binary_sensor.motion_lettonic_motion_temperature
+#    - binary_sensor.motion_bagnosalone_motion_temperature
+#    - binary_sensor.motion_bagnobeaale_motion_temperature
+#    - binary_sensor.motion_scale_motion_temperature
+#    - binary_sensor.motion_lettogio_motion_light_level
+#    - binary_sensor.motion_lettonic_motion_light_level
+#    - binary_sensor.motion_bagnosalone_motion_light_level
+#    - binary_sensor.motion_bagnobeaale_motion_light_level
+#    - binary_sensor.motion_scale_motion_light_level
+#    - binary_sensor.motion_lettogio_motion_lux
+#    - binary_sensor.motion_lettonic_motion_lux
+#    - binary_sensor.motion_bagnosalone_motion_lux
+#    - binary_sensor.motion_bagnobeaale_motion_lux
+#    - binary_sensor.motion_scale_motion_lux
 
 ############################################################################################
 #  Sveglia
@@ -198,20 +196,20 @@ wakeuplight:
 #  Illuminazione
 ############################################################################################
 
-LuciGioNic:
-  name: Luci GioNic
+LuciCameraLetto:
+  name: Luci CameraLetto
   entities:
     - light.lampada_sale
-    - light.esterno_cabina_gionic
-    - light.interno_cabina_gionic
-    - light.idro_gionic
-    - light.letto_gionic
-    - light.colorilettogionic
+    - light.esterno_cabina_CameraLetto
+    - light.interno_cabina_CameraLetto
+    - light.idro_CameraLetto
+    - light.letto_CameraLetto
+    - light.colorilettoCameraLetto
   
-Luci GioNic:
+Luci CameraLetto:
   view: yes
   entities:
-    - group.LuciGioNic
+    - group.LuciCameraLetto
 
 LuciEsterno:
   name: Luci Esterno
@@ -328,9 +326,9 @@ LuciPianoTerra:
     - light.tavolosalone_2
     - light.lampada_sale
     - light.esterno_cabina
-    - light.idro_gionic
-    - light.letto_gionic
-    - light.lettogionic_2
+    - light.idro_CameraLetto
+    - light.letto_CameraLetto
+    - light.lettoCameraLetto_2
     - light.interno_cabina
     - light.bagnosalone_2
     - light.spotgiu
@@ -388,9 +386,9 @@ LuciCasa:
     - light.tavolosalone_2
     - light.lampada_sale
     - light.esterno_cabina
-    - light.idro_gionic
-    - light.letto_gionic
-    - light.lettogionic_2
+    - light.idro_CameraLetto
+    - light.letto_CameraLetto
+    - light.lettoCameraLetto_2
     - light.interno_cabina
     - light.bagnosalone_2
     - light.faretti_ale

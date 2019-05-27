@@ -372,12 +372,45 @@
 
 #############################################################################################################################
 #
-#  Hue Custom
-#  https://github.com/robmarkcole/Hue-sensors-HASS
+#  DarkSky for card
+#  https://github.com/iammexx/home-assistant-config/tree/master/ui/darksky
 #
 #############################################################################################################################
 
-  - platform: hue_custom
+  - platform: darksky
+    api_key: !secret darksky_apikey
+    forecast:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+    monitored_conditions:
+      - icon
+      - summary
+      - nearest_storm_distance
+      - nearest_storm_bearing
+      - humidity
+      - temperature
+      - temperature_high
+      - temperature_low
+      - apparent_temperature
+      - apparent_temperature_high
+      - apparent_temperature_low
+      - wind_speed
+      - wind_bearing
+      - precip_type
+      - precip_probability
+      - precip_accumulation
+      - precip_intensity
+      - precip_intensity_max
+      - uv_index
+      - daily_summary
+      - pressure
+      - visibility
+    scan_interval:
+      minutes: 5
   
 #############################################################################################################################
 #
@@ -427,7 +460,6 @@
 
   - platform: version
 
-
 #############################################################################################################################
 #
 # Fritz 
@@ -435,12 +467,7 @@
 #############################################################################################################################
 
   - platform: fritzbox_callmonitor
-    host: fritz.box
-    user: !secret fritzboxuser
-    password: !secret fritzboxpassword
-    name: Telefono
-    phonebook: 0
-
+    
   - platform: fritzbox_netmonitor
 
   - platform: time_date

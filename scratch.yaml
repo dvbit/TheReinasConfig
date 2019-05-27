@@ -1,0 +1,31 @@
+amcrest:
+  - host: TelecameraCucina.fritz.box
+    name: cucina
+    username: !secret usertelecameracucina
+    password: !secret passwordtelecameracucina
+    stream_source: rtsp
+    binary_sensors:
+      - motion_detected
+    switches:
+      - motion_detection
+      - motion_recording
+  - host: TelecameraSalone.fritz.box
+    name: salone
+    username: !secret usertelecamerasalone
+    password: !secret passwordtelecamerasalone
+    stream_source: rtsp
+    binary_sensors:
+      - motion_detected
+    switches:
+      - motion_detection
+      - motion_recording
+  - host: TelecameraLetto.fritz.box
+    name: letto
+    username: !secret usertelecameraletto
+    password: !secret passwordtelecameraletto
+    stream_source: rtsp
+    binary_sensors:
+      - motion_detected
+    switches:
+      - motion_detection
+      - motion_recording

@@ -63,7 +63,6 @@
   - entity_id: binary_sensor.motion_sensor_cucina
     from: 'off'
     platform: state
-    to: 'on'
   condition:
   - below: '30'
     condition: numeric_state
@@ -117,14 +116,13 @@
 - id: '1542046339391'
   alias: Ingresso ON Movimento
   trigger:
-  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_4
-    from: 'OFF'
+  - entity_id: binary_sensor.fibaro_motion_sensor
+    from: 'off'
     platform: state
-    to: 'ON'
   condition:
-  - condition: state
-    entity_id: switch.cespugliodivanosalone
-    state: 'OFF'
+  - below: '6'
+    condition: numeric_state
+    entity_id: sensor.fibaro_system_fgms001_motion_sensor_luminance_3
   action:
   - data:
       entity_id: switch.cespuglioingressosalone
@@ -188,10 +186,27 @@
       entity_id: switch.lucecucina
     service: switch.turn_off
 - id: '1542310620823'
-  alias: Ingresso OFF
-  trigger: []
-  condition: []
-  action: []
+  alias: Ingresso OFF porta
+  trigger:
+  - entity_id: binary_sensor.door_window_sensor_portacasa
+    for: 00:02:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - after: sunset
+    before: sunrise
+    condition: sun
+  action:
+  - data:
+      entity_id: switch.cespuglioingressosalone
+    service: switch.turn_off
+  - data:
+      entity_id: light.cammino_ingresso
+    service: light.turn_off
+  - data:
+      entity_id: light.porta_ingresso
+    service: light.turn_off
 - id: '1542375912752'
   alias: Ale on
   trigger:
@@ -221,7 +236,7 @@
       entity_id: light.faretti_ale
     service: light.turn_off
 - id: '1542395170608'
-  alias: GioNic ON
+  alias: CameraLetto ON
   trigger:
   - entity_id: sensor.motion_lettonic_motion_sensor
     from: 'off'
@@ -230,10 +245,10 @@
   condition: []
   action:
   - data:
-      entity_id: switch.lettogionic
+      entity_id: switch.lettoCameraLetto
     service: switch.turn_on
 - id: '1542395285346'
-  alias: GioNic Off
+  alias: CameraLetto Off
   trigger:
   - entity_id: sensor.motion_lettogio_motion_sensor
     from: 'on'
@@ -242,7 +257,7 @@
   condition: []
   action:
   - data:
-      entity_id: switch.lettogionic
+      entity_id: switch.lettoCameraLetto
     service: switch.turn_off
 - id: '1542648848919'
   alias: Scale Taverna ON
@@ -436,7 +451,10 @@
     from: 'off'
     platform: state
     to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: switch.cespugliodivanosalone
+    state: 'OFF'
   action:
   - data:
       entity_id: light.idromassaggio
@@ -469,8 +487,7 @@
   alias: Porta Casa Aperta
   trigger:
   - entity_id: binary_sensor.door_window_sensor_portacasa
-    for:
-      minutes: 3
+    for: 00:03:00
     from: 'off'
     platform: state
     to: 'on'
@@ -556,9 +573,9 @@
     service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.allarmedomotica
 - id: '1547500906025'
-  alias: Vialetto ON
+  alias: Vialetto ON Porta Aperta
   trigger:
-  - entity_id: binary_sensor.door_window_sensor_portacasa
+  - entity_id: binary_sensor.cancello
     from: 'off'
     platform: state
     to: 'on'
@@ -574,9 +591,9 @@
       entity_id: light.luce_porta_ingresso
     service: light.turn_on
 - id: '1547501663527'
-  alias: Vialetto OFF
+  alias: Vialetto OFF Porta Chiusa
   trigger:
-  - entity_id: binary_sensor.door_window_sensor_portacasa
+  - entity_id: binary_sensor.cancello
     for: '3'
     from: 'ON'
     platform: state
@@ -587,10 +604,10 @@
     state: night
   action:
   - data:
-      entity_id: light.luce_porta_ingresso
+      entity_id: light.cammino_ingresso
     service: light.turn_off
   - data:
-      entity_id: light.luci_cammino_ingresso
+      entity_id: light.porta_ingresso
     service: light.turn_off
 - id: '1547589861657'
   alias: Chiusura ON
@@ -622,22 +639,27 @@
   alias: Ingresso On Porta
   trigger:
   - entity_id: binary_sensor.door_window_sensor_portacasa
-    from: 'OFF'
+    from: 'off'
     platform: state
-    to: 'ON'
+    to: 'on'
   condition:
-  - below: '10'
-    condition: numeric_state
-    entity_id: sensor.fibaro_system_fgms001_motion_sensor_luminance_4
-  action: []
+  - after: sunset
+    before: sunrise
+    condition: sun
+  action:
+  - data:
+      entity_id: light.cammino_ingresso
+    service: light.turn_on
+  - data:
+      entity_id: light.porta_ingresso
+    service: light.turn_on
 - id: '1547922053165'
   alias: Ingresso Off Movimento
   trigger:
-  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_4
+  - entity_id: binary_sensor.fibaro_motion_sensor
     for: '1'
-    from: 'ON'
     platform: state
-    to: 'OFF'
+    to: 'off'
   condition: []
   action:
   - data:
@@ -690,3 +712,54 @@
   - data:
       entity_id: automation.doccia_off
     service: automation.turn_on
+- id: '1557004613755'
+  alias: Porta Ingresso On Porta Aperta
+  trigger:
+  - entity_id: binary_sensor.door_window_sensor_portacasa
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sensor.period_of_day
+    state: Night
+  action:
+  - data:
+      entity_id: light.luci_cammino_ingresso
+    service: light.turn_on
+- id: '1557005018052'
+  alias: Porta Ingresso Off Porta Chiusa
+  trigger:
+  - entity_id: binary_sensor.door_window_sensor_portacasa
+    for: 00:03:00
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: sensor.period_of_day
+    state: Night
+  action:
+  - data:
+      entity_id: light.luci_cammino_ingresso
+    service: light.turn_off
+- id: '1557684789980'
+  alias: Vialetto ON Cancelletto Aperto
+  trigger:
+  - entity_id: binary_sensor.cancello
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sensor.period_of_day
+    state: Night
+  action:
+  - data:
+      entity_id: light.cammino_ingresso
+    service: light.turn_on
+  - data:
+      entity_id: light.porta_ingresso
+    service: light.turn_on
+
+

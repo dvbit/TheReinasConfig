@@ -1,23 +1,22 @@
-   - platform: ffmpeg
-     name: Letto
-     input: -rtsp_transport tcp -i rtsp://dafangletto.fritz.box:8554/unicast
-
-   - platform: ffmpeg
-     name: Ingresso
-     input: -rtsp_transport tcp -i rtsp://dafangsalone.fritz.box:8554/unicast
-
-   - platform: ffmpeg
-     name: Cucina
-     input: -rtsp_transport tcp -i rtsp://dafangcucina.fritz.box:8554/unicast
-
-   - platform: ffmpeg
-     name: Taverna
-     input: -rtsp_transport tcp -i rtsp://dafangtaverna.fritz.box:8554/unicast
-
-#  - platform: xeoma
-#    host: http://ReinasServer.fritz.box:10090
-#    username: !secret XeomaUser
-#    password: !secret XeomaPassword
-#    new_version: true
-
+- platform: ffmpeg
+  input: !secret videocitofonostring
+  name: Videocitofono
+- platform: ffmpeg
+  input: !secret cucinastring
+  name: Cucina
+- platform: ffmpeg
+  input: !secret salonestring
+  name: Salone
+- platform: ffmpeg
+  input: !secret lettostring
+  name: Letto
+- platform: ffmpeg
+  input: !secret ingressostring
+  name: Ingresso
+- platform: ffmpeg
+  input: !secret casettastring
+  name: Casetta
+- platform: ffmpeg
+  input: !secret porticostring
+  name: Portico
 

@@ -15,12 +15,12 @@
   - platform: xiaomi_miio
     name: esternocancelletto
     host: philips-light-bulb-EsternoCancelletto.fritz.box
-    token: 8a2690521e32716676eec8867f1c5e88
+    token: 6d0b11664e170f31cb678835d7466042
     model: philips.light.bulb
 
   - platform: xiaomi_miio
     name: esternoale
-    host: philips-light-bulb-EsternoAlessandro.fritz.box
+    host: philips-light-bulb-EsternoAle.fritz.box
     token: db1727db468d0b393ff7cb0855d345e4
     model: philips.light.bulb
 
@@ -31,17 +31,22 @@
     model: philips.light.bulb
 
   - platform: xiaomi_miio
-    name: scaletaverna
-    host: philips-light-bulb-scaletaverna.fritz.box
+    name: ScaleTaverna
+    host: philips-light-bulb-ScaleTaverna.fritz.box
     token: d06bc8e3b91a995b095c09d0f1e4e1e0
+    model: philips.light.bulb
+
+  - platform: xiaomi_miio
+    name: EsternoTaverna
+    host: philips-light-bulb-EsternoTaverna.fritz.box
+    token: dfca9e376e74e2005a86ba3a7c46aafe
     model: philips.light.bulb
 
   - platform: xiaomi_miio
     name: lampadaale
     host: lampadaale.fritz.box
-    token: b9dc2b994dba061a1ba3253ded3afd2e
+    token: 7a7da11c863cb24917a5ea1b5815e259
     model: philips.light.sread1 
-
 
 
 #######################################################################################################
@@ -65,19 +70,19 @@
     entity_id: switch.tavolosalone
 
   - platform: switch
-    name: Letto GioNic
-    entity_id: switch.lettogionic
+    name: Letto CameraLetto
+    entity_id: switch.lettoCameraLetto
 
   - platform: switch
-    name: Idro GioNic
+    name: Idro CameraLetto
     entity_id: switch.idromassaggio
 
   - platform: switch
-    name: Esterno Cabina GioNic
+    name: Esterno Cabina CameraLetto
     entity_id: switch.esternocabina
 
   - platform: switch
-    name: Interno Cabina GioNic
+    name: Interno Cabina CameraLetto
     entity_id: switch.internocabina
 
   - platform: switch
@@ -85,15 +90,15 @@
     entity_id: switch.fibaro_system_unknown_type0203_id1000_switch_3
 
   - platform: switch
-    name: faretti ale
+    name: Faretti Ale
     entity_id: switch.luciale
 
   - platform: switch
-    name: Luci Cammino Ingresso
+    name: Cammino Ingresso
     entity_id: switch.lucifronte
 
   - platform: switch
-    name: Luce Porta Ingresso
+    name: Porta Ingresso
     entity_id: switch.luceportaingresso
 
   - platform: switch
@@ -119,14 +124,14 @@
       - light.coloricucina
 
   - platform: group
-    name: Luci GioNic
+    name: Luci CameraLetto
     entities:
       - light.lampada_sale
-      - light.esterno_cabina_gionic
-      - light.interno_cabina_gionic
-      - light.idro_gionic
-      - light.letto_gionic
-      - light.colorilettogionic
+      - light.esterno_cabina_CameraLetto
+      - light.interno_cabina_CameraLetto
+      - light.idro_CameraLetto
+      - light.letto_CameraLetto
+      - light.colorilettoCameraLetto
 
   - platform: group
     name: Luci Salone
@@ -156,3 +161,25 @@
       - light.spotsu
       - light.spotgiu
 
+
+# Virtual Bulb to query Home States
+# https://community.home-assistant.io/t/speech-parser-script-to-extract-entity-id-information-into-readable-form-for-alexa-or-google-assistant-tts/76428
+
+  - platform: template
+    lights:
+      alexa_state_query:
+        friendly_name: "Alexa Query Sensor"
+        turn_on:
+        turn_off:
+        set_level:
+
+# activate action inhomeassistant by wathing value os this dummy light
+# dummy light value set be Routine in Alexa
+
+  - platform: template
+    lights:
+      alexa_routine_switcher:
+        friendly_name: "Alexa Routine Switcher"
+        turn_on:
+        turn_off:
+        set_level:

@@ -40,8 +40,8 @@ zone:
     icon: mdi:account-multiple
 #
 
-lovelace:
-  mode: yaml
+#lovelace:
+#  mode: yaml
 
 logger:
   default: info
@@ -80,7 +80,7 @@ http:
 #per ritornare a https://thereinas.it levare commenti sotto e port forward 443->8123
 #  ssl_certificate: /etc/letsencrypt/live/thereinas.it/cert.pem
 #  ssl_key: /etc/letsencrypt/live/thereinas.it/privkey.pem
-#  base_url: thereinas.it
+  base_url: https://thereinas.it
 
 
 # Checks for available updates
@@ -99,7 +99,6 @@ discovery:
   ignore:
     - harmony
     - bose_soundtouch
-    - philips_hue
     - songpal
 
 # Allows you to issue voice commands from the frontend in enabled browsers
@@ -119,7 +118,8 @@ sun:
 
 # Text to speech
 tts:
-  - platform: google
+  - platform: google_translate
+    service_name: google_say
     language: it
 
 # Cloud
@@ -131,17 +131,27 @@ cloud:
         - light.cucina
         - light.ingresso
         - light.divano
-        - light.idro_gionic
-        - light.letto_gionic
-        - switch.alberodinatale
-        - switch.decorazioninatale
+        - light.idro_CameraLetto
+        - light.letto_CameraLetto
         - group.lucisalone
         - group.luciesterno
-        - group.lucigionic
+        - group.luciCameraLetto
         - group.luciale
         - group.lucicucina
       include_domains:
         - group
+        - alert
+        - automation 
+        - cover
+        - input_boolean
+        - light
+        - lock 
+        - media_player 
+        - scene
+        - script
+        - sensor
+        - switch
+
     entity_config:
       light.tavolo_salone:
         name: Luce Tavolo Salone
@@ -155,11 +165,11 @@ cloud:
       light.divano:
         name: Luce Divano
         description: la luce del divano
-      light.idro_gionic:
+      light.idro_CameraLetto:
         name: Luce Idro
         description: la luce dell'idro
-      light.letto_gionic:
-        name: Luce Letto GioNic
+      light.letto_CameraLetto:
+        name: Luce Letto Giovanna Nicola
         description: la luce del letto Gio Nic
       group.lucisalone:
         name: luci salone
@@ -243,7 +253,7 @@ zwave:
 vacuum:
   - platform: xiaomi_miio
     host: rockrobo.fritz.box
-    token: 4f73323044716757674f6b5a57534a61
+    token: !secret VacuumKey
 
 cover:
   platform: opengarage
@@ -276,7 +286,8 @@ weblink:
 google:
   client_id: !secret gcalclientid
   client_secret: !secret gcalsecret
-
+  track_new_calendar: True
+  
 hass_opensprinkler:
   host: opensprinkler.fritz.box
   password: e1d8b87798de200a9feafd9c7d78d2bb
@@ -296,6 +307,8 @@ frontend:
 #    longitude: !secret longitude
 #    units: si
 #    mode: hourly
+
+
 weather:
   - platform: yweather
 
@@ -312,10 +325,10 @@ alarm_control_panel:
       pending_time: 0
       delay_time: 0
 
-lock:
-  - platform: nuki
-    host: AndroidHomeassistantBridge.fritz.box
-    token: !secret nukitoken
+#lock:
+#  - platform: nuki
+#    host: AndroidHomeassistantBridge.fritz.box
+#    token: !secret nukitoken
 
 lightingsm:
   tavolosalone:
@@ -348,6 +361,49 @@ alexa_media:
     - email: !secret amazonemail
       password: !secret amazonpassword
       url: amazon.it
+
+
+openuv:
+  api_key: !secret openuvkey
+  binary_sensors:
+    monitored_conditions:
+      - uv_protection_window
+  sensors:
+    monitored_conditions:
+      - current_ozone_level
+      - current_uv_index
+      - current_uv_level
+      - max_uv_index
+      - safe_exposure_time_type_1
+      - safe_exposure_time_type_2
+      - safe_exposure_time_type_3
+      - safe_exposure_time_type_4
+      - safe_exposure_time_type_5
+      - safe_exposure_time_type_6
+
+# https://github.com/DavidMStraub/homeassistant-homeconnect/blob/master/custom_components/homeconnect/switch.py
+# Bosch Siemens Home Connect
+
+homeconnect:
+  client_id: !secret homeconnectclientid
+  client_secret: !secret homeconnectclientsecret
+
+scene:
+  - name: prova
+    entities:
+      switch.tavolosalone : on
+
+stream:
+alexa:
+
+yeelight:
+  devices:
+    yeelink-light-strip1-ledlettoale.fritz.box:
+      name: SottoLettoAle
+    192.168.2.63:
+      name: LampadaStudio
+
+
 
 device_tracker: !include device_tracker.yaml
 group: !include groups.yaml
