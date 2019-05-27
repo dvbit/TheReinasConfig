@@ -117,13 +117,13 @@
 - id: '1542046339391'
   alias: Ingresso ON Movimento
   trigger:
-  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
+  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_4
     from: 'OFF'
     platform: state
     to: 'ON'
   condition:
   - condition: state
-    entity_id: switch.cespuglio
+    entity_id: switch.cespugliodivanosalone
     state: 'OFF'
   action:
   - data:
@@ -633,7 +633,7 @@
 - id: '1547922053165'
   alias: Ingresso Off Movimento
   trigger:
-  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2
+  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_4
     for: '1'
     from: 'ON'
     platform: state

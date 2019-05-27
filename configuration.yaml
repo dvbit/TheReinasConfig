@@ -161,12 +161,6 @@ cloud:
       light.letto_gionic:
         name: Luce Letto GioNic
         description: la luce del letto Gio Nic
-      switch.alberodinatale:
-        name: albero di natale
-        description: albero di natale
-      switch.decorazioninatale:
-        name: decorazioni natale
-        description: decorazioni di natale
       group.lucisalone:
         name: luci salone
         description: luci salone
