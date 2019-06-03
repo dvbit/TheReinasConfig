@@ -1,3 +1,36 @@
 sensor.fibaro_system_fgms001_motion_sensor_general_3:
-  ignored: false
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgms001_motion_sensor_general_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgms001_motion_sensor_luminance_2:
+  ignored: true
+  polling_intensity: 0
+binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgms001_motion_sensor_temperature_2:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgms001_motion_sensor_luminance_3:
+  ignored: true
+  polling_intensity: 0
+binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_3:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgms001_motion_sensor_temperature_3:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgms001_motion_sensor_general:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgms001_motion_sensor_luminance:
+  ignored: true
+  polling_intensity: 0
+binary_sensor.fibaro_system_fgms001_motion_sensor_sensor:
+  ignored: true
+  polling_intensity: 0
+sensor.fibaro_system_fgms001_motion_sensor_temperature:
+  ignored: true
   polling_intensity: 0

@@ -31,15 +31,15 @@
     model: philips.light.bulb
 
   - platform: xiaomi_miio
-    name: ScaleTaverna
-    host: philips-light-bulb-ScaleTaverna.fritz.box
-    token: d06bc8e3b91a995b095c09d0f1e4e1e0
-    model: philips.light.bulb
-
-  - platform: xiaomi_miio
     name: EsternoTaverna
     host: philips-light-bulb-EsternoTaverna.fritz.box
     token: dfca9e376e74e2005a86ba3a7c46aafe
+    model: philips.light.bulb
+
+  - platform: xiaomi_miio
+    name: Scale Taverna
+    host: philips-light-bulb-ScaleTaverna
+    token: d06bc8e3b91a995b095c09d0f1e4e1e0
     model: philips.light.bulb
 
   - platform: xiaomi_miio
@@ -47,8 +47,7 @@
     host: lampadaale.fritz.box
     token: 7a7da11c863cb24917a5ea1b5815e259
     model: philips.light.sread1 
-
-
+ 
 #######################################################################################################
 #  Switch
 #######################################################################################################

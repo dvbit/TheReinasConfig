@@ -1,22 +1,49 @@
-- platform: ffmpeg
-  input: !secret videocitofonostring
-  name: Videocitofono
-- platform: ffmpeg
-  input: !secret cucinastring
-  name: Cucina
-- platform: ffmpeg
-  input: !secret salonestring
-  name: Salone
-- platform: ffmpeg
-  input: !secret lettostring
-  name: Letto
-- platform: ffmpeg
-  input: !secret ingressostring
-  name: Ingresso
-- platform: ffmpeg
-  input: !secret casettastring
-  name: Casetta
-- platform: ffmpeg
-  input: !secret porticostring
-  name: Portico
+- platform: generic
+  name:  Videocitofono
+  still_image_url: !secret VideoCitofonostill
+  stream_source: !secret Videocitofonostream
+  username: !secret Videocitofonousername
+  password: !secret Videocitofonodahuapass
 
+- platform: generic
+  name: Ingresso
+  still_image_url: !secret Ingressostill
+  stream_source: !secret Ingressostream
+  username: !secret Ingressousername
+  password: !secret Ingressodahuapass
+
+- platform: generic
+  name: Portico
+  still_image_url: !secret Porticostill
+  stream_source: !secret Porticostream
+  username: !secret Porticousername
+  password: !secret Porticodahuapass
+
+- platform: generic
+  name: Casetta
+  still_image_url: !secret Casettastill
+  stream_source: !secret Casettastream
+  username: !secret Casettausername
+  password: !secret Casettadahuapass
+
+- platform: generic
+  name: Salone
+  still_image_url: !secret Salonestill
+  stream_source: !secret Salonestream
+  username: !secret Saloneusername
+  password: !secret Salonedahuapass
+
+- platform: generic
+  name: Cucina
+  still_image_url: !secret Cucinastill
+  stream_source: !secret Cucinastream
+  username: !secret Cucinausername
+  password: !secret Cucinadahuapass
+
+- platform: generic
+  name: Letto
+  still_image_url: !secret Lettostill
+  stream_source: !secret Lettostream
+  username: !secret Lettousername
+  password: !secret Lettodahuapass
+ 
