@@ -38,7 +38,7 @@
 
   - platform: xiaomi_miio
     name: Scale Taverna
-    host: philips-light-bulb-ScaleTaverna
+    host: 192.168.2.28
     token: d06bc8e3b91a995b095c09d0f1e4e1e0
     model: philips.light.bulb
 
@@ -69,8 +69,8 @@
     entity_id: switch.tavolosalone
 
   - platform: switch
-    name: Letto CameraLetto
-    entity_id: switch.lettoCameraLetto
+    name: Letto Camera Letto
+    entity_id: switch.fibaro_system_fgs221_double_relay_switch_2x1_5kw_switch_10
 
   - platform: switch
     name: Idro CameraLetto
@@ -110,7 +110,7 @@
 
   - platform: switch
     name: Lampada Sale
-    entity_id: switch.plug_lampadasale
+    entity_id: switch.plug_158d000163d0d7
 
 #######################################################################################################
 #  Light Groups
