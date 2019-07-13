@@ -5,4 +5,4 @@
   orafinedim:
     name: Ora Fine Dim
     has_date: false
-    has_time: true
+    has_time: true 
