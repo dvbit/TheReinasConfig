@@ -1,8 +1,8 @@
   orainiziodim:
-    name: Ora Inizio Dim
+    name: Ora Inizio Dimming
     has_date: false
     has_time: true
   orafinedim:
-    name: Ora Fine Dim
+    name: Ora Fine Dimming
     has_date: false
     has_time: true 
