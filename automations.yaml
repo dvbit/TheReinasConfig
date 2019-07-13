@@ -60,13 +60,14 @@
 - id: '1541894435257'
   alias: Cucina ON
   trigger:
-  - entity_id: binary_sensor.motion_sensor_cucina
+  - entity_id: binary_sensor.motion_sensor_158d00024e6ca3
     from: 'off'
     platform: state
+    to: 'on'
   condition:
   - below: '30'
     condition: numeric_state
-    entity_id: sensor.illumination_lxcucina
+    entity_id: sensor.illumination_158d00024e6ca3
   action:
   - data:
       entity_id: switch.lucecucina
@@ -116,13 +117,13 @@
 - id: '1542046339391'
   alias: Ingresso ON Movimento
   trigger:
-  - entity_id: binary_sensor.fibaro_motion_sensor
+  - entity_id: binary_sensor.fibaro_system_fgms001_motion_sensor_sensor_4
     from: 'off'
     platform: state
   condition:
   - below: '6'
     condition: numeric_state
-    entity_id: sensor.fibaro_system_fgms001_motion_sensor_luminance_3
+    entity_id: sensor.fibaro_system_fgms001_motion_sensor_luminance_4
   action:
   - data:
       entity_id: switch.cespuglioingressosalone
@@ -175,7 +176,7 @@
 - id: '1542231785381'
   alias: Cucina OFF
   trigger:
-  - entity_id: binary_sensor.motion_sensor_cucina
+  - entity_id: binary_sensor.motion_sensor_158d00024e6ca3
     for: '5'
     from: 'on'
     platform: state
@@ -761,5 +762,3 @@
   - data:
       entity_id: light.porta_ingresso
     service: light.turn_on
-
-
